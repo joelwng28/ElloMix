@@ -21,7 +21,7 @@
 
         <service android:name=".SoundCloudAPI.SCMusicService" />
 
-        <activity android:name=".ChatFeedActivity"></activity>
+        <activity android:name=".ChatListActivity"></activity>
     </application>
 
 </manifest>
