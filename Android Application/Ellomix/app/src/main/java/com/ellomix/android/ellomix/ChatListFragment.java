@@ -32,7 +32,7 @@ public class ChatListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_chat_feed, container, false);
 
-        mChatFeedRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_time_line_recycler_view);
+        mChatFeedRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_chat_feed_recycler_view);
         mChatFeedRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return v;
