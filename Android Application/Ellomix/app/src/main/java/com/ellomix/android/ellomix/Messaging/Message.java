@@ -15,17 +15,17 @@
  */
 package com.ellomix.android.ellomix.Messaging;
 
-public class FriendlyMessage {
+public class Message {
 
     private String id;
     private String text;
     private String name;
     private String photoUrl;
 
-    public FriendlyMessage() {
+    public Message() {
     }
 
-    public FriendlyMessage(String text, String name, String photoUrl) {
+    public Message(String text, String name, String photoUrl) {
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;

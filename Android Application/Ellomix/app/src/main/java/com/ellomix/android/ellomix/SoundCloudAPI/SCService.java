@@ -1,6 +1,6 @@
 package com.ellomix.android.ellomix.SoundCloudAPI;
 
-import com.ellomix.android.ellomix.SoundCloudDataModel.Track;
+import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ public interface SCService {
 
 
     @GET("/tracks?client_id=" + SCConfig.CLIENT_ID)
-    Call<List<Track>> getRecentTracks(@Query("created_at[from]") String date);
+    Call<List<SCTrack>> getRecentTracks(@Query("created_at[from]") String date);
 
     @GET("/tracks?client_id=" + SCConfig.CLIENT_ID)
-    Call<List<Track>> searchFor(@Query("q") String search);
+    Call<List<SCTrack>> searchFor(@Query("q") String search);
 
 }
