@@ -25,6 +25,7 @@
 
         <com.ellomix.android.ellomix.OpenSansRegular
             android:id="@+id/long_ago_text_view"
+            android:text="0s ago"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
@@ -106,5 +107,26 @@
         android:layout_alignBottom="@+id/artist_text_view"
         android:layout_toRightOf="@+id/space_left"
         android:layout_toEndOf="@+id/space_left" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/repost"
+        android:id="@+id/repost"
+        android:layout_alignTop="@+id/comment"
+        android:layout_toRightOf="@+id/comment"
+        android:layout_toEndOf="@+id/comment"
+        android:background="@drawable/repost" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/share"
+        android:layout_toRightOf="@+id/repost"
+        android:layout_toEndOf="@+id/repost"
+        android:id="@+id/share"
+        android:background="@drawable/share"
+        android:layout_alignTop="@+id/repost"
+        android:layout_alignBottom="@+id/repost" />
 
 </RelativeLayout>
