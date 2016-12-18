@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#272727</color>
+    <color name="colorPrimaryDark">#171717</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="dark_blue">#005A8A</color>
+    <color name="main_background">#272727</color>
+    <color name="user_post_band">#494747</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlue">#6690F0</color>
+    <color name="colorRed">#E84E3C</color>
+</resources>
