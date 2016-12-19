@@ -24,15 +24,14 @@
         <service android:name=".SoundCloudAPI.SCMusicService" />
         <activity android:name=".SignedInActivity"></activity>
         <activity android:name=".SplashActivity">
-
-        </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".SpotifyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".SpotifyActivity">
         </activity>
         <activity android:name=".ChatActivity"></activity>
         <activity android:name=".ProfileActivity"></activity>
@@ -57,7 +56,6 @@
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
-        <activity android:name=".ChatListActivity"></activity>
     </application>
 
 </manifest>
