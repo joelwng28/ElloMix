@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by alepena01 on 10/27/16.
  */
 
-public class Track {
+public class SCTrack {
 
     @SerializedName("title")
     private String mTitle;
@@ -27,7 +27,7 @@ public class Track {
     private String mTime;
 
     @SerializedName("user")
-    private User mUser;
+    private SCUser mSCUser;
 
     public String getTitle() {
         return mTitle;
@@ -53,8 +53,8 @@ public class Track {
         return mTime;
     }
 
-    public User getUser() {
-        return mUser;
+    public SCUser getUser() {
+        return mSCUser;
     }
 
 }

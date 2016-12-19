@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ellomix.android.ellomix.SoundCloudAPI.SCMusicService;
-import com.ellomix.android.ellomix.SoundCloudDataModel.Track;
+import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
 import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
 import com.squareup.picasso.Picasso;
@@ -37,7 +37,7 @@ import retrofit.Retrofit;
 public class TimelineFragment extends Fragment {
 
     private static final String TAG = "TimelineFragment";
-    private List<Track> mListItems = new ArrayList<>();
+    private List<SCTrack> mListItems = new ArrayList<>();
     private RecyclerView mTimelineRecyclerView;
     private String[] usersDemo = {"Abe Torres", "Neil Tanner", "Akshay", "Elena Carrasco", "Micah Peoples"};
     private String[] messagesDemo = {
@@ -86,11 +86,11 @@ public class TimelineFragment extends Fragment {
 
     private void loadRecentTracks() {
         SCService scService = SoundCloud.getService();
-        Call<List<Track>> call = scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+        Call<List<SCTrack>> call = scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
 
-        call.enqueue(new Callback<List<Track>>() {
+        call.enqueue(new Callback<List<SCTrack>>() {
             @Override
-            public void onResponse(Response<List<Track>> response, Retrofit retrofit) {
+            public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
                 mListItems = response.body();
                 setupAdapter();
             }
@@ -104,7 +104,7 @@ public class TimelineFragment extends Fragment {
 
     private class TimelineHolder extends RecyclerView.ViewHolder {
 
-        Track mTrack;
+        SCTrack mSCTrack;
         private TextView mUploaderTextView;
         private TextView mLongAgoTextView;
         private ImageView mTrackArtworkImageView;
@@ -125,35 +125,35 @@ public class TimelineFragment extends Fragment {
             mMessageTextView = (TextView) itemView.findViewById(R.id.message_text_view);
         }
 
-        public void bindItem(Track track) {
-            mTrack = track;
+        public void bindItem(SCTrack SCTrack) {
+            mSCTrack = SCTrack;
 
             mUploaderTextView.setText(usersDemo[randomNumberGenerator()]);
             mLongAgoTextView.setText("0 sec");
             Picasso.with(getActivity())
-                    .load(mTrack.getArtworkURL())
+                    .load(mSCTrack.getArtworkURL())
                     //.placeholder(R.drawable.art_work_placeholder)
                     .into(mTrackArtworkImageView);
             mTrackArtworkImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Log.d(TAG, "play button pressed");
-                    Intent intent = SCMusicService.newIntent(getActivity(), mTrack.getStreamURL(), mTrack.getTitle());
+                    Intent intent = SCMusicService.newIntent(getActivity(), mSCTrack.getStreamURL(), mSCTrack.getTitle());
                     getActivity().startService(intent);
                 }
             });
-            mArtistTextView.setText(track.getUser().getUserName());
-            mTitleTextView.setText(track.getTitle());
+            mArtistTextView.setText(SCTrack.getUser().getUserName());
+            mTitleTextView.setText(SCTrack.getTitle());
             mMessageTextView.setText(messagesDemo[randomNumberGenerator()]);
         }
     }
 
     private class TimelineAdapter extends RecyclerView.Adapter<TimelineHolder> {
 
-        private List<Track> mTrackList;
+        private List<SCTrack> mSCTrackList;
 
-        public TimelineAdapter(List<Track> tracks) {
-            mTrackList = tracks;
+        public TimelineAdapter(List<SCTrack> SCTracks) {
+            mSCTrackList = SCTracks;
         }
 
         @Override
@@ -165,8 +165,8 @@ public class TimelineFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(TimelineHolder holder, int position) {
-            Track track = mTrackList.get(position);
-            holder.bindItem(track);
+            SCTrack SCTrack = mSCTrackList.get(position);
+            holder.bindItem(SCTrack);
         }
 
         @Override
