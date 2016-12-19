@@ -34,6 +34,7 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".SoundCloudAPI.SCMusicService" />
 
         <!--<activity-->
             <!--android:name="com.spotify.sdk.android.authentication.WebAuthResultActivity"-->
@@ -54,6 +55,7 @@
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
+        <activity android:name=".ChatListActivity"></activity>
     </application>
 
 </manifest>
