@@ -12,9 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".TimelineActivity" />
-
         <service android:name=".SoundCloudAPI.SCMusicService" />
-
         <activity android:name=".ChatListActivity" />
         <activity android:name=".ScreenSlidePagerActivity">
             <intent-filter>
