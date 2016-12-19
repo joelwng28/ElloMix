@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Ellomix</string>
+    <string name="facebook_app_id">714928195322801</string>
+    <string name="cancel_login">Cancelled Login</string>
+    <string name="error_login">Error at Login</string>
+    <string name="logout">Logout of Facebook</string>
 </resources>

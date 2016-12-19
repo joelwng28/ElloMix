@@ -7,4 +7,9 @@
     <color name="main_background">#000000</color>
     <color name="user_post_band">#494747</color>
     <color name="colorWhite">#FFFFFF</color>
+     <color name="background">#272727</color>
+    <color name="login">#769F6C</color>
+    <color name="white">#FFFFFF</color>
 </resources>
+
+

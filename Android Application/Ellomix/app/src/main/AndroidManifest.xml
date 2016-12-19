@@ -6,12 +6,27 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+        android:name=".facebookActivity"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TimelineActivity">
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity android:name=".TimelineActivity" />
+
+        <service android:name=".SoundCloudAPI.SCMusicService" />
+
+        <activity android:name=".ChatFeedActivity" />
+        <activity android:name=".SignedInActivity"></activity>
+        <activity android:name=".SplashActivity">
+
+        </activity>
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".SpotifyActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,9 +34,26 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".SoundCloudAPI.SCMusicService" />
 
-        <activity android:name=".ChatFeedActivity"></activity>
+        <!--<activity-->
+            <!--android:name="com.spotify.sdk.android.authentication.WebAuthResultActivity"-->
+            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.VIEW"/>-->
+
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+                <!--<category android:name="android.intent.category.BROWSABLE"/>-->
+
+                <!--<data-->
+                    <!--android:host="callback"-->
+                    <!--android:scheme="testschema"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+
+        <activity
+            android:name="com.spotify.sdk.android.authentication.LoginActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
     </application>
 
 </manifest>

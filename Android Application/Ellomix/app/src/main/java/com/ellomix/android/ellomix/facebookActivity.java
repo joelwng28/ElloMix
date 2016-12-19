@@ -1,13 +1,16 @@
 package com.ellomix.android.ellomix;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.app.Application;
 
-public class facebookActivity extends AppCompatActivity {
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+public class facebookActivity extends Application {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_facebook);
+    public void onCreate() {
+        super.onCreate();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 }
