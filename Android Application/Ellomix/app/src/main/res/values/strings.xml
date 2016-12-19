@@ -13,4 +13,7 @@
     <string name="cause_crash">Cause Crash</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="send_button">SEND</string>
+    <string name="followers_title">followers</string>
+    <string name="following_title">following</string>
+    <string name="posts_title">posts</string>
 </resources>

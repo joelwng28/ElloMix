@@ -21,13 +21,14 @@ import android.text.style.ImageSpan;
 public class ScreenSlidePagerActivity extends FragmentActivity {
 
 
-    private static final int NUM_PAGES = 2;
+    private static final int NUM_PAGES = 3;
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private int[] imageResId = {
             R.drawable.ic_time_line,
-            R.drawable.ic_chat
+            R.drawable.ic_chat,
+            R.drawable.ic_profile
     };
 
     @Override
@@ -61,6 +62,8 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                 case 1:
                     //chat
                     return ChatFragment.newInstance();
+                case 2:
+                    return ProfileFragment.newInstance();
                 default:
                     return null;
             }
