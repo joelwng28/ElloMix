@@ -23,4 +23,8 @@
     <string name="forgot_userinfo">Forgot your password?</string>
     <string name="sign_up_text">Don\'t have an account? Sign up</string>
     <string name="logout">Logout</string>
+    <string name="connect_fb">Connect with Facebook</string>
+    <string name="connect_insta">Connect with Instagram</string>
+    <string name="connect_text">Find Friends to Follow</string>
+    <string name="connect_text_two">You choose who to follow and we\'ll never post to Facebook without your permission</string>
 </resources>

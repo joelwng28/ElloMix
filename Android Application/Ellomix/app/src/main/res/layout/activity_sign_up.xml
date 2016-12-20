@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_sign_up"
     android:layout_width="match_parent"
@@ -12,10 +13,67 @@
     android:background="@color/background">
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"></LinearLayout>
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:layout_width="123dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/addphoto"
+            android:id="@+id/imageButton"
+            android:elevation="0dp"
+            android:layout_gravity="center_vertical|center_horizontal" />
+
+        <EditText
+            android:layout_width="259dp"
+            android:layout_height="50dp"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/userEmailLogin"
+            android:background="@drawable/rounded_corner"
+            android:paddingBottom="10dp"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp" />
+
+        <EditText
+            android:layout_width="259dp"
+            android:layout_height="50dp"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/userNameLogin"
+            android:background="@drawable/rounded_corner"
+            android:paddingBottom="10dp"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="15dp" />
+
+        <EditText
+            android:layout_width="259dp"
+            android:layout_height="50dp"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/userPasswordLogin"
+            android:background="@drawable/rounded_corner"
+            android:paddingBottom="10dp"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal" />
+
+
+        <Button
+            android:text="Sign up"
+            android:layout_width="261dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/appSignUpButton"
+            android:background="@drawable/rounded_corner"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/colorRed"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
 </RelativeLayout>

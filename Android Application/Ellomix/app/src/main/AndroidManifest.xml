@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SpotifyActivity"></activity>
+        <activity android:name=".SpotifyActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".ProfileActivity" />
 
@@ -59,8 +59,11 @@
 
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-        <activity android:name=".SignUpActivity"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".ConnectSocialMediaActivity" />
+        <activity android:name=".PopulateTimelineActivity" />
+        <activity android:name=".InviteActivity"></activity>
     </application>
 
 </manifest>
