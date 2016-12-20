@@ -13,8 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service android:name=".SoundCloudAPI.SCMusicService" />
+
         <activity android:name=".ChatListActivity" />
         <activity android:name=".ScreenSlidePagerActivity" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -22,7 +24,8 @@
         <activity android:name=".TimelineActivity" />
 
         <service android:name=".SoundCloudAPI.SCMusicService" />
-        <activity android:name=".SignedInActivity"></activity>
+
+        <activity android:name=".SignedInActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,32 +33,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".SpotifyActivity">
-        </activity>
-        <activity android:name=".ChatActivity"></activity>
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SpotifyActivity"></activity>
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".ProfileActivity" />
+
         <service android:name=".SoundCloudAPI.SCMusicService" />
 
-        <!--<activity-->
-            <!--android:name="com.spotify.sdk.android.authentication.WebAuthResultActivity"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.VIEW"/>-->
+        <!-- <activity -->
+        <!-- android:name="com.spotify.sdk.android.authentication.WebAuthResultActivity" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.VIEW"/> -->
 
-                <!--<category android:name="android.intent.category.DEFAULT"/>-->
-                <!--<category android:name="android.intent.category.BROWSABLE"/>-->
 
-                <!--<data-->
-                    <!--android:host="callback"-->
-                    <!--android:scheme="testschema"/>-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+        <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+        <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
+
+
+        <!-- <data -->
+        <!-- android:host="callback" -->
+        <!-- android:scheme="testschema"/> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
 
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        <activity android:name=".SignUpActivity"></activity>
     </application>
 
 </manifest>

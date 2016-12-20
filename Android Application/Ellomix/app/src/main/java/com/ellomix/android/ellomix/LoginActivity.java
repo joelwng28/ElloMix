@@ -3,6 +3,8 @@ package com.ellomix.android.ellomix;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -14,13 +16,14 @@ import com.facebook.login.widget.LoginButton;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private LoginButton loginButton;
+    private LoginButton FbLoginButton;
     private CallbackManager callbackManager;
+    private Button myLoginButton;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -30,8 +33,8 @@ public class LoginActivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
 
-        loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        FbLoginButton = (LoginButton) findViewById(R.id.login_button);
+        FbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 goMainScreen();
@@ -47,12 +50,28 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), R.string.error_login, Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        myLoginButton = (Button) findViewById(R.id.appSignUpButton);
+
+        myLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goSignUpScreen();
+            }
+        });
+
     }
 
-    private void goMainScreen(){
+    private void goMainScreen() {
         Intent i = new Intent(this, SignedInActivity.class);
         startActivity(i);
 
+    }
+
+    protected void goSignUpScreen() {
+        Intent i = new Intent(this, SignUpActivity.class);
+        startActivity(i);
     }
 
 }
