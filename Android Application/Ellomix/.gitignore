@@ -29,6 +29,9 @@ Thumbs.db
 
 # OSX files
 .DS_Store
+._.DS_Store
+app/._.DS_Store
+gradle/._.DS_Store
 
 # Eclipse project files
 .classpath
