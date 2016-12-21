@@ -63,6 +63,7 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
                     //chat
                     return ChatFragment.newInstance();
                 case 2:
+                    // profile
                     return ProfileFragment.newInstance();
                 default:
                     return null;

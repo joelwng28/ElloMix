@@ -7,7 +7,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-
+import com.facebook.AccessToken;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -32,8 +32,16 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 iv.startAnimation(an2);
+
+                Intent i;
+                if(AccessToken.getCurrentAccessToken() == null)
+                {
+                    i = new Intent(SplashActivity.this, LoginActivity.class);
+                }
+                else {
+                    i = new Intent(SplashActivity.this, SignedInActivity.class);
+                }
                 finish();
-                Intent i= new Intent(getBaseContext(),SignedInActivity.class);
                 startActivity(i);
             }
 

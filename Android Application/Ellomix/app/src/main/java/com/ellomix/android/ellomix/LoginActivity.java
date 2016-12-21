@@ -51,8 +51,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void goMainScreen(){
         Intent i = new Intent(this, SignedInActivity.class);
+        finish();
         startActivity(i);
-
     }
 
 }

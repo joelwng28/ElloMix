@@ -12,30 +12,43 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".SoundCloudAPI.SCMusicService" />
-        <activity android:name=".ChatListActivity" />
-        <activity android:name=".ScreenSlidePagerActivity" />
+        <activity
+            android:name=".ChatListActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ScreenSlidePagerActivity"
+            android:screenOrientation="portrait"/>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-
-        <activity android:name=".TimelineActivity" />
-
-        <service android:name=".SoundCloudAPI.SCMusicService" />
-        <activity android:name=".SignedInActivity"></activity>
-        <activity android:name=".SplashActivity">
+            android:value="@string/facebook_app_id"/>
+        <activity
+            android:name=".TimelineActivity"
+            android:screenOrientation="portrait"/>
+        <service
+            android:name=".SoundCloudAPI.SCMusicService"/>
+        <activity
+            android:name=".SignedInActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".SpotifyActivity">
-        </activity>
-        <activity android:name=".ChatActivity"></activity>
-        <activity android:name=".ProfileActivity"></activity>
-        <service android:name=".SoundCloudAPI.SCMusicService" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SpotifyActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ChatActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="portrait"/>
 
         <!--<activity-->
             <!--android:name="com.spotify.sdk.android.authentication.WebAuthResultActivity"-->
