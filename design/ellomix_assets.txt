@@ -1,0 +1,43 @@
+Ellomix Asset Notes
+
+General
+- App background color: #272727
+- Blue used: #6690F0
+- Red used: #E84E3C
+- Most elements should be 15px from screen edge and from other elements
+- Button and input corner radius: 4px
+- Input text: Open Sans Regular 14pt
+- Large red rectangles (e.g. Continue) 280x50
+- User Lists
+    - Name text: Actor Regular 14pt
+    - Small user or artist picture 45x45
+    - Small red label rectangles 61x22
+- Header
+    - Title text: Actor Regular 13pt
+- Blank Page (Profile/Timeline/Notifications/Messages) Body Text: Actor Regular 17pt
+
+Login & Signup
+- Add photo text: Open Sans Semibold 16pt
+- Splash Ellomix Wordmark: Neutra Text Demi Italic Alt 40pt
+- Supporting text: Actor Regular 14
+
+Taste & Find Friends
+- Title text: Open Sans Semibold 19pt
+- Subtitle text: Actor Regular 16pt
+
+Timeline
+- Post Author: Actor Regular 16pt
+- Post time: Open Sans Regular 12pt
+    - Color: #CAC3C3
+- Post caption: Actor Regular 16pt
+- Album art 341x200px
+- Song Title: Actor Regular 21pt
+- Song Artist: Actor Regular 16pt
+- 15px Spacing between elements
+- Song info block should be 7px from bottom and left
+- Comments
+    - Open Sans Semibold 12pt
+    - Actor Regular 16pt
+- Now playing
+    - image 35x35
+
