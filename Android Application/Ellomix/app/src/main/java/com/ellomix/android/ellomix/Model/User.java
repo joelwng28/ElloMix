@@ -1,4 +1,4 @@
-package com.ellomix.android.ellomix;
+package com.ellomix.android.ellomix.Model;
 
 /**
  * Created by abetorres on 12/15/16.

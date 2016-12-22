@@ -1,4 +1,4 @@
-package com.ellomix.android.ellomix;
+package com.ellomix.android.ellomix.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ellomix.android.ellomix.Messaging.Chat;
+import com.ellomix.android.ellomix.R;
 
 import java.util.List;
 

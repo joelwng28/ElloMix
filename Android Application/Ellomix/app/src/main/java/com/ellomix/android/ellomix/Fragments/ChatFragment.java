@@ -1,4 +1,4 @@
-package com.ellomix.android.ellomix;
+package com.ellomix.android.ellomix.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ellomix.android.ellomix.Messaging.Message;
+import com.ellomix.android.ellomix.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;

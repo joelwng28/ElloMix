@@ -1,4 +1,4 @@
-package com.ellomix.android.ellomix;
+package com.ellomix.android.ellomix.Style;
 
 import android.content.Context;
 import android.graphics.Typeface;

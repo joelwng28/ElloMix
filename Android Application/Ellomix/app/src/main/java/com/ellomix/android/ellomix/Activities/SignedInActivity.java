@@ -1,13 +1,12 @@
-package com.ellomix.android.ellomix;
+package com.ellomix.android.ellomix.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.facebook.AccessToken;
+import com.ellomix.android.ellomix.R;
 import com.facebook.login.LoginManager;
 
 public class SignedInActivity extends AppCompatActivity{

@@ -1,4 +1,4 @@
-package com.ellomix.android.ellomix;
+package com.ellomix.android.ellomix.Style;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -9,28 +9,28 @@ import android.widget.TextView;
  * Created by Abhi on 12/17/2016.
  */
 
-public class OpenSansSemibold extends TextView {
+public class OpenSansRegular extends TextView {
 
-    public OpenSansSemibold(Context context) {
+    public OpenSansRegular(Context context) {
         super(context);
 
         applyCustomFont(context);
     }
 
-    public OpenSansSemibold(Context context, AttributeSet attrs) {
+    public OpenSansRegular(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         applyCustomFont(context);
     }
 
-    public OpenSansSemibold(Context context, AttributeSet attrs, int defStyle) {
+    public OpenSansRegular(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         applyCustomFont(context);
     }
 
     private void applyCustomFont(Context context) {
-        Typeface customFont = FontCache.getTypeface("OpenSans-Semibold.ttf", context);
+        Typeface customFont = FontCache.getTypeface("OpenSans-Regular.ttf", context);
         setTypeface(customFont);
     }
 }

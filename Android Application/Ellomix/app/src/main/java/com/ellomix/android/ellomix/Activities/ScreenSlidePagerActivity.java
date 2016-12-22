@@ -1,6 +1,5 @@
-package com.ellomix.android.ellomix;
+package com.ellomix.android.ellomix.Activities;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,9 +9,11 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.TabLayout;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
+
+import com.ellomix.android.ellomix.Fragments.ChatFragment;
+import com.ellomix.android.ellomix.Fragments.ProfileFragment;
+import com.ellomix.android.ellomix.R;
+import com.ellomix.android.ellomix.Fragments.TimelineFragment;
 
 /**
  * Created by abetorres on 12/10/16.

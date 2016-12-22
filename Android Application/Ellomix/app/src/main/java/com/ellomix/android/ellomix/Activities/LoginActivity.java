@@ -1,10 +1,11 @@
-package com.ellomix.android.ellomix;
+package com.ellomix.android.ellomix.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.ellomix.android.ellomix.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
