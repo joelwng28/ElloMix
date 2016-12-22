@@ -43,14 +43,6 @@ public class TimelineFragment extends Fragment {
     private List<SCTrack> mListItems = new ArrayList<>();
     private List<TimelinePost> mPostList = new ArrayList<>();
     private RecyclerView mTimelineRecyclerView;
-    private String[] usersDemo = {"Abe Torres", "Neil Tanner", "Akshay", "Elena Carrasco", "Micah Peoples"};
-    private String[] messagesDemo = {
-            "DOPE",
-            "Some sick beats, everyone check it ok",
-            "New favourite song",
-            "So mellow",
-            "Chillax"
-    };
 
     public static TimelineFragment newInstance() {
         return new TimelineFragment();
@@ -78,11 +70,10 @@ public class TimelineFragment extends Fragment {
     }
 
     private void setupAdapter() {
-        //  v 1.0
-        // mTimelineRecyclerView.setAdapter(new TimelineAdapter(mListItems));
         mTimelineRecyclerView.setAdapter(new TimelineAdapter(mPostList));
     }
 
+    // Testing SC
     private int randomNumberGenerator() {
         Random rand = new Random();
         int randomNum = rand.nextInt(4 + 1);
@@ -109,7 +100,6 @@ public class TimelineFragment extends Fragment {
         setupAdapter();
     }
 
-
     private void loadRecentTracks() {
         SCService scService = SoundCloud.getService();
         Call<List<SCTrack>> call = scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
@@ -119,7 +109,6 @@ public class TimelineFragment extends Fragment {
             public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
                 mListItems = response.body();
                 generateModel(mListItems);
-                //setupAdapter();
             }
 
             @Override
@@ -128,6 +117,7 @@ public class TimelineFragment extends Fragment {
             }
         });
     }
+    // Testing ends
 
     private class TimelineHolder extends RecyclerView.ViewHolder {
 

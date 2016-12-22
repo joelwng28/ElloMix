@@ -18,7 +18,6 @@ public class Track {
     private Sources mSource;
 
     public Track(){
-        mArtist = "";
     }
 
     public Track(String title, String artist, int id, String date, String url, String time) {

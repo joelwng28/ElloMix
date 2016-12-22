@@ -35,4 +35,43 @@ public class SCTrack extends Track {
         return mSCUser.getUserName();
     }
 
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
+    public int getID() {
+        return mID;
+    }
+
+    public void setID(int id) {
+        mID = id;
+    }
+
+    public String getCreatedAt() {
+        return mCreatedAt;
+    }
+
+    public String getStreamURL() {
+        return mStreamURL;
+    }
+
+    public void setStreamURL(String url) {
+        mStreamURL = url;
+    }
+
+    public String getArtworkURL() {
+        return mArtworkURL;
+    }
+
+    public void setmArtworkURL(String artworkURL) {
+        mArtworkURL = artworkURL;
+    }
+
+    public String getTime() {
+        return mTime;
+    }
 }

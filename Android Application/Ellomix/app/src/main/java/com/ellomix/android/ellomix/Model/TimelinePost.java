@@ -1,6 +1,7 @@
 package com.ellomix.android.ellomix.Model;
 
 import com.ellomix.android.ellomix.Model.User;
+import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
 
 import java.sql.Time;
 import java.util.Date;
@@ -16,7 +17,7 @@ public class TimelinePost {
     private Date mDateCreated;
     private String mDescription;
 
-    public TimelinePost(User user, Track track, String description) {
+    public TimelinePost(User user, SCTrack track, String description) {
         mCreator = user;
         mTrack = track;
         mDateCreated = new Date();
