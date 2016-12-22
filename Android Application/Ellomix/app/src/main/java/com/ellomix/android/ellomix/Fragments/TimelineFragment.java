@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ellomix.android.ellomix.Model.PostLab;
 import com.ellomix.android.ellomix.Model.TimelinePost;
-import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.Model.User;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCMusicService;
@@ -24,7 +22,6 @@ import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
 import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
 import com.squareup.picasso.Picasso;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,10 +40,17 @@ import retrofit.Retrofit;
 public class TimelineFragment extends Fragment {
 
     private static final String TAG = "TimelineFragment";
+    private List<SCTrack> mListItems = new ArrayList<>();
+    private List<TimelinePost> mPostList = new ArrayList<>();
     private RecyclerView mTimelineRecyclerView;
-    private List<SCTrack> mTracks;
-    private List<TimelinePost> mPostlist;
-    private TimelineAdapter mAdapter;
+    private String[] usersDemo = {"Abe Torres", "Neil Tanner", "Akshay", "Elena Carrasco", "Micah Peoples"};
+    private String[] messagesDemo = {
+            "DOPE",
+            "Some sick beats, everyone check it ok",
+            "New favourite song",
+            "So mellow",
+            "Chillax"
+    };
 
     public static TimelineFragment newInstance() {
         return new TimelineFragment();
@@ -56,22 +60,8 @@ public class TimelineFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTracks = new ArrayList<>();
-        mPostlist = new ArrayList<>();
-
+        //setup list
         loadRecentTracks();
-    }
-
-    public void updateUI(){
-        Log.d(TAG, "updating UI");
-//        PostLab postLab = PostLab.get(getActivity());
-//        postLab.generateModel(mTracks);
-//        List<TimelinePost> posts = postLab.getPosts();
-
-        Log.d(TAG, "post size: " + mPostlist.size());
-
-        mAdapter = new TimelineAdapter(mPostlist);
-        mTimelineRecyclerView.setAdapter(mAdapter);
     }
 
     @Nullable
@@ -82,27 +72,15 @@ public class TimelineFragment extends Fragment {
         mTimelineRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_time_line_recycler_view);
         mTimelineRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        loadRecentTracks();
-        updateUI();
+        setupAdapter();
+
         return v;
     }
 
-    private void loadRecentTracks() {
-        SCService scService = SoundCloud.getService();
-        Call<List<SCTrack>> call = scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
-
-        call.enqueue(new Callback<List<SCTrack>>() {
-            @Override
-            public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
-                Log.d(TAG, "Query completed");
-                generateModel(response.body());
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                mTracks = null;
-            }
-        });
+    private void setupAdapter() {
+        //  v 1.0
+        // mTimelineRecyclerView.setAdapter(new TimelineAdapter(mListItems));
+        mTimelineRecyclerView.setAdapter(new TimelineAdapter(mPostList));
     }
 
     private int randomNumberGenerator() {
@@ -112,6 +90,7 @@ public class TimelineFragment extends Fragment {
     }
 
     public void generateModel(List<SCTrack> tracks) {
+        Log.d(TAG, "generate timeline");
         String[] usersDemo = {"Abe Torres", "Neil Tanner", "Akshay", "Elena Carrasco", "Micah Peoples"};
         String[] messagesDemo = {
                 "DOPE",
@@ -124,10 +103,30 @@ public class TimelineFragment extends Fragment {
         for (SCTrack track: tracks) {
             User poster = new User(usersDemo[randomNumberGenerator()]);
             TimelinePost post = new TimelinePost(poster, track, messagesDemo[randomNumberGenerator()]);
-            mPostlist.add(post);
+            mPostList.add(post);
         }
 
-        updateUI();
+        setupAdapter();
+    }
+
+
+    private void loadRecentTracks() {
+        SCService scService = SoundCloud.getService();
+        Call<List<SCTrack>> call = scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+
+        call.enqueue(new Callback<List<SCTrack>>() {
+            @Override
+            public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
+                mListItems = response.body();
+                generateModel(mListItems);
+                //setupAdapter();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.d(TAG, "Error: " + t.toString());
+            }
+        });
     }
 
     private class TimelineHolder extends RecyclerView.ViewHolder {
@@ -202,4 +201,5 @@ public class TimelineFragment extends Fragment {
             return mPosts.size();
         }
     }
+
 }

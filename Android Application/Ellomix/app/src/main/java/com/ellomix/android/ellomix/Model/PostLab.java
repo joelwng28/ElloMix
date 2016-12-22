@@ -56,21 +56,21 @@ public class PostLab {
         return randomNum;
     }
 
-    public void generateModel(List<SCTrack> tracks) {
-        String[] usersDemo = {"Abe Torres", "Neil Tanner", "Akshay", "Elena Carrasco", "Micah Peoples"};
-        String[] messagesDemo = {
-                "DOPE",
-                "Some sick beats, everyone check it ok",
-                "New favourite song",
-                "So mellow",
-                "Chillax"
-        };
-
-        for (SCTrack track: tracks) {
-            User poster = new User(usersDemo[randomNumberGenerator()]);
-            TimelinePost post = new TimelinePost(poster, track, messagesDemo[randomNumberGenerator()]);
-            mPosts.add(post);
-        }
-    }
+//    public void generateModel(List<SCTrack> tracks) {
+//        String[] usersDemo = {"Abe Torres", "Neil Tanner", "Akshay", "Elena Carrasco", "Micah Peoples"};
+//        String[] messagesDemo = {
+//                "DOPE",
+//                "Some sick beats, everyone check it ok",
+//                "New favourite song",
+//                "So mellow",
+//                "Chillax"
+//        };
+//
+//        for (SCTrack track: tracks) {
+//            User poster = new User(usersDemo[randomNumberGenerator()]);
+//            TimelinePost post = new TimelinePost(poster, track, messagesDemo[randomNumberGenerator()]);
+//            mPosts.add(post);
+//        }
+//    }
 
 }

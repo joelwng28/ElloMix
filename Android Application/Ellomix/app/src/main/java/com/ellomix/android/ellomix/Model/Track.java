@@ -78,8 +78,8 @@ public class Track {
         return mArtworkURL;
     }
 
-    public void setmArtworkURL(String mArtworkURL) {
-        this.mArtworkURL = mArtworkURL;
+    public void setmArtworkURL(String artworkURL) {
+        mArtworkURL = artworkURL;
     }
 
     public String getTime() {

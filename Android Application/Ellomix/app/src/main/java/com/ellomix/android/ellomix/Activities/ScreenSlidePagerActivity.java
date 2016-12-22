@@ -12,8 +12,8 @@ import android.support.design.widget.TabLayout;
 
 import com.ellomix.android.ellomix.Fragments.ChatFragment;
 import com.ellomix.android.ellomix.Fragments.ProfileFragment;
-import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.Fragments.TimelineFragment;
+import com.ellomix.android.ellomix.R;
 
 /**
  * Created by abetorres on 12/10/16.

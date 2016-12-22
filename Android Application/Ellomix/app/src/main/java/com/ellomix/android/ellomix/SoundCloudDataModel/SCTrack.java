@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.SoundCloudDataModel;
 
+import com.ellomix.android.ellomix.Model.Sources;
 import com.ellomix.android.ellomix.Model.Track;
 import com.google.gson.annotations.SerializedName;
 
@@ -30,11 +31,8 @@ public class SCTrack extends Track {
     @SerializedName("user")
     private SCUser mSCUser;
 
-    /* Precondition: Assume the track have already been queried*/
-    public SCTrack() {
-        super();
-        setArtist(mSCUser.getUserName());
-
+    public String getArtist(){
+        return mSCUser.getUserName();
     }
 
 }
