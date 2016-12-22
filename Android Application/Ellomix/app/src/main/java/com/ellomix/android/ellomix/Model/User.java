@@ -12,6 +12,14 @@ public class User {
     private int mFollowingCount;
     private String mPhotoUrl;
 
+    public User(String name) {
+        mName = name;
+        mDescription = "";
+        mFollowersCount = 0;
+        mFollowingCount = 0;
+        mPhotoUrl = "";
+    }
+
     public User(String name, String description, int followers, int following, String photoUrl) {
         mName = name;
         mDescription = description;

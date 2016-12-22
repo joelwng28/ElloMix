@@ -30,9 +30,11 @@ public class SCTrack extends Track {
     @SerializedName("user")
     private SCUser mSCUser;
 
-    /* Precondition: Assume the */
+    /* Precondition: Assume the track have already been queried*/
     public SCTrack() {
         super();
         setArtist(mSCUser.getUserName());
+
     }
+
 }

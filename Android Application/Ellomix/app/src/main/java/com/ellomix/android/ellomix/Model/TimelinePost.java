@@ -21,6 +21,25 @@ public class TimelinePost {
         mTrack = track;
         mDateCreated = new Date();
         mDescription = description;
+    }
 
+    public User getUser() {
+        return mCreator;
+    }
+
+    public Track getTrack() {
+        return mTrack;
+    }
+
+    public Date getDateCreated() {
+        return mDateCreated;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
     }
 }

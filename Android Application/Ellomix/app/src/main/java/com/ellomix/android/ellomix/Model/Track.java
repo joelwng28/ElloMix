@@ -1,5 +1,7 @@
 package com.ellomix.android.ellomix.Model;
 
+import javax.xml.transform.Source;
+
 /**
  * Created by ATH-AJT2437 on 12/22/2016.
  */
@@ -11,10 +13,12 @@ public class Track {
     private int mID;
     private String mCreatedAt;
     private String mStreamURL;
+    private String mArtworkURL;
     private String mTime;
+    private Sources mSource;
 
     public Track(){
-
+        mArtist = "";
     }
 
     public Track(String title, String artist, int id, String date, String url, String time) {
@@ -24,6 +28,14 @@ public class Track {
         mCreatedAt = date;
         mStreamURL = url;
         mTime = time;
+    }
+
+    public Sources getSource() {
+        return mSource;
+    }
+
+    public void setSource(Sources source) {
+        mSource = source;
     }
 
     public String getTitle() {
@@ -60,6 +72,14 @@ public class Track {
 
     public void setStreamURL(String url) {
         mStreamURL = url;
+    }
+
+    public String getArtworkURL() {
+        return mArtworkURL;
+    }
+
+    public void setmArtworkURL(String mArtworkURL) {
+        this.mArtworkURL = mArtworkURL;
     }
 
     public String getTime() {
