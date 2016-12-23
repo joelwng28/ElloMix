@@ -35,7 +35,7 @@
 
         <com.ellomix.android.ellomix.Style.OpenSansRegular
             android:id="@+id/long_ago_text_view"
-            android:text="0s ago"
+            android:hint="0s ago"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

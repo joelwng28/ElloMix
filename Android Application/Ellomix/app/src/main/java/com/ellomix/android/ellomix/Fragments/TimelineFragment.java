@@ -22,10 +22,12 @@ import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
 import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import retrofit.Call;
@@ -102,12 +104,13 @@ public class TimelineFragment extends Fragment {
 
     private void loadRecentTracks() {
         SCService scService = SoundCloud.getService();
-        Call<List<SCTrack>> call = scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+        Call<List<SCTrack>> call = scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US).format(new Date()));
 
         call.enqueue(new Callback<List<SCTrack>>() {
             @Override
             public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
                 mListItems = response.body();
+                Log.e(TAG, "date created: " + mListItems.get(0).getCreatedAt().substring(0, 19));
                 generateModel(mListItems);
             }
 
@@ -146,7 +149,16 @@ public class TimelineFragment extends Fragment {
             mPost = post;
 
             mUploaderTextView.setText(post.getUser().getName());
-            mLongAgoTextView.setText("0 sec");
+
+            try {
+                Log.d(TAG, "date of post: " + post.getSinceCreated());
+                Log.d(TAG, "long time ago: " + post.getSinceCreated());
+                mLongAgoTextView.setText(post.getSinceCreated());
+            }
+
+            catch (ParseException pe) {
+                Log.e(TAG, pe.getLocalizedMessage());
+            }
             Picasso.with(getActivity())
                     .load(post.getTrack().getArtworkURL())
                     //.placeholder(R.drawable.art_work_placeholder)
@@ -154,7 +166,6 @@ public class TimelineFragment extends Fragment {
             mTrackArtworkImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(TAG, "play button pressed");
                     Intent intent = SCMusicService.newIntent(getActivity(), mPost.getTrack().getStreamURL(), mPost.getTrack().getTitle());
                     getActivity().startService(intent);
                 }
