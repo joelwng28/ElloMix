@@ -18,20 +18,16 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:weightSum="1">
 
         <ImageView
             android:layout_width="match_parent"
-            app:srcCompat="@drawable/title"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ellomix"
             android:id="@+id/imageView3"
-            android:scaleType="centerCrop"
-            android:layout_height="60dp"
-            android:adjustViewBounds="false"
-            android:cropToPadding="true"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp" />
+            android:scaleType="centerInside"
+            android:layout_weight="0.18" />
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"

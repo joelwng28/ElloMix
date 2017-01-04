@@ -63,7 +63,8 @@
         <activity android:name=".SignUpActivity" />
         <activity android:name=".ConnectSocialMediaActivity" />
         <activity android:name=".PopulateTimelineActivity" />
-        <activity android:name=".InviteActivity"></activity>
+        <activity android:name=".InviteActivity" />
+        <activity android:name=".AddPhotoActivity"></activity>
     </application>
 
 </manifest>

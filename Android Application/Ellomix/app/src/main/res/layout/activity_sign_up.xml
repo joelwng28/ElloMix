@@ -15,21 +15,22 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
         <ImageButton
-            android:layout_width="123dp"
-            android:layout_height="120dp"
+            android:layout_width="171dp"
+            android:layout_height="wrap_content"
             app:srcCompat="@drawable/addphoto"
-            android:id="@+id/imageButton"
-            android:elevation="0dp"
-            android:layout_gravity="center_vertical|center_horizontal" />
+            android:id="@+id/AddPhotoButton"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_gravity="center_horizontal" />
 
         <EditText
             android:layout_width="259dp"
             android:layout_height="50dp"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text="Email"
             android:ems="10"
             android:id="@+id/userEmailLogin"
             android:background="@drawable/rounded_corner"
@@ -43,7 +44,7 @@
             android:layout_width="259dp"
             android:layout_height="50dp"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text="Full Name"
             android:ems="10"
             android:id="@+id/userNameLogin"
             android:background="@drawable/rounded_corner"
@@ -56,7 +57,7 @@
             android:layout_width="259dp"
             android:layout_height="50dp"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text="Password"
             android:ems="10"
             android:id="@+id/userPasswordLogin"
             android:background="@drawable/rounded_corner"
@@ -66,14 +67,16 @@
 
 
         <Button
-            android:text="Sign up"
+            android:text="Continue"
             android:layout_width="261dp"
             android:layout_height="wrap_content"
             android:id="@+id/appSignUpButton"
             android:background="@drawable/rounded_corner"
             android:layout_marginTop="100dp"
             android:backgroundTint="@color/colorRed"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Button"
+            android:textColor="@color/colorWhite" />
     </LinearLayout>
 
 </RelativeLayout>

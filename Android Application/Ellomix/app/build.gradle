@@ -51,6 +51,7 @@ dependencies {
 
     // Firebase UI
     compile 'com.firebaseui:firebase-ui-database:0.4.0'
+    //facebook
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 
     // This library handles authentication and authorization
@@ -58,7 +59,6 @@ dependencies {
     // This library handles music playback
     //compile 'com.spotify.sdk:spotify-player:beta24-noconnect-2.20b@aar'
     compile 'com.spotify.sdk:spotify-player:24-noconnect-2.20b@aar'
-
 }
 
 apply plugin: 'com.google.gms.google-services'
