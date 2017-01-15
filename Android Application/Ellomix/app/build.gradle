@@ -49,6 +49,9 @@ dependencies {
     // Firebase
     compile 'com.google.firebase:firebase-database:10.0.0'
 
+    // Firebase Auth
+    compile 'com.google.firebase:firebase-auth:10.0.1'
+
     // Firebase UI
     compile 'com.firebaseui:firebase-ui-database:0.4.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'

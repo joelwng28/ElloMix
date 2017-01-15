@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.ellomix.android.ellomix.R;
 import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignedInActivity extends AppCompatActivity{
 
@@ -41,6 +42,7 @@ public class SignedInActivity extends AppCompatActivity{
 
     public void logout(View view){
         LoginManager.getInstance().logOut();
+        FirebaseAuth.getInstance().signOut();
         goLoginScreen();
     }
 }

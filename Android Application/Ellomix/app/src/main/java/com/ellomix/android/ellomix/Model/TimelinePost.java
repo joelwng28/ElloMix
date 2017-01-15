@@ -9,7 +9,9 @@ import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -23,12 +25,14 @@ public class TimelinePost {
     private Track mTrack;
     private Date mDatePosted;
     private String mDescription;
+    private List<Comment> mComments;
 
     public TimelinePost(User user, SCTrack track, String description) {
         mCreator = user;
         mTrack = track;
         mDatePosted = new Date();
         mDescription = description;
+        mComments = new ArrayList<>();
     }
 
     public User getUser() {
@@ -88,5 +92,13 @@ public class TimelinePost {
 
     public void setDescription(String description) {
         mDescription = description;
+    }
+
+    public List<Comment> getCommentList() {
+        return mComments;
+    }
+
+    public void addComment (Comment comment) {
+        mComments.add(comment);
     }
 }

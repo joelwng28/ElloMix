@@ -1,35 +1,27 @@
 {
   "project_info": {
-    "project_number": "289014555879",
-    "firebase_url": "https://ellomix-44957.firebaseio.com",
-    "project_id": "ellomix-44957",
-    "storage_bucket": "ellomix-44957.appspot.com"
+    "project_number": "489218757259",
+    "firebase_url": "https://ellomix-47b97.firebaseio.com",
+    "project_id": "ellomix-47b97",
+    "storage_bucket": "ellomix-47b97.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:289014555879:android:f4942986c45c8073",
+        "mobilesdk_app_id": "1:489218757259:android:f4942986c45c8073",
         "android_client_info": {
           "package_name": "com.ellomix.android.ellomix"
         }
       },
       "oauth_client": [
         {
-          "client_id": "289014555879-th2n5a26gh94ltrk6mb55do2a0q3gr20.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.ellomix.android.ellomix",
-            "certificate_hash": "F79462F88EA9CD7D3C9CD8085BEA77AF509CDD09"
-          }
-        },
-        {
-          "client_id": "289014555879-0i1pah8hj9iriiafr9rqv34mmcdoel3k.apps.googleusercontent.com",
+          "client_id": "489218757259-iilv71jtaba33jg7cghlk464ul3cf1a5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC_cFRrRRQy-sRB9dmwxyrpfyZAE0b5crQ"
+          "current_key": "AIzaSyCv3wM5hWdk4UUDTTpEsEZ0HZ0sx1dcb2U"
         }
       ],
       "services": {
@@ -37,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "289014555879-0i1pah8hj9iriiafr9rqv34mmcdoel3k.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

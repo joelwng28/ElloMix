@@ -15,7 +15,7 @@
         android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profile_image_view"
+            android:id="@+id/post_profile_image_view"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_profile"/>
@@ -28,8 +28,8 @@
             android:text="user"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@id/profile_image_view"
-            android:layout_toRightOf="@id/profile_image_view"
+            android:layout_toEndOf="@id/post_profile_image_view"
+            android:layout_toRightOf="@id/post_profile_image_view"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/uploader_name" />
 
@@ -41,8 +41,8 @@
             android:layout_marginLeft="10dp"
             android:textColor="@color/colorWhite"
             android:layout_below="@id/uploader_text_view"
-            android:layout_toEndOf="@id/profile_image_view"
-            android:layout_toRightOf="@id/profile_image_view"
+            android:layout_toEndOf="@id/post_profile_image_view"
+            android:layout_toRightOf="@id/post_profile_image_view"
 
             android:textSize="@dimen/time_uploaded" />
 
@@ -80,7 +80,6 @@
     <Space
         android:layout_width="10dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/artist_text_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/space_left" />
@@ -93,58 +92,70 @@
         android:layout_below="@id/track_artwork_image_view"
         android:layout_marginTop="15dp"
         android:background="@drawable/favorite"
-        android:layout_toRightOf="@+id/space_left"
-        android:layout_toEndOf="@+id/space_left" />
+        android:layout_toRightOf="@id/space_left"
+        android:layout_toEndOf="@id/space_left" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/repost"
         android:id="@+id/repost"
-
-        android:layout_alignTop="@+id/comment"
-        android:layout_toRightOf="@+id/comment"
-        android:layout_toEndOf="@+id/comment"
+        android:layout_alignTop="@id/comment"
+        android:layout_toRightOf="@id/comment"
+        android:layout_toEndOf="@id/comment"
         android:background="@drawable/repost" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/share"
-        android:layout_toRightOf="@+id/repost"
-        android:layout_toEndOf="@+id/repost"
+        android:layout_toRightOf="@id/repost"
+        android:layout_toEndOf="@id/repost"
         android:id="@+id/share"
         android:background="@drawable/share"
-        android:layout_alignTop="@+id/repost"
-        android:layout_alignBottom="@+id/repost" />
+        android:layout_alignTop="@id/repost"
+        android:layout_alignBottom="@id/repost" />
 
-    <com.ellomix.android.ellomix.Style.Actor
-        android:id="@+id/artist_text_view"
-        android:text="artist"
+    <!--<com.ellomix.android.ellomix.Style.Actor-->
+        <!--android:id="@+id/artist_text_view"-->
+        <!--android:text="artist"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/track_artwork_image_view"-->
+        <!--android:layout_alignTop="@id/share"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:textColor="@color/colorWhite"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textSize="@dimen/artist_name" />-->
+
+    <!--<com.ellomix.android.ellomix.Style.Actor-->
+        <!--android:id="@+id/song_title_text_view"-->
+        <!--android:text="track title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/artist_text_view"-->
+        <!--android:layout_marginBottom="30dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:textColor="@color/colorWhite"-->
+        <!--android:textSize="@dimen/song_title_text" />-->
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/track_artwork_image_view"
-        android:layout_alignTop="@+id/share"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="5dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        android:textSize="@dimen/artist_name" />
+        android:id="@+id/like_count_text_view"
+        android:text="52 Likes"
+        android:layout_below="@id/like"
+        android:layout_toRightOf="@id/space_left"
+        android:layout_toEndOf="@id/space_left"
+        android:textColor="@color/white"/>
 
-    <com.ellomix.android.ellomix.Style.Actor
-        android:id="@+id/song_title_text_view"
-        android:text="track title"
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/artist_text_view"
-        android:layout_marginBottom="30dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/song_title_text" />
-
-
-
-
+        android:id="@+id/comment_timeline_list_view"
+        android:layout_below="@id/like_count_text_view"
+        android:layout_toRightOf="@id/space_left"/>
 
 </RelativeLayout>

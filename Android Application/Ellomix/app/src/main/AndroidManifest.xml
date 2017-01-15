@@ -14,61 +14,67 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.ChatListActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ScreenSlidePagerActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
+            android:value="@string/facebook_app_id" />
+
         <activity
             android:name=".Activities.TimelineActivity"
-            android:screenOrientation="portrait"/>
-        <service
-            android:name=".SoundCloudAPI.SCMusicService"/>
+            android:screenOrientation="portrait" />
+
+        <service android:name=".SoundCloudAPI.SCMusicService" />
+
         <activity
             android:name=".Activities.SignedInActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER"/>
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SpotifyActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ChatActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.ProfileActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
-        <!--<activity-->
-            <!--android:name="com.spotify.sdk.android.authentication.WebAuthResultActivity"-->
-            <!--android:theme="@android:style/Theme.Translucent.NoTitleBar">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.VIEW"/>-->
+        <!-- <activity -->
+        <!-- android:name="com.spotify.sdk.android.authentication.WebAuthResultActivity" -->
+        <!-- android:theme="@android:style/Theme.Translucent.NoTitleBar"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.VIEW"/> -->
 
-                <!--<category android:name="android.intent.category.DEFAULT"/>-->
-                <!--<category android:name="android.intent.category.BROWSABLE"/>-->
 
-                <!--<data-->
-                    <!--android:host="callback"-->
-                    <!--android:scheme="testschema"/>-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+        <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+        <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
+
+
+        <!-- <data -->
+        <!-- android:host="callback" -->
+        <!-- android:scheme="testschema"/> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
 
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+        <activity android:name=".Activities.CommentsActivity"></activity>
     </application>
 
 </manifest>
