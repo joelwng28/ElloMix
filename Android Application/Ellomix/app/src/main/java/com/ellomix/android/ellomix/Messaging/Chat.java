@@ -14,6 +14,10 @@ public class Chat {
     private List<String> mGroupMembers;
     private String mMostRecentMessage;
 
+    public Chat() {
+
+    }
+
     public Chat(String id) {
         mId = id;
         mLatestSender = "From";

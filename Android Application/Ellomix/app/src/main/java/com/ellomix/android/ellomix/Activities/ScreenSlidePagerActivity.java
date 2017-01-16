@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.design.widget.TabLayout;
 
 import com.ellomix.android.ellomix.Fragments.ChatFragment;
+import com.ellomix.android.ellomix.Fragments.ChatListFragment;
 import com.ellomix.android.ellomix.Fragments.ProfileFragment;
 import com.ellomix.android.ellomix.Fragments.TimelineFragment;
 import com.ellomix.android.ellomix.R;
@@ -22,7 +23,7 @@ import com.ellomix.android.ellomix.R;
 public class ScreenSlidePagerActivity extends FragmentActivity {
 
 
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 2;
 
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
@@ -57,15 +58,15 @@ public class ScreenSlidePagerActivity extends FragmentActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 //TODO: Change once new features added
+//                case 0:
+//                    //timeline
+//                    return TimelineFragment.newInstance();
                 case 0:
-                    //timeline
-                    return TimelineFragment.newInstance();
-                case 1:
-                    //chat
-                    return ChatFragment.newInstance();
-                case 2:
                     // profile
                     return ProfileFragment.newInstance();
+                case 1:
+                    //chat
+                    return ChatListFragment.newInstance();
                 default:
                     return null;
             }

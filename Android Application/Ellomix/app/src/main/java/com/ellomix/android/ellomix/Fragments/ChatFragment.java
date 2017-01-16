@@ -24,6 +24,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.UUID;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -33,9 +35,28 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatFragment extends Fragment {
 
     private static final String TAG = "ChatFragent";
+    private static final String ARG_CHAT_ID = "chat_id";
 
     public static ChatFragment newInstance() {
         return new ChatFragment();
+    }
+
+    public static ChatFragment newInstance(UUID chatId) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CHAT_ID, chatId);
+
+        ChatFragment fragment = new ChatFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static ChatFragment newInstance(String chatId) {
+        Bundle args = new Bundle();
+        args.putString(ARG_CHAT_ID, chatId);
+
+        ChatFragment fragment = new ChatFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {
@@ -54,6 +75,7 @@ public class ChatFragment extends Fragment {
     public static final String MESSAGES_CHILD = "messages";
     public static final String ANONYMOUS = "anonymous";
     private String mUsername;
+    private String mChatId;
 
     private Button mSendButton;
     private RecyclerView mMessageRecyclerView;
@@ -66,10 +88,16 @@ public class ChatFragment extends Fragment {
     private FirebaseRecyclerAdapter<Message, MessageViewHolder>
             mFirebaseAdapter;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mChatId = getArguments().getString(ARG_CHAT_ID);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         // Set default username is anonymous.
         mUsername = ANONYMOUS;
@@ -86,7 +114,7 @@ public class ChatFragment extends Fragment {
                 Message.class,
                 R.layout.item_message,
                 MessageViewHolder.class,
-                mFirebaseDatabaseReference.child(MESSAGES_CHILD)) {
+                mFirebaseDatabaseReference.child("Chats").child(mChatId).child(MESSAGES_CHILD)) {
 
             @Override
             protected Message parseSnapshot(DataSnapshot snapshot) {
@@ -169,9 +197,13 @@ public class ChatFragment extends Fragment {
                         Message(mMessageEditText.getText().toString(),
                         mUsername,
                         null);                      //just for testing
-                mFirebaseDatabaseReference.child(MESSAGES_CHILD)
+                mFirebaseDatabaseReference.child("Chats").child(mChatId).child(MESSAGES_CHILD)
                         .push().setValue(message);
                 mMessageEditText.setText("");
+
+                //Update most recent message
+                mFirebaseDatabaseReference.child("Chats").child(mChatId).child("mostRecentMessage")
+                        .setValue(message.getText());
             }
         });
 

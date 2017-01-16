@@ -10,7 +10,7 @@
         android:layout_alignParentStart="true"
         android:id="@+id/space_left" />
 
-    <android.support.v4.widget.CircleImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_toRightOf="@id/space_left"
