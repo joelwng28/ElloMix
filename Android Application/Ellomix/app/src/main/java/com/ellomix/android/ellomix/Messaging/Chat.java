@@ -10,7 +10,7 @@ import java.util.List;
 public class Chat {
 
     private String mId;
-    private String mLatestSender;
+    private String mFromRecipient;
     private List<String> mGroupMembers;
     private String mMostRecentMessage;
 
@@ -20,14 +20,14 @@ public class Chat {
 
     public Chat(String id) {
         mId = id;
-        mLatestSender = "From";
+        mFromRecipient = "From";
         mMostRecentMessage = "Long Long Time Ago...";
         mGroupMembers = new ArrayList<>();
     }
 
     public Chat(String id, List<String> group) {
         mId = id;
-        mLatestSender = "From";
+        mFromRecipient = "From";
         mMostRecentMessage = "Long Long Time Ago...";
         mGroupMembers = group;
     }
@@ -36,8 +36,12 @@ public class Chat {
         return mId;
     }
 
+    public void setId(String id) {
+        mId = id;
+    }
+
     public String getFromRecipient() {
-        return mLatestSender;
+        return mFromRecipient;
     }
 
     public String getMostRecentMessage() {
@@ -48,8 +52,8 @@ public class Chat {
         mMostRecentMessage = latestMessage;
     }
 
-    public void setLatestSender(String name) {
-        mLatestSender = name;
+    public void setFromRecipient(String name) {
+        mFromRecipient = name;
     }
 
     /*

@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,8 @@ import com.bumptech.glide.Glide;
 import com.ellomix.android.ellomix.Messaging.Message;
 import com.ellomix.android.ellomix.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -76,6 +80,7 @@ public class ChatFragment extends Fragment {
     public static final String ANONYMOUS = "anonymous";
     private String mUsername;
     private String mChatId;
+    private String mPhotoUrl;
 
     private Button mSendButton;
     private RecyclerView mMessageRecyclerView;
@@ -87,6 +92,8 @@ public class ChatFragment extends Fragment {
     private DatabaseReference mFirebaseDatabaseReference;
     private FirebaseRecyclerAdapter<Message, MessageViewHolder>
             mFirebaseAdapter;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,6 +108,19 @@ public class ChatFragment extends Fragment {
 
         // Set default username is anonymous.
         mUsername = ANONYMOUS;
+
+        // Initialize Firebase Auth
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if (mFirebaseUser == null) {
+            Log.d (TAG, "No one is signed in");
+        }
+        else {
+            mUsername = mFirebaseUser.getDisplayName();
+            if (mFirebaseUser.getPhotoUrl() != null) {
+                mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
+            }
+        }
 
         mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         mMessageRecyclerView = (RecyclerView) view.findViewById(R.id.message_recycler_view);
@@ -196,7 +216,7 @@ public class ChatFragment extends Fragment {
                 Message message = new
                         Message(mMessageEditText.getText().toString(),
                         mUsername,
-                        null);                      //just for testing
+                        mPhotoUrl);
                 mFirebaseDatabaseReference.child("Chats").child(mChatId).child(MESSAGES_CHILD)
                         .push().setValue(message);
                 mMessageEditText.setText("");
@@ -204,6 +224,8 @@ public class ChatFragment extends Fragment {
                 //Update most recent message
                 mFirebaseDatabaseReference.child("Chats").child(mChatId).child("mostRecentMessage")
                         .setValue(message.getText());
+                mFirebaseDatabaseReference.child("Chats").child(mChatId).child("fromRecipient")
+                        .setValue(message.getName());
             }
         });
 
