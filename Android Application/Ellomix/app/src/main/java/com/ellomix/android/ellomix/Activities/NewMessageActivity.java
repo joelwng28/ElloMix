@@ -86,17 +86,49 @@ public class NewMessageActivity extends AppCompatActivity  {
             mFriendNameTextView.setText(mUser.getName());
         }
 
+        // return - true if the user already exist in the list
+        // false otherwise
+        public boolean checkForRepetition(List<User> groupMembers) {
+            if (groupMembers == null || groupMembers.size() == 0 || groupMembers.size() == mFollowingUsers.size()) {
+                //Nothing to check
+                return true;
+            }
+            else if (mUser == null) {
+                return true;
+            }
+            else {
+                int size = groupMembers.size();
+                for (int i = 0; i < size; i++) {
+                    if (groupMembers.get(i).getId().equals(mUser.getId())) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
 
         @Override
         public void onClick(View v) {
             // Add the name to the list
-            Toast.makeText(NewMessageActivity.this, "Friend Added: " + mUser.getName(), Toast.LENGTH_SHORT).show();
-
             //TODO: Push member bubble on "To:" list
-            mGroupMembersList.add(mUser);
-            mGroupMembersStrBuffer.append(mUser.getName() + ". ");
-            mGroupMembersTextView.setText(mGroupMembersStrBuffer.toString());
 
+            if (mGroupMembersList.size() == 0) {
+                Toast.makeText(NewMessageActivity.this, "Friend Added: " + mUser.getName() + ", id: " + mUser.getId(), Toast.LENGTH_SHORT).show();
+
+                mGroupMembersList.add(mUser);
+                mGroupMembersStrBuffer.append(mUser.getName());
+                mGroupMembersTextView.setText(mGroupMembersStrBuffer.toString());
+            }
+
+            else if (!checkForRepetition(mGroupMembersList)) {
+                Toast.makeText(NewMessageActivity.this, "Friend Added: " + mUser.getName() + ", id: " + mUser.getId(), Toast.LENGTH_SHORT).show();
+                mGroupMembersList.add(mUser);
+                mGroupMembersStrBuffer.append("; " + mUser.getName());
+                mGroupMembersTextView.setText(mGroupMembersStrBuffer.toString());
+            }
+
+            Log.d(TAG, mGroupMembersList.toString());
 
         }
     }

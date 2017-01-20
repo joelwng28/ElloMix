@@ -40,7 +40,6 @@
             android:id="@+id/group_member_text_view"
             android:layout_toRightOf="@id/to_text_view"
             android:layout_toEndOf="@id/to_text_view"
-            android:maxLines="1"
             android:layout_alignTop="@id/to_text_view"
             android:layout_centerVertical="true"/>
 
