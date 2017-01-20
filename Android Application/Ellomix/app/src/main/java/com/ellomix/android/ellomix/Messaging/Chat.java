@@ -13,6 +13,7 @@ public class Chat {
     private String mFromRecipient;
     private List<String> mGroupMembers;
     private String mMostRecentMessage;
+    // TODO: add playlist list
 
     public Chat() {
 

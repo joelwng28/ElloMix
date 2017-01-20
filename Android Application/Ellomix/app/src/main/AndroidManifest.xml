@@ -73,8 +73,9 @@
 
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-        <activity android:name=".Activities.CommentsActivity"></activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".Activities.CommentsActivity" />
+        <activity android:name=".Activities.NewMessageActivity"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AppCompatActivity;
 
 import com.ellomix.android.ellomix.Fragments.ChatFragment;
 import com.ellomix.android.ellomix.Fragments.ChatListFragment;
@@ -20,7 +21,7 @@ import com.ellomix.android.ellomix.R;
  * Created by abetorres on 12/10/16.
  */
 
-public class ScreenSlidePagerActivity extends FragmentActivity {
+public class ScreenSlidePagerActivity extends AppCompatActivity {
 
 
     private static final int NUM_PAGES = 2;

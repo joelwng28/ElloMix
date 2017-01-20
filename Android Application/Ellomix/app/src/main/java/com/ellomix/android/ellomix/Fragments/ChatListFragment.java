@@ -9,6 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -16,6 +19,7 @@ import android.widget.Toast;
 
 import com.ellomix.android.ellomix.Activities.ChatActivity;
 import com.ellomix.android.ellomix.Activities.MyApplication;
+import com.ellomix.android.ellomix.Activities.NewMessageActivity;
 import com.ellomix.android.ellomix.Messaging.Chat;
 import com.ellomix.android.ellomix.Messaging.Chats;
 import com.ellomix.android.ellomix.Messaging.Message;
@@ -67,6 +71,7 @@ public class ChatListFragment extends Fragment {
 
         mChats = new Chats("1", "Abe");
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        setHasOptionsMenu(true);
 
 //        mDatabase.child("Chats").addChildEventListener(new ChildEventListener() {
 //            @Override
@@ -127,7 +132,7 @@ public class ChatListFragment extends Fragment {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(), "chat Id: " + model.getId(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "chat Id: " + model.getId(), Toast.LENGTH_SHORT).show();
                         Intent i = ChatActivity.newIntent(getContext(), model.getId());
                         startActivity(i);
                     }
@@ -169,6 +174,25 @@ public class ChatListFragment extends Fragment {
         //updateUI();
 
         return v;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.chat_feed_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_compose:
+                // TODO: create new message activity
+                Intent intent = new Intent(getContext(), NewMessageActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void generateGroupChat() {
