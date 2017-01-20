@@ -23,18 +23,26 @@ public class NewMessageActivity extends AppCompatActivity  {
 
     private static final String TAG = "NewMessageActivity";
     private List<User> mFollowingUsers;
+    private List<User> mGroupMembersList;
     private RecyclerView mFollowingRecyclerView;
+    private TextView mGroupMembersTextView;
+    private StringBuffer mGroupMembersStrBuffer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_message);
         mFollowingUsers = new ArrayList<>();
+        mGroupMembersList = new ArrayList<>();
+        mGroupMembersStrBuffer = new StringBuffer();
 
+        mGroupMembersTextView = (TextView) findViewById(R.id.group_member_text_view);
         mFollowingRecyclerView = (RecyclerView) findViewById(R.id.following_recycler_view);
         mFollowingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         generateModel();
         mFollowingRecyclerView.setAdapter(new FollowingAdapter(mFollowingUsers));
+
     }
 
     public void generateModel() {
@@ -82,9 +90,12 @@ public class NewMessageActivity extends AppCompatActivity  {
         @Override
         public void onClick(View v) {
             // Add the name to the list
-            Toast.makeText(NewMessageActivity.this, "Friend Added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewMessageActivity.this, "Friend Added: " + mUser.getName(), Toast.LENGTH_SHORT).show();
 
             //TODO: Push member bubble on "To:" list
+            mGroupMembersList.add(mUser);
+            mGroupMembersStrBuffer.append(mUser.getName() + ". ");
+            mGroupMembersTextView.setText(mGroupMembersStrBuffer.toString());
 
 
         }

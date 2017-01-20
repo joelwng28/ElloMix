@@ -34,7 +34,7 @@
             android:layout_toEndOf="@id/space_left"
             />
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/group_member_text_view"
