@@ -16,7 +16,10 @@ public class Chat {
     // TODO: add playlist list
 
     public Chat() {
-
+        mId = "";
+        mFromRecipient = "From";
+        mMostRecentMessage = "Long Long Time Ago...";
+        mGroupMembers = new ArrayList<>();
     }
 
     public Chat(String id) {

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.ellomix.android.ellomix.Activities.ChatActivity;
 import com.ellomix.android.ellomix.Activities.MyApplication;
 import com.ellomix.android.ellomix.Activities.NewMessageActivity;
+import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Messaging.Chat;
 import com.ellomix.android.ellomix.Messaging.Chats;
 import com.ellomix.android.ellomix.Messaging.Message;
@@ -33,6 +34,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,6 +54,7 @@ public class ChatListFragment extends Fragment {
     private TextView mGroupChatName;
     private TextView mGroupRecentMessage;
     private Chats mChats;
+    private List<String> mChatIds;
     //private ChatAdapter mAdapter;
 
     // Firebase Instance variable
@@ -69,40 +72,47 @@ public class ChatListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mChats = new Chats("1", "Abe");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mChats = new Chats();
+        mChatIds = new ArrayList<>();
+
+        mFirebaseUser = FirebaseService.getFirebaseUser();
+        mDatabase = FirebaseService.getFirebaseDatabase();
         setHasOptionsMenu(true);
 
-//        mDatabase.child("Chats").addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                // A new chat has been added, add it to the displayed list
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//                // Got a new response, update it on the displayed list
-//                Chat chat = dataSnapshot.getValue(Chat.class);
-//                String chatKey = dataSnapshot.getKey();
-//                mChats.updateChat(chatKey, chat);
-//                updateUI();
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//                // Chat was deleted
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+        mDatabase.child("Users")
+                .child(mFirebaseUser.getUid())
+                .child("chatIds")
+                .addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                // A new chat has been added, add it to the displayed list
+                dataSnapshot.getKey();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                // Got a new response, update it on the displayed list
+                Chat chat = dataSnapshot.getValue(Chat.class);
+                String chatKey = dataSnapshot.getKey();
+                mChats.updateChat(chatKey, chat);
+                updateUI();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                // Chat was deleted
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Nullable
@@ -176,6 +186,15 @@ public class ChatListFragment extends Fragment {
         return v;
     }
 
+    public void updateUI() {
+        if (mFirebaseAdapter == null) {
+
+        }
+        else {
+            mFirebaseAdapter.notifyDataSetChanged();
+        }
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -186,7 +205,6 @@ public class ChatListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_compose:
-                // TODO: create new message activity
                 Intent intent = new Intent(getContext(), NewMessageActivity.class);
                 startActivity(intent);
                 return true;
@@ -203,8 +221,9 @@ public class ChatListFragment extends Fragment {
     public void generateModel() {
 
         for (int i = 0; i < 2 ; i++) {
-            Chat chat = new Chat("" + i);
-            mDatabase.child("Chats").push().setValue(chat);
+            String id = UUID.randomUUID().toString();
+            Chat chat = new Chat(id);
+            mDatabase.child("Chats").child(id).setValue(chat);
             mChats.addChat(chat);
         }
 

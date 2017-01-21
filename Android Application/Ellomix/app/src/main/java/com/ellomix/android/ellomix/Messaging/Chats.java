@@ -9,13 +9,9 @@ import java.util.List;
 
 public class Chats {
 
-    private String mId;
     private List<Chat> mChats;
-    private String mUser;
 
-    public Chats(String id, String user) {
-        mId = id;
-        mUser = user;
+    public Chats() {
         mChats = new ArrayList<>(5);
     }
 

@@ -22,4 +22,5 @@
     <string name="logout">Logout of Facebook</string>
     <string name="compose">Compose</string>
     <string name="to_sender">To: </string>
+    <string name="done">Done</string>
 </resources>
