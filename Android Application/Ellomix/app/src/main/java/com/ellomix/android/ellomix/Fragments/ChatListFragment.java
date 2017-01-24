@@ -88,7 +88,7 @@ public class ChatListFragment extends Fragment {
                 // A new chat has been added, add it to the displayed list
                 // TODO: Check against phone persistance database and decide if need to be added
                 //mChatIds.add(dataSnapshot.getKey());
-                
+
             }
 
             @Override
