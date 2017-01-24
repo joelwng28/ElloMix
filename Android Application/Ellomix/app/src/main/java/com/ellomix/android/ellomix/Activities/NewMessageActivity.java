@@ -94,6 +94,8 @@ public class NewMessageActivity extends AppCompatActivity  {
                     FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
                     FirebaseService.addChatIdToUser(firebaseUser.getUid().toString(), chat);
 
+                    // TODO: Add persistentce of chat ids to the phone
+
                     // start chat activity
 
                     Intent intent = ChatActivity.newIntent(this, chatId);

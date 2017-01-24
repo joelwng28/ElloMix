@@ -86,16 +86,18 @@ public class ChatListFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 // A new chat has been added, add it to the displayed list
-                dataSnapshot.getKey();
+                // TODO: Check against phone persistance database and decide if need to be added
+                //mChatIds.add(dataSnapshot.getKey());
+                
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 // Got a new response, update it on the displayed list
-                Chat chat = dataSnapshot.getValue(Chat.class);
-                String chatKey = dataSnapshot.getKey();
-                mChats.updateChat(chatKey, chat);
-                updateUI();
+//                Chat chat = dataSnapshot.getValue(Chat.class);
+//                String chatKey = dataSnapshot.getKey();
+//                mChats.updateChat(chatKey, chat);
+//                updateUI();
             }
 
             @Override
@@ -262,35 +264,35 @@ public class ChatListFragment extends Fragment {
 
     }
 
-//    private class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
-//
-//        private List<Chat> mChats;
-//
-//        public ChatAdapter(List<Chat> chats) {
-//            this.mChats = chats;
-//        }
-//
-//        @Override
-//        public ChatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-//            View view = layoutInflater
-//                    .inflate(R.layout.chat_feed_item, parent, false);
-//            return new ChatHolder(view);
-//        }
-//
-//        @Override
-//        public void onBindViewHolder(ChatHolder holder, int position) {
-//            Chat chat = this.mChats.get(position);
-//            holder.bindChat(chat);
-//        }
-//
-//        @Override
-//        public int getItemCount() {
-//            return this.mChats.size();
-//        }
-//
-//        public void setChats(List<Chat> chats) {
-//            this.mChats = chats;
-//        }
-//    }
+    private class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
+
+        private List<Chat> mChats;
+
+        public ChatAdapter(List<Chat> chats) {
+            this.mChats = chats;
+        }
+
+        @Override
+        public ChatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View view = layoutInflater
+                    .inflate(R.layout.chat_feed_item, parent, false);
+            return new ChatHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(ChatHolder holder, int position) {
+            Chat chat = this.mChats.get(position);
+            holder.bindChat(chat);
+        }
+
+        @Override
+        public int getItemCount() {
+            return this.mChats.size();
+        }
+
+        public void setChats(List<Chat> chats) {
+            this.mChats = chats;
+        }
+    }
 }
