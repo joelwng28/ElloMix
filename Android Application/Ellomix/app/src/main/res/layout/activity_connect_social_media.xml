@@ -46,36 +46,39 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:textColor="@color/colorWhite" />
 
+            <!--TODO: Add rounded_corner to the drawable folder
+            Then add the 3 items below
+            -->
+            <!--TODO: android:background="@drawable/rounded_corner"-->
             <Button
                 android:text="@string/connect_fb"
                 android:layout_width="261dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/connect_fb_Button"
-                android:background="@drawable/rounded_corner"
                 android:layout_marginTop="35dp"
                 android:backgroundTint="@color/colorBlue"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:textColor="@color/colorWhite"
                 android:textColorLink="@android:color/holo_green_light" />
 
+            <!--TODO: android:background="@drawable/rounded_corner"-->
             <Button
                 android:text="@string/connect_insta"
                 android:layout_width="261dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/connect_instagram_Button"
-                android:background="@drawable/rounded_corner"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/colorRed"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:textColor="@color/colorWhite"
                 android:textColorLink="@android:color/holo_green_light" />
 
+            <!--TODO: android:background="@drawable/rounded_corner"-->
             <Button
                 android:text="continue"
                 android:layout_width="261dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/appContinueButton"
-                android:background="@drawable/rounded_corner"
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/colorGreen"
                 android:layout_gravity="center_vertical|center_horizontal"

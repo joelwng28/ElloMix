@@ -26,6 +26,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_gravity="center_horizontal" />
 
+        <!--TODO: android:background="@drawable/rounded_corner"-->
         <EditText
             android:layout_width="259dp"
             android:layout_height="50dp"
@@ -33,13 +34,13 @@
             android:text="Email"
             android:ems="10"
             android:id="@+id/userEmailLogin"
-            android:background="@drawable/rounded_corner"
             android:paddingBottom="10dp"
             android:padding="10dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp" />
 
+        <!--TODO: android:background="@drawable/rounded_corner"-->
         <EditText
             android:layout_width="259dp"
             android:layout_height="50dp"
@@ -47,12 +48,12 @@
             android:text="Full Name"
             android:ems="10"
             android:id="@+id/userNameLogin"
-            android:background="@drawable/rounded_corner"
             android:paddingBottom="10dp"
             android:padding="10dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="15dp" />
 
+        <!--TODO: android:background="@drawable/rounded_corner"-->
         <EditText
             android:layout_width="259dp"
             android:layout_height="50dp"
@@ -60,18 +61,16 @@
             android:text="Password"
             android:ems="10"
             android:id="@+id/userPasswordLogin"
-            android:background="@drawable/rounded_corner"
             android:paddingBottom="10dp"
             android:padding="10dp"
             android:layout_gravity="center_horizontal" />
 
-
+        <!--TODO: android:background="@drawable/rounded_corner"-->
         <Button
             android:text="Continue"
             android:layout_width="261dp"
             android:layout_height="wrap_content"
             android:id="@+id/appSignUpButton"
-            android:background="@drawable/rounded_corner"
             android:layout_marginTop="100dp"
             android:backgroundTint="@color/colorRed"
             android:layout_gravity="center_horizontal"

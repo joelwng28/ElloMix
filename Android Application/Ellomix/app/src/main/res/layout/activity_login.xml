@@ -43,6 +43,7 @@
             app:srcCompat="@drawable/or"
             android:id="@+id/imageView2" />
 
+        <!--TODO: android:background="@drawable/rounded_corner"-->
         <EditText
             android:layout_width="259dp"
             android:layout_height="50dp"
@@ -50,17 +51,16 @@
             android:text="Name"
             android:ems="10"
             android:id="@+id/userNameLogin"
-            android:background="@drawable/rounded_corner"
             android:paddingBottom="10dp"
             android:padding="10dp"
             />
 
+        <!--TODO: android:background="@drawable/rounded_corner"-->
         <EditText
             android:layout_width="259dp"
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/userPasswordLogin"
-            android:background="@drawable/rounded_corner"
             android:layout_height="50dp"
             android:gravity="center_vertical|center_horizontal"
             android:text="password"
@@ -70,12 +70,12 @@
             android:paddingBottom="10dp"
             android:layout_marginTop="10dp" />
 
+        <!--TODO: android:background="@drawable/rounded_corner"-->
         <Button
             android:text="Log In"
             android:layout_width="261dp"
             android:layout_height="wrap_content"
             android:id="@+id/loginButton"
-            android:background="@drawable/rounded_corner"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/colorRed" />
 
@@ -100,12 +100,12 @@
             android:textSize="12sp"
             android:textColor="@android:color/white" />
 
+        <!--TODO: android:background="@drawable/rounded_corner"-->
         <Button
             android:text="Sign Up"
             android:layout_width="103dp"
             android:layout_height="24dp"
             android:id="@+id/appSignUpButton"
-            android:background="@drawable/rounded_corner"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"
             android:backgroundTint="@color/colorGreen" />
