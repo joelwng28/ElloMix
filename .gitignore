@@ -1,0 +1,18 @@
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
+.DS_Store
+._.DS_Store
+

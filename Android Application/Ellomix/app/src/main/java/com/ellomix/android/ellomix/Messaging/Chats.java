@@ -9,14 +9,14 @@ import java.util.List;
 
 public class Chats {
 
-    private String mId;
     private List<Chat> mChats;
-    private String mUser;
 
-    public Chats(String id, String user) {
-        mId = id;
-        mUser = user;
+    public Chats() {
         mChats = new ArrayList<>(5);
+    }
+
+    public List<Chat> getChats() {
+        return mChats;
     }
 
     //Precondition newChat is never null
@@ -31,6 +31,21 @@ public class Chats {
 
         mChats.remove(position);
         return true;
+    }
+
+    public Chat getChat(String chatId) {
+        for (int i = 0; i < mChats.size(); i++) {
+            Chat currentChat = mChats.get(i);
+            if (currentChat.getId().equals(chatId)) {
+                return currentChat;
+            }
+        }
+        return null;
+    }
+
+    public void updateChat(String chatId, Chat newChat) {
+        Chat chat = getChat(chatId);
+        chat.setMostRecentMessage(newChat.getMostRecentMessage());
     }
 
 }

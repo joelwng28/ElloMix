@@ -19,12 +19,19 @@
     <string name="facebook_app_id">714928195322801</string>
     <string name="cancel_login">Cancelled Login</string>
     <string name="error_login">Error at Login</string>
+
     <string name="logout_Fb">Logout of Facebook</string>
     <string name="forgot_userinfo">Forgot your password?</string>
     <string name="sign_up_text">Don\'t have an account? Sign up</string>
-    <string name="logout">Logout</string>
+    <!--<string name="logout">Logout</string>-->
     <string name="connect_fb">Connect with Facebook</string>
     <string name="connect_insta">Connect with Instagram</string>
     <string name="connect_text">Find Friends to Follow</string>
     <string name="connect_text_two">You choose who to follow and we\'ll never post to Facebook without your permission</string>
+
+    <string name="logout">Logout of Facebook</string>
+    <string name="compose">Compose</string>
+    <string name="to_sender">To: </string>
+    <string name="done">Done</string>
+
 </resources>

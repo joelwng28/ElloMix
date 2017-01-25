@@ -1,10 +1,4 @@
-*.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
+
 /captures
 .externalNativeBuild
 #built application files
@@ -29,6 +23,9 @@ Thumbs.db
 
 # OSX files
 .DS_Store
+._.DS_Store
+app/._.DS_Store
+gradle/._.DS_Store
 
 # Eclipse project files
 .classpath
@@ -36,18 +33,11 @@ Thumbs.db
 
 # Android Studio
 *.iml
-.idea
-.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
-.gradle
+.idea/
+.gradle/
 build/
+app/build/
 
 #NDK
 obj/
 
-/*/out
-/*/*/build
-/*/*/production
-*.iws
-*.ipr
-*~
-*.swp

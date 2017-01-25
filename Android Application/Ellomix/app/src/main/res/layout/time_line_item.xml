@@ -4,81 +4,68 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/main_background">
 
     <RelativeLayout
         android:id="@+id/user_info_band"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/user_post_band"
+        android:background="@color/main_background"
         android:padding="10dp">
 
-        <com.ellomix.android.ellomix.Actor
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/post_profile_image_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_profile"/>
+
+        <com.ellomix.android.ellomix.Style.Actor
             android:id="@+id/uploader_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="user"
             android:text="user"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@id/post_profile_image_view"
+            android:layout_toRightOf="@id/post_profile_image_view"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/uploader_name" />
 
-        <com.ellomix.android.ellomix.OpenSansRegular
+        <com.ellomix.android.ellomix.Style.OpenSansRegular
             android:id="@+id/long_ago_text_view"
-            android:text="0s ago"
+            android:hint="0s ago"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/colorWhite"
-            android:layout_alignEnd="@id/uploader_text_view"
-            android:layout_alignRight="@id/uploader_text_view"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
+            android:layout_below="@id/uploader_text_view"
+            android:layout_toEndOf="@id/post_profile_image_view"
+            android:layout_toRightOf="@id/post_profile_image_view"
+
             android:textSize="@dimen/time_uploaded" />
 
     </RelativeLayout>
+
+    <com.ellomix.android.ellomix.Style.Actor
+        android:id="@+id/message_text_view"
+        android:text="thingy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_info_band"
+        android:textColor="@color/colorWhite"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <ImageView
         android:id="@+id/track_artwork_image_view"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/user_info_band"
+        android:layout_below="@id/message_text_view"
         android:background="@color/colorWhite"/>
-    
-    <com.ellomix.android.ellomix.Actor
-        android:id="@+id/artist_text_view"
-        android:text="artist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/track_artwork_image_view"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="5dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        android:textSize="@dimen/artist_name" />
-    
-    <com.ellomix.android.ellomix.Actor
-        android:id="@+id/song_title_text_view"
-        android:text="track title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/artist_text_view"
-        android:layout_marginBottom="30dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/song_title_text" />
-
-    <com.ellomix.android.ellomix.Actor
-        android:id="@+id/message_text_view"
-        android:text="thingy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/song_title_text_view"
-        android:textColor="@color/colorWhite"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -91,9 +78,8 @@
         android:background="@drawable/comment" />
 
     <Space
-        android:layout_width="15px"
+        android:layout_width="10dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/artist_text_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/space_left" />
@@ -103,30 +89,73 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/favorite"
         android:id="@+id/like"
+        android:layout_below="@id/track_artwork_image_view"
+        android:layout_marginTop="15dp"
         android:background="@drawable/favorite"
-        android:layout_alignBottom="@+id/artist_text_view"
-        android:layout_toRightOf="@+id/space_left"
-        android:layout_toEndOf="@+id/space_left" />
+        android:layout_toRightOf="@id/space_left"
+        android:layout_toEndOf="@id/space_left" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/repost"
         android:id="@+id/repost"
-        android:layout_alignTop="@+id/comment"
-        android:layout_toRightOf="@+id/comment"
-        android:layout_toEndOf="@+id/comment"
+        android:layout_alignTop="@id/comment"
+        android:layout_toRightOf="@id/comment"
+        android:layout_toEndOf="@id/comment"
         android:background="@drawable/repost" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/share"
-        android:layout_toRightOf="@+id/repost"
-        android:layout_toEndOf="@+id/repost"
+        android:layout_toRightOf="@id/repost"
+        android:layout_toEndOf="@id/repost"
         android:id="@+id/share"
         android:background="@drawable/share"
-        android:layout_alignTop="@+id/repost"
-        android:layout_alignBottom="@+id/repost" />
+        android:layout_alignTop="@id/repost"
+        android:layout_alignBottom="@id/repost" />
+
+    <!--<com.ellomix.android.ellomix.Style.Actor-->
+        <!--android:id="@+id/artist_text_view"-->
+        <!--android:text="artist"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/track_artwork_image_view"-->
+        <!--android:layout_alignTop="@id/share"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:layout_marginBottom="5dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:textColor="@color/colorWhite"-->
+        <!--android:textStyle="bold"-->
+        <!--android:textSize="@dimen/artist_name" />-->
+
+    <!--<com.ellomix.android.ellomix.Style.Actor-->
+        <!--android:id="@+id/song_title_text_view"-->
+        <!--android:text="track title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/artist_text_view"-->
+        <!--android:layout_marginBottom="30dp"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:textColor="@color/colorWhite"-->
+        <!--android:textSize="@dimen/song_title_text" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/like_count_text_view"
+        android:text="52 Likes"
+        android:layout_below="@id/like"
+        android:layout_toRightOf="@id/space_left"
+        android:layout_toEndOf="@id/space_left"
+        android:textColor="@color/white"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comment_timeline_list_view"
+        android:layout_below="@id/like_count_text_view"
+        android:layout_toRightOf="@id/space_left"/>
 
 </RelativeLayout>

@@ -1,12 +1,14 @@
 package com.ellomix.android.ellomix.SoundCloudDataModel;
 
+import com.ellomix.android.ellomix.Model.Sources;
+import com.ellomix.android.ellomix.Model.Track;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by alepena01 on 10/27/16.
  */
 
-public class SCTrack {
+public class SCTrack extends Track {
 
     @SerializedName("title")
     private String mTitle;
@@ -29,12 +31,24 @@ public class SCTrack {
     @SerializedName("user")
     private SCUser mSCUser;
 
+    public String getArtist(){
+        return mSCUser.getUserName();
+    }
+
     public String getTitle() {
         return mTitle;
     }
 
+    public void setTitle(String title) {
+        mTitle = title;
+    }
+
     public int getID() {
         return mID;
+    }
+
+    public void setID(int id) {
+        mID = id;
     }
 
     public String getCreatedAt() {
@@ -45,16 +59,19 @@ public class SCTrack {
         return mStreamURL;
     }
 
+    public void setStreamURL(String url) {
+        mStreamURL = url;
+    }
+
     public String getArtworkURL() {
         return mArtworkURL;
+    }
+
+    public void setmArtworkURL(String artworkURL) {
+        mArtworkURL = artworkURL;
     }
 
     public String getTime() {
         return mTime;
     }
-
-    public SCUser getUser() {
-        return mSCUser;
-    }
-
 }
