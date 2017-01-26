@@ -18,14 +18,14 @@ public class Chat {
     public Chat() {
         mId = "";
         mFromRecipient = "From";
-        mMostRecentMessage = "Long Long Time Ago...";
+        mMostRecentMessage = "Start messaging with your friends";
         mGroupMembers = new ArrayList<>();
     }
 
     public Chat(String id) {
         mId = id;
         mFromRecipient = "From";
-        mMostRecentMessage = "Long Long Time Ago...";
+        mMostRecentMessage = "Start messaging with your friends";
         mGroupMembers = new ArrayList<>();
     }
 

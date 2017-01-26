@@ -19,7 +19,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.ellomix.android.ellomix.Messaging.Chat;
 import com.ellomix.android.ellomix.Messaging.Message;
+import com.ellomix.android.ellomix.Model.ChatLab;
 import com.ellomix.android.ellomix.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,6 +103,14 @@ public class ChatFragment extends Fragment {
         mChatId = getArguments().getString(ARG_CHAT_ID);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+//        ChatLab.get(getActivity())
+//                .updateChat(mChat);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -122,11 +132,14 @@ public class ChatFragment extends Fragment {
             }
         }
 
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        //mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+
         mMessageRecyclerView = (RecyclerView) view.findViewById(R.id.message_recycler_view);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        //TODO: UI to show if a chat is empty
 
         // New child entries
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -149,7 +162,7 @@ public class ChatFragment extends Fragment {
             @Override
             protected void populateViewHolder(MessageViewHolder viewHolder,
                                               Message message, int position) {
-                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+                //mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 viewHolder.messageTextView.setText(message.getText());
                 viewHolder.messengerTextView.setText(message.getName());
                 if (message.getPhotoUrl() == null) {

@@ -76,14 +76,26 @@ public class NewMessageActivity extends AppCompatActivity  {
                     Toast.makeText(this, "No members have been added", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    // TODO: Push chat Id into group member chat Id list
                     // Add listener to add chat into other group member chat list
 
                     Chat chat = new Chat();
+
+                    //Need to find out here if its a one-to-one or group chat
+                    int size = mGroupMembersList.size();
+                    if (size == 1) {
+                        chat.setFromRecipient(mGroupMembersList.get(0).getName());
+                    }
+                    else {
+                        //TODO: Let user decide on a group name
+                        //TODO: Else just show first 2 names and then + "how many remaining"
+
+                    }
+
+                    //
                     String chatId = FirebaseService.pushNewChat(chat);
                     chat.setId(chatId);
 
-                    int size = mGroupMembersList.size();
+
                     for (int i = 0; i < size; i++) {
                         User groupMember = mGroupMembersList.get(i);
                         FirebaseService.addChatIdToUser(groupMember, chat);
@@ -94,10 +106,7 @@ public class NewMessageActivity extends AppCompatActivity  {
                     FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
                     FirebaseService.addChatIdToUser(firebaseUser.getUid().toString(), chat);
 
-                    // TODO: Add persistentce of chat ids to the phone
-
                     // start chat activity
-
                     Intent intent = ChatActivity.newIntent(this, chatId);
                     startActivity(intent);
                     finish();
