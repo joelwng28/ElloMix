@@ -1,32 +1,19 @@
 //
-//  LogInViewController.swift
+//  NavigationController.swift
 //  Ellomix
 //
-//  Created by Micah Peoples on 1/30/17.
+//  Created by Micah Peoples on 2/1/17.
 //  Copyright © 2017 micah. All rights reserved.
 //
 
 import UIKit
-import AFNetworking
 
-
-class LogInViewController: UIViewController {
-    @IBOutlet weak var facebookButton: UIButton!
-    @IBOutlet weak var facebookIcon: UIImageView!
-    @IBOutlet weak var logo: UIImageView!
+class NavigationController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0)
-        
-        let facebookIconPath = "facebook_logowhite.png"
-        facebookIcon.image = UIImage(named: facebookIconPath)
-        
-        let ellomixPath = "ellomix.png"
-        logo.image = UIImage(named: ellomixPath)
     }
 
     override func didReceiveMemoryWarning() {

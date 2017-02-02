@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D3F5DF71E42D7D5004AC13C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3F5DF61E42D7D5004AC13C /* NavigationController.swift */; };
 		0D7554E51E42C3FB004D7F61 /* facebook_logowhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7554E41E42C3FB004D7F61 /* facebook_logowhite.png */; };
 		0D7554E71E42C49F004D7F61 /* ellomix.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7554E61E42C49F004D7F61 /* ellomix.png */; };
 		0D7821641E401EC900941828 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7821631E401EC900941828 /* AppDelegate.swift */; };
-		0D7821661E401EC900941828 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7821651E401EC900941828 /* ViewController.swift */; };
 		0D7821691E401EC900941828 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D7821671E401EC900941828 /* Main.storyboard */; };
 		0D78216B1E401EC900941828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D78216A1E401EC900941828 /* Assets.xcassets */; };
 		0D78216E1E401EC900941828 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D78216C1E401EC900941828 /* LaunchScreen.storyboard */; };
@@ -31,11 +31,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D3F5DF61E42D7D5004AC13C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		0D7554E41E42C3FB004D7F61 /* facebook_logowhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_logowhite.png; sourceTree = "<group>"; };
 		0D7554E61E42C49F004D7F61 /* ellomix.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ellomix.png; sourceTree = "<group>"; };
 		0D7821601E401EC900941828 /* Ellomix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ellomix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D7821631E401EC900941828 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0D7821651E401EC900941828 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0D7821681E401EC900941828 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0D78216A1E401EC900941828 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0D78216D1E401EC900941828 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -124,8 +124,8 @@
 		0D7821831E40305100941828 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0D7821651E401EC900941828 /* ViewController.swift */,
 				0D7821841E40313800941828 /* LogInViewController.swift */,
+				0D3F5DF61E42D7D5004AC13C /* NavigationController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -367,8 +367,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D7821661E401EC900941828 /* ViewController.swift in Sources */,
 				0D7821641E401EC900941828 /* AppDelegate.swift in Sources */,
+				0D3F5DF71E42D7D5004AC13C /* NavigationController.swift in Sources */,
 				0D7821851E40313800941828 /* LogInViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
