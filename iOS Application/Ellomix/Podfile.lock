@@ -1,0 +1,38 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - DCKit (1.0.6)
+
+DEPENDENCIES:
+  - AFNetworking
+  - DCKit (from `https://github.com/andrew8712/DCKit.git`)
+
+EXTERNAL SOURCES:
+  DCKit:
+    :git: https://github.com/andrew8712/DCKit.git
+
+CHECKOUT OPTIONS:
+  DCKit:
+    :commit: e663ea20d1d8031e0865479d56e93969b410b323
+    :git: https://github.com/andrew8712/DCKit.git
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  DCKit: ae5de8461680fe62c878cb0474355657b962d488
+
+PODFILE CHECKSUM: cb3f7f7ce143b85a19cb28bd8fcf4492e2bdfdce
+
+COCOAPODS: 1.2.0
