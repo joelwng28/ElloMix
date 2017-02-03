@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.ellomix.android.ellomix.Model.User;
 import com.ellomix.android.ellomix.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -105,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
+                            //TODO: Add new user to the database
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -120,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goMainScreen(){
-        Intent i = new Intent(this, SignedInActivity.class);
+        Intent i = new Intent(this, FriendSearchActivity.class);
         finish();
         startActivity(i);
     }

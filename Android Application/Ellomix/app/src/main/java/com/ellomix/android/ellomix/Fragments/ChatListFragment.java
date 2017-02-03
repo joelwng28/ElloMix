@@ -275,10 +275,10 @@ public class ChatListFragment extends Fragment {
         }
         else {
             Log.d(TAG, "update list");
-            for (int i = 0; i < chats.size(); i++) {
-                Chat temp =  chats.get(i);
-                Log.d(TAG, "chat id: " + temp.getId() + "\nlast message " + temp.getMostRecentMessage());
-            }
+//            for (int i = 0; i < chats.size(); i++) {
+//                Chat temp =  chats.get(i);
+//                Log.d(TAG, "chat id: " + temp.getId() + "\nlast message " + temp.getMostRecentMessage());
+//            }
             mAdapter.setChats(chats);
             mAdapter.notifyDataSetChanged();
         }
