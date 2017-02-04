@@ -37,12 +37,20 @@ public class FirebaseService {
         return mFirebaseAuth.getCurrentUser();
     }
 
-    public static Query getChatsQuery(){
+    public static DatabaseReference getChatsQuery(){
         return mDatabase.child(CHATS);
     }
 
-    public static Query getUsersQuery() {
+    public static DatabaseReference getUsersQuery() {
         return mDatabase.child(USERS);
+    }
+
+    public static DatabaseReference getMainUserFollowingQuery() {
+        return getUsersQuery().child(getFirebaseUser().getUid()).child(USER_FRIEND);
+    }
+
+    public static DatabaseReference getUserQuery(String userId) {
+        return mDatabase.child(USERS).child(userId);
     }
 
     public static void addNewFriend(String userId, User friend) {

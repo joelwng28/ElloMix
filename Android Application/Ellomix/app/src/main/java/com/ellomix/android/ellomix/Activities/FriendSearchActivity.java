@@ -75,7 +75,6 @@ public class FriendSearchActivity extends AppCompatActivity {
                         // for each child of the users
                         for (DataSnapshot friends : dataSnapshot.getChildren()) {
                             User friend = (User) friends.getValue(User.class);
-                            User friend2 = friendLab.getFriend(friend.getId());
                             if (!friend.getId().equals(userId) && friendLab.getFriend(friend.getId()) == null) {
                                 mUserList.add(friend);
                             }
@@ -88,7 +87,6 @@ public class FriendSearchActivity extends AppCompatActivity {
 
                     }
                 });
-        updateUI();
     }
 
     @Override
@@ -112,7 +110,6 @@ public class FriendSearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //TODO: Add proper menu xml
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.add_friends_menu, menu);
 
@@ -121,7 +118,6 @@ public class FriendSearchActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //TODO: Add working code
         switch (item.getItemId()) {
             case R.id.menu_item_add_friends:
                 Iterator it = mFriendSelectedSet.iterator();
@@ -183,7 +179,8 @@ public class FriendSearchActivity extends AppCompatActivity {
         private TextView mNameTextView;
         private CircleImageView mFriendImageView;
         private boolean isSelected;
-        private int mPosition;
+        private int mStartPos;
+        private int mEndPos;
 
         public FriendViewHolder(View v) {
             super(v);
@@ -213,8 +210,8 @@ public class FriendSearchActivity extends AppCompatActivity {
 
             if(!isSelected) {
                 v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
-                mPosition = mFriendsSelectedStringBuffer.length();
-                if (mPosition == 0) {
+                mStartPos = mFriendsSelectedStringBuffer.length();
+                if (mStartPos == 0) {
                     mFriendsSelectedStringBuffer.append(mFriend.getName());
                 }
                 else {
@@ -226,10 +223,19 @@ public class FriendSearchActivity extends AppCompatActivity {
             }
             else {
                 v.setBackgroundColor(Color.TRANSPARENT);
+                mFriendSelectedSet.remove(mFriend);
 
-                if (mPosition == 0) {
-                    //TODO: Remove friend from friendSelectedBuffer
+                int bufferSize = mFriendsSelectedStringBuffer.length();
+                int nameSize = mFriend.getName().length();
+
+                mFriendsSelectedStringBuffer.delete(mStartPos,  mStartPos + nameSize + 2);
+
+                if (mFriendSelectedSet.size() == 0) {
+                    mFriendsSelectedStringBuffer.delete(0, bufferSize);
                 }
+
+                mFriendAddedTextView.setText(mFriendsSelectedStringBuffer.toString());
+
             }
             isSelected = !isSelected;
         }

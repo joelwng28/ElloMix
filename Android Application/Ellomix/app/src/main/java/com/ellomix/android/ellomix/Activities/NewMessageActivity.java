@@ -2,6 +2,7 @@ package com.ellomix.android.ellomix.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Fragments.ChatListFragment;
 import com.ellomix.android.ellomix.Messaging.Chat;
+import com.ellomix.android.ellomix.Model.ChatLab;
 import com.ellomix.android.ellomix.Model.FriendLab;
 import com.ellomix.android.ellomix.Model.User;
 import com.ellomix.android.ellomix.R;
@@ -35,7 +37,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -44,7 +49,7 @@ public class NewMessageActivity extends AppCompatActivity  {
 
     private static final String TAG = "NewMessageActivity";
     private List<User> mFollowingUsers;
-    private List<User> mGroupMembersList;
+    private Set<User> mGroupMembersSet;
     private RecyclerView mFollowingRecyclerView;
     private TextView mGroupMembersTextView;
     private StringBuffer mGroupMembersStrBuffer;
@@ -67,7 +72,7 @@ public class NewMessageActivity extends AppCompatActivity  {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         mDatabase = FirebaseService.getFirebaseDatabase();
         mFollowingUsers = new ArrayList<>();
-        mGroupMembersList = new ArrayList<>();
+        mGroupMembersSet = new HashSet<>();
         mGroupMembersStrBuffer = new StringBuffer();
 
         mGroupMembersTextView = (TextView) findViewById(R.id.group_member_text_view);
@@ -150,33 +155,39 @@ public class NewMessageActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_add_members:
-                if (mGroupMembersList.size() == 0) {
+                if (mGroupMembersSet.size() == 0) {
                     Toast.makeText(this, "No members have been added", Toast.LENGTH_LONG).show();
                 }
                 else {
                     // Add listener to add chat into other group member chat list
                     Chat chat = new Chat();
+                    chat.setFromRecipient(mGroupMembersStrBuffer.toString());
+
 
                     //Need to find out here if its a one-to-one or group chat
-                    int size = mGroupMembersList.size();
-                    if (size == 1) {
-                        chat.setFromRecipient(mGroupMembersList.get(0).getName());
-                    }
-                    else {
-                        //TODO: Let user decide on a group name
-                        //TODO: Else just show first 2 names and then + "how many remaining"
-                    }
+                    int size = mGroupMembersSet.size();
+
+                    //TODO: Let user decide on a group name
+                    //TODO: Else just show first 2 names and then + "how many remaining"
                     String chatId = FirebaseService.pushNewChat(chat);
                     chat.setId(chatId);
+                    ChatLab chatLab = ChatLab.get(this);
+                    chatLab.addChat(chat);
 
-                    for (int i = 0; i < size; i++) {
-                        User groupMember = mGroupMembersList.get(i);
+                    Iterator it = mGroupMembersSet.iterator();
+                    int i = 0;
+                    String recipient;
+
+                    while (it.hasNext()) {
+                        User groupMember = (User) it.next();
                         FirebaseService.addChatIdToUser(groupMember, chat);
                         groupMember.addChat(chatId);
                     }
+
+
                     // chat id to the main user
                     FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
-                    FirebaseService.addChatIdToUser(firebaseUser.getUid().toString(), chat);
+                    FirebaseService.addChatIdToUser(firebaseUser.getUid(), chat);
                     // start chat activity
                     Intent intent = ChatActivity.newIntent(this, chatId);
                     startActivity(intent);
@@ -187,27 +198,6 @@ public class NewMessageActivity extends AppCompatActivity  {
                 return super.onOptionsItemSelected(item);
 
         }
-    }
-
-    // return - true if the user already exist in the list
-    // false otherwise
-    public boolean checkForRepetition(User user, List<User> groupMembers) {
-        if (groupMembers == null || groupMembers.size() == 0 || groupMembers.size() == mFollowingUsers.size()) {
-            //Nothing to check
-            return true;
-        }
-        else if (user == null) {
-            return true;
-        }
-        else {
-            int size = groupMembers.size();
-            for (int i = 0; i < size; i++) {
-                if (groupMembers.get(i).getId().equals(user.getId())) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public void generateModel() {
@@ -254,9 +244,11 @@ public class NewMessageActivity extends AppCompatActivity  {
 
     public class FollowingHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public User mUser;
-        public CircleImageView mFriendImageView;
-        public TextView mFriendNameTextView;
+        private User mUser;
+        private CircleImageView mFriendImageView;
+        private TextView mFriendNameTextView;
+        private boolean isSelected;
+        private int mStartPos;
 
         public FollowingHolder(View itemView) {
             super(itemView);
@@ -282,19 +274,37 @@ public class NewMessageActivity extends AppCompatActivity  {
 
         @Override
         public void onClick(View v) {
-            if (mGroupMembersList.size() == 0) {
-                //Toast.makeText(NewMessageActivity.this, "Friend Added: " + model.getName() + ", id: " + mUser.getId(), Toast.LENGTH_SHORT).show();
-                mGroupMembersList.add(mUser);
-                mGroupMembersStrBuffer.append(mUser.getName());
-                mGroupMembersTextView.setText(mGroupMembersStrBuffer.toString());
-            }
 
-            else if (!checkForRepetition(mUser, mGroupMembersList)) {
-                //Toast.makeText(NewMessageActivity.this, "Friend Added: " + mUser.getName() + ", id: " + mUser.getId(), Toast.LENGTH_SHORT).show();
-                mGroupMembersList.add(mUser);
-                mGroupMembersStrBuffer.append("; " + mUser.getName());
+            if(!isSelected) {
+                v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
+                mStartPos = mGroupMembersStrBuffer.length();
+                if (mStartPos == 0) {
+                    mGroupMembersStrBuffer.append(mUser.getName());
+                }
+                else {
+                    mGroupMembersStrBuffer.append(", " + mUser.getName());
+                }
+
                 mGroupMembersTextView.setText(mGroupMembersStrBuffer.toString());
+                mGroupMembersSet.add(mUser);
             }
+            else {
+                v.setBackgroundColor(Color.TRANSPARENT);
+                mGroupMembersSet.remove(mUser);
+
+                int bufferSize = mGroupMembersStrBuffer.length();
+                int nameSize = mUser.getName().length();
+
+                mGroupMembersStrBuffer.delete(mStartPos,  mStartPos + nameSize + 2);
+
+                if (mGroupMembersSet.size() == 0) {
+                    mGroupMembersStrBuffer.delete(0, bufferSize);
+                }
+
+                mGroupMembersTextView.setText(mGroupMembersStrBuffer.toString());
+
+            }
+            isSelected = !isSelected;
         }
     }
 

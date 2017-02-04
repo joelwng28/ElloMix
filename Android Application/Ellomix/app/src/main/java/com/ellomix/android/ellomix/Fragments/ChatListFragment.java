@@ -151,13 +151,8 @@ public class ChatListFragment extends Fragment {
                        @Override
                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                            String chatId = (String) dataSnapshot.getKey();
-                           //Update id inside child
-                           mDatabase.child("Chats").child(chatId).child("id").setValue(chatId);
-
                            Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
-                           firebaseChat.setId(chatId);
                            Chat chat = chatLab.getChat(firebaseChat.getId());
-
 
                            // if the chat does exist, it means we update it in the database
                            if (chat != null) {
@@ -172,8 +167,6 @@ public class ChatListFragment extends Fragment {
                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                            String chatId = (String) dataSnapshot.getKey();
                            Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
-                           firebaseChat.setId(chatId);
-
                            Chat chat = chatLab.getChat(firebaseChat.getId());
 
                            // if the chat does exist, it means we update it in the database

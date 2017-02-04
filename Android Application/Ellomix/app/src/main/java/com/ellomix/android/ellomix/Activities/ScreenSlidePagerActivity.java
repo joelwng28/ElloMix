@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.Activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,7 +23,6 @@ import com.ellomix.android.ellomix.R;
  */
 
 public class ScreenSlidePagerActivity extends AppCompatActivity {
-
 
     private static final int NUM_PAGES = 2;
 
