@@ -76,7 +76,9 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".Activities.CommentsActivity" />
         <activity android:name=".Activities.NewMessageActivity" />
-        <activity android:name=".Activities.FriendSearchActivity"></activity>
+        <activity android:name=".Activities.FriendSearchActivity" />
+        <activity android:name=".Activities.AddMusicActivity"></activity>
+        <activity android:name=".Activities.GroupPlaylistActivity"></activity>
     </application>
 
 </manifest>

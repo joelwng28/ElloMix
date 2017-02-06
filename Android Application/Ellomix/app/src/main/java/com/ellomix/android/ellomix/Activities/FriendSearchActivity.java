@@ -16,8 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Model.FriendLab;
@@ -28,7 +26,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -65,6 +62,8 @@ public class FriendSearchActivity extends AppCompatActivity {
         friendLab = FriendLab.get(this);
         mFriendsSelectedStringBuffer = new StringBuffer();
         mFriendSelectedSet = new HashSet<>();
+
+        // Add friends to the data base
 
         // New child entries
         mFirebaseDatabaseReference = FirebaseService.getFirebaseDatabase();

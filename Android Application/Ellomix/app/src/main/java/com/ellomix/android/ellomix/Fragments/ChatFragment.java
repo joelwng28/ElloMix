@@ -11,14 +11,21 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.ellomix.android.ellomix.Activities.AddMusicActivity;
+import com.ellomix.android.ellomix.Activities.GroupPlaylistActivity;
+import com.ellomix.android.ellomix.Activities.NewMessageActivity;
 import com.ellomix.android.ellomix.Messaging.Chat;
 import com.ellomix.android.ellomix.Messaging.Message;
 import com.ellomix.android.ellomix.Model.ChatLab;
@@ -88,6 +95,7 @@ public class ChatFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mChatId = getArguments().getString(ARG_CHAT_ID);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -230,6 +238,28 @@ public class ChatFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.chat_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.menu_item_add_music:
+                intent = AddMusicActivity.newIntent(getActivity(), mChatId);
+                startActivity(intent);
+                return true;
+            case R.id.menu_item_play_playlist:
+                intent = GroupPlaylistActivity.newIntent(getActivity(), mChatId);
+                startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     public static class MessageViewHolder extends RecyclerView.ViewHolder {

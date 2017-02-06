@@ -65,6 +65,8 @@ public class ChatListFragment extends Fragment {
             mFirebaseAdapter;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private ChildEventListener chatIdsEventListener;
+    private ChildEventListener chatEventListener;
     private ChatLab chatLab;
 
     public static ChatListFragment newInstance() {
@@ -105,94 +107,101 @@ public class ChatListFragment extends Fragment {
 
         generateGroupChat();
 
+        chatIdsEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                // Add new chat to database
+                String chatId = dataSnapshot.getKey();
+                Chat chat = chatLab.getChat(chatId);
+
+                // if the chat does not exist in the database, add it
+                if (chat == null) {
+                    Log.d(TAG, "adding new chat id");
+                    chat = new Chat(chatId);
+                    chatLab.addChat(chat);
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                // Chat was deleted
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
         // Checks for new chats
         mDatabase.child("Users")
                 .child(mFirebaseUser.getUid())
                 .child("chatIds")
-                .addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        // Add new chat to database
-                        String chatId = (String) dataSnapshot.getValue(String.class);
-                        Chat chat = chatLab.getChat(chatId);
+                .addChildEventListener(chatIdsEventListener);
 
-                        // if the chat does not exist in the database, add it
-                        if (chat == null) {
-                            Log.d(TAG, "adding new chat id");
-                            chat = new Chat(chatId);
-                            chatLab.addChat(chat);
-                        }
+        /*TODO: From recipient can be either one of 3 cases
+        case 1: If no group name, then every else in the group
+        case 2: Else group name
+        */
+        chatEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String chatId = (String) dataSnapshot.getKey();
+                Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
+                Chat chat = chatLab.getChat(firebaseChat.getId());
 
-                    }
+                // if the chat does exist, it means we update it in the database
+                if (chat != null) {
+                    Log.d(TAG, "adding to chat feed");
+                    chatLab.updateChat(firebaseChat);
+                    updateUI();
+                }
 
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    }
+            }
 
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-                        // Chat was deleted
-                    }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                String chatId = (String) dataSnapshot.getKey();
+                Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
+                Chat chat = chatLab.getChat(firebaseChat.getId());
 
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                // if the chat does exist, it means we update it in the database
+                if (chat != null) {
+                    Log.d(TAG, "updating chat feed");
+                    chatLab.updateChat(firebaseChat);
+                    updateUI();
+                }
 
-                    }
+            }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                // Do nothing
+            }
 
-                    }
-                });
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                // Do nothing
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
         // Check for changes in current chats
         mDatabase.child("Chats")
-                .addChildEventListener(new ChildEventListener() {
-                       @Override
-                       public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                           String chatId = (String) dataSnapshot.getKey();
-                           Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
-                           Chat chat = chatLab.getChat(firebaseChat.getId());
-
-                           // if the chat does exist, it means we update it in the database
-                           if (chat != null) {
-                               Log.d(TAG, "adding to chat feed");
-                               chatLab.updateChat(firebaseChat);
-                               updateUI();
-                           }
-
-                       }
-
-                       @Override
-                       public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                           String chatId = (String) dataSnapshot.getKey();
-                           Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
-                           Chat chat = chatLab.getChat(firebaseChat.getId());
-
-                           // if the chat does exist, it means we update it in the database
-                           if (chat != null) {
-                               Log.d(TAG, "updating chat feed");
-                               chatLab.updateChat(firebaseChat);
-                               updateUI();
-                           }
-
-                       }
-
-                       @Override
-                       public void onChildRemoved(DataSnapshot dataSnapshot) {
-                           // Do nothing
-                       }
-
-                       @Override
-                       public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                           // Do nothing
-                       }
-
-                       @Override
-                       public void onCancelled(DatabaseError databaseError) {
-
-                       }
-                });
+                .addChildEventListener(chatEventListener);
 
 //        mFirebaseAdapter = new FirebaseRecyclerAdapter<Chat, ChatHolder>(
 //                Chat.class,
@@ -257,6 +266,17 @@ public class ChatListFragment extends Fragment {
         updateUI();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        mDatabase.child("Users")
+                .child(mFirebaseUser.getUid())
+                .child("chatIds")
+                .removeEventListener(chatIdsEventListener);
+        mDatabase.child("Chats")
+                .removeEventListener(chatEventListener);
+    }
+
     private void updateUI() {
         ChatLab chatLab = ChatLab.get(getActivity());
         List<Chat> chats = chatLab.getChats();
@@ -268,10 +288,6 @@ public class ChatListFragment extends Fragment {
         }
         else {
             Log.d(TAG, "update list");
-//            for (int i = 0; i < chats.size(); i++) {
-//                Chat temp =  chats.get(i);
-//                Log.d(TAG, "chat id: " + temp.getId() + "\nlast message " + temp.getMostRecentMessage());
-//            }
             mAdapter.setChats(chats);
             mAdapter.notifyDataSetChanged();
         }

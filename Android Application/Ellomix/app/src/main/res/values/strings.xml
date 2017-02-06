@@ -25,4 +25,11 @@
     <string name="done">Done</string>
     <string name="add_friend">Add:</string>
     <string name="add">Add</string>
+    <string name="add_music">Add music</string>
+    <string name="group_playlists">Group playlists</string>
+    <string name="search_song">Search song</string>
+    <plurals name="numberOfSongsAdded">
+        <item quantity="one">%d song added.</item>
+        <item quantity="other">%d songs added.</item>
+    </plurals>
 </resources>

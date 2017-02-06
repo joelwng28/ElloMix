@@ -100,17 +100,20 @@ public class LoginActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
@@ -120,6 +123,32 @@ public class LoginActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
+                            FirebaseService.getUserQuery(firebaseUser.getUid()).addListenerForSingleValueEvent(
+                                    new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            User currentUser = (User) dataSnapshot.getValue(User.class);
+                                            // If first time user then add to firebase user database
+                                            if (currentUser == null) {
+                                                FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
+                                                User user = new User(firebaseUser.getUid(),
+                                                        firebaseUser.getDisplayName(),
+                                                        firebaseUser.getPhotoUrl().toString());
+                                                FirebaseService.pushNewUser(user);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    }
+                            );
+
+
                         }
                     }
                 });
@@ -131,51 +160,45 @@ public class LoginActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences(PREFS, 0);
         boolean isFirstTime = preferences.getBoolean(FIRST_TIME, true);
 
-        FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
-        User user = new User(firebaseUser.getUid()
-                , firebaseUser.getDisplayName()
-                , firebaseUser.getPhotoUrl().toString());
-        FirebaseService.pushNewUser(user);
-
-        if (isFirstTime) {
-            //Download friends from firebase
-            FirebaseService.getMainUserFollowingQuery().addValueEventListener(
-                    new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-
-                        // Get the userId and with that search for the user in firebase
-                        String friendId = child.getKey();
-
-                        FirebaseService.getUserQuery(friendId).addValueEventListener(
-                                new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                User friend = (User) dataSnapshot.getValue(User.class);
-                                if (friend != null) {
-                                    FriendLab friendLab = FriendLab.get(getApplicationContext());
-                                    friendLab.addFriend(friend);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
-
-
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        }
+//        if (isFirstTime) {
+//            //Download friends from firebase
+//            FirebaseService.getMainUserFollowingQuery().addValueEventListener(
+//                    new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+//
+//                        // Get the userId and with that search for the user in firebase
+//                        String friendId = child.getKey();
+//
+//                        FirebaseService.getUserQuery(friendId).addValueEventListener(
+//                                new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                User friend = (User) dataSnapshot.getValue(User.class);
+//                                if (friend != null) {
+//                                    FriendLab friendLab = FriendLab.get(getApplicationContext());
+//                                    friendLab.addFriend(friend);
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//
+//                            }
+//                        });
+//
+//
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//        }
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(FIRST_TIME, false);

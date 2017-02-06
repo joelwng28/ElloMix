@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_vertical_margin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/track_image"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/image_padding"
+        android:layout_width="48dp"
+        android:layout_height="48dp"/>
+    <TextView
+        android:layout_centerVertical="true"
+        android:id="@+id/track_title"
+        android:textColor="@color/dark_blue"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+</RelativeLayout>

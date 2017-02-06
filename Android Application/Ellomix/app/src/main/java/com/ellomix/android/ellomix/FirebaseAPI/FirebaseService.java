@@ -1,6 +1,7 @@
 package com.ellomix.android.ellomix.FirebaseAPI;
 
 import com.ellomix.android.ellomix.Messaging.Chat;
+import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,6 +19,7 @@ public class FirebaseService {
     private static final String USERS = "Users";
     private static final String USER_CHAT = "chatIds";
     private static final String USER_FRIEND = "followingIds";
+    private static final String CHAT_GROUP_PLAYLIST = "groupPlaylist";
     private Query chatsQuery;
     private Query usersQuery;
 
@@ -45,16 +47,16 @@ public class FirebaseService {
         return mDatabase.child(USERS);
     }
 
+    public static DatabaseReference getChatPlaylistQuery(String chatId) {
+        return mDatabase.child(CHATS).child(chatId).child(CHAT_GROUP_PLAYLIST);
+    }
+
     public static DatabaseReference getMainUserFollowingQuery() {
         return getUsersQuery().child(getFirebaseUser().getUid()).child(USER_FRIEND);
     }
 
     public static DatabaseReference getUserQuery(String userId) {
         return mDatabase.child(USERS).child(userId);
-    }
-
-    public static void addNewFriend(String userId, User friend) {
-        mDatabase.child(USERS).child(userId).child(USER_FRIEND).child(friend.getId()).setValue(friend.getId());
     }
 
     // Assume user has already set the user id
@@ -64,6 +66,19 @@ public class FirebaseService {
         }
 
         mDatabase.child(USERS).child(user.getId()).setValue(user);
+    }
+
+    public static void addNewFriend(String userId, User friend) {
+        mDatabase.child(USERS).child(userId).child(USER_FRIEND).child(friend.getId()).setValue(friend.getId());
+    }
+
+    // Assume chat id not already set
+    public static String pushNewChat(Chat chat) {
+
+        String key = mDatabase.child(CHATS).push().getKey();
+        chat.setId(key);
+        mDatabase.child(CHATS).child(key).setValue(chat);
+        return key;
     }
 
     // just need the User id present
@@ -80,13 +95,9 @@ public class FirebaseService {
         mDatabase.child(USERS).child(userId).child(USER_CHAT).child(chat.getId()).setValue(chat.getId());
     }
 
-    // Assume chat id not already set
-    public static String pushNewChat(Chat chat) {
-
-        String key = mDatabase.child(CHATS).push().getKey();
-        chat.setId(key);
-        mDatabase.child(CHATS).child(key).setValue(chat);
-        return key;
+    // Add music to group playlist
+    public static void addMusic(String chatId, Track track) {
+        getChatsQuery().child(chatId).child(CHAT_GROUP_PLAYLIST).push().setValue(track);
     }
 
 }
