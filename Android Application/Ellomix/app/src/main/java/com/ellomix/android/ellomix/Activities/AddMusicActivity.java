@@ -84,10 +84,12 @@ public class AddMusicActivity extends AppCompatActivity {
                     public boolean onQueryTextSubmit(String query) {
                         SCService scService = SoundCloud.getService();
 
+                        //TODO: sanitize display and input ex<script><dghdfgkjhdf></scrpt>
                         scService.searchFor(query).enqueue(new Callback<List<SCTrack>>() {
                             @Override
                             public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
                                 if (response.isSuccess()) {
+                                    //TODO: sanitize display and input ex<script><dghdfgkjhdf></scrpt>
                                     List<SCTrack> tracks = response.body();
                                     mTrackList = new ArrayList<Track>(tracks);
                                     updateUI();
