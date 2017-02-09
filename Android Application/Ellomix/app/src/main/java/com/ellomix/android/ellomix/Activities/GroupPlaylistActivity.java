@@ -1,8 +1,12 @@
 package com.ellomix.android.ellomix.Activities;
 
+import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,16 +19,20 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
+import com.ellomix.android.ellomix.Model.MusicController;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
+import com.ellomix.android.ellomix.Services.MusicService;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.ellomix.android.ellomix.Services.MusicService.MusicBinder;
+import android.widget.MediaController.MediaPlayerControl;
 
-public class GroupPlaylistActivity extends AppCompatActivity {
+public class GroupPlaylistActivity extends AppCompatActivity implements MediaPlayerControl {
 
     private static final String TAG = "GroupPlaylistActivity";
     private static final String EXTRA_CHATID = "chatId";
@@ -33,6 +41,11 @@ public class GroupPlaylistActivity extends AppCompatActivity {
     private PlaylistAdapter mAdapter;
     private List<Track> mGroupPlaylist;
     private String mChatId;
+    private Intent playIntent;
+    private MusicService musicService;
+    private boolean musicBound = false;
+    private MusicController controller;
+    private boolean paused=false, playbackPaused=false;
 
     //Firebase instance variable
     ChildEventListener playlistEventListener;
@@ -47,6 +60,12 @@ public class GroupPlaylistActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_playlist);
+
+        if (playIntent == null) {
+            playIntent = new Intent(this, MusicService.class);
+            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+            startService(playIntent);
+        }
 
         mGroupPlaylistRecyclerView = (RecyclerView)
                 findViewById(R.id.group_playlist_recycler_view);
@@ -89,15 +108,95 @@ public class GroupPlaylistActivity extends AppCompatActivity {
         FirebaseService
                 .getChatPlaylistQuery(mChatId)
                 .addChildEventListener(playlistEventListener);
+
+        setController();
+
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (paused) {
+            setController();
+            paused = false;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        paused = true;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        controller.hide();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(playIntent);
         FirebaseService
                 .getChatPlaylistQuery(mChatId)
                 .removeEventListener(playlistEventListener);
+        musicService = null;
     }
+
+    private void setController() {
+        if (controller == null) {
+            controller = new MusicController(this);
+        }
+        controller.setPrevNextListeners(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playNext();
+            }
+        }, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playPrev();
+            }
+        });
+        controller.setMediaPlayer(this);
+        controller.setAnchorView(findViewById(R.id.activity_group_playlist));
+        controller.setEnabled(true);
+    }
+
+    //connect to the service
+    private ServiceConnection musicConnection = new ServiceConnection(){
+
+        @Override
+        public void onServiceConnected (ComponentName name, IBinder service) {
+            MusicBinder binder = (MusicBinder) service;
+            //get service
+            musicService = binder.getService();
+            //pass list
+            musicService.setList(mGroupPlaylist);
+            musicBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            musicBound = false;
+        }
+    };
 
     public void updateUI() {
         if (mAdapter == null) {
@@ -106,8 +205,94 @@ public class GroupPlaylistActivity extends AppCompatActivity {
         }
         else {
             mAdapter.setTracks(mGroupPlaylist);
+            if (musicService != null) {
+                musicService.setList(mGroupPlaylist);
+            }
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void playNext() {
+        musicService.playNext();
+        if(playbackPaused){
+            setController();
+            playbackPaused=false;
+        }
+        controller.show(0);
+    }
+
+    private void playPrev() {
+        musicService.playPrev();
+        if(playbackPaused){
+            setController();
+            playbackPaused=false;
+        }
+        controller.show(0);
+    }
+
+    @Override
+    public void start() {
+        musicService.go();
+    }
+
+    @Override
+    public void pause() {
+        playbackPaused = true;
+        musicService.pausePlayer();
+    }
+
+    @Override
+    public int getDuration() {
+        if(musicService != null && musicBound && musicService.isPng()){
+            return musicService.getDur();
+        }
+        else return 0;
+    }
+
+    @Override
+    public int getCurrentPosition() {
+        if (musicService != null && musicBound && musicService.isPng()){
+            return musicService.getPosn();
+        }
+        else return 0;
+    }
+
+    @Override
+    public void seekTo(int pos) {
+        musicService.seek(pos);
+    }
+
+    @Override
+    public boolean isPlaying() {
+        if(musicService != null && musicBound) {
+            return musicService.isPng();
+        }
+        return false;
+    }
+
+    @Override
+    public int getBufferPercentage() {
+        return 0;
+    }
+
+    @Override
+    public boolean canPause() {
+        return true;
+    }
+
+    @Override
+    public boolean canSeekBackward() {
+        return true;
+    }
+
+    @Override
+    public boolean canSeekForward() {
+        return true;
+    }
+
+    @Override
+    public int getAudioSessionId() {
+        return 0;
     }
 
     private class PlaylistViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -115,12 +300,17 @@ public class GroupPlaylistActivity extends AppCompatActivity {
         private ImageView mTrackImageView;
         private TextView mTrackTitleTextView;
         private Track mTrack;
+        private int mPosition;
 
         public PlaylistViewHolder(View view) {
             super(view);
             mTrackImageView = (ImageView) view.findViewById(R.id.track_image);
             mTrackTitleTextView = (TextView) view.findViewById(R.id.track_title);
             view.setOnClickListener(this);
+        }
+
+        public void setPosition(int position) {
+            mPosition = position;
         }
 
         public void bindTrack(Track track) {
@@ -135,7 +325,12 @@ public class GroupPlaylistActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-
+            musicService.playSong(mPosition);
+            if(playbackPaused){
+                setController();
+                playbackPaused=false;
+            }
+            controller.show(0);
         }
     }
 
@@ -158,6 +353,7 @@ public class GroupPlaylistActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(PlaylistViewHolder holder, int position) {
+            holder.setPosition(position);
             holder.bindTrack(mTracks.get(position));
         }
 

@@ -394,7 +394,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="5caad67abce06ef703ee19e9a80f57d3cf91f933">
+        sha1="97e7636e892a687c8e4dca192181c2595defe3e8">
         <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_e32008e5b48d51499c631a7e30e6f2a60e402952\classes.dex" />
     </item>
     <item
@@ -430,7 +430,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="8bfbe7519cba05a212befa9920e2a65aa234b073">
+        sha1="2f0271a4e1ed5932214bc90ffeca8dff28bf932b">
         <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_b819920f26690554e9ad0705762c037edd58ecf3\classes.dex" />
     </item>
 

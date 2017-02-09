@@ -29,6 +29,8 @@
 
         <service android:name=".SoundCloudAPI.SCMusicService" />
 
+        <service android:name=".Services.MusicService" />
+
         <activity
             android:name=".Activities.SignedInActivity"
             android:screenOrientation="portrait" />
