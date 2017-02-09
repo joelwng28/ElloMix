@@ -23,7 +23,7 @@
             android:id="@+id/space_left"
             android:layout_centerVertical="true"/>
 
-        <TextView
+        <com.ellomix.android.ellomix.Style.Actor
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/to_text_view"
@@ -32,6 +32,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/space_left"
             android:layout_toEndOf="@id/space_left"
+            android:textSize="14sp"
             />
 
         <TextView

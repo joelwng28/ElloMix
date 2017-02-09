@@ -21,11 +21,14 @@
         android:layout_toEndOf="@id/receipt_image_view"
         android:layout_centerVertical="true">
 
-        <TextView
+
+        <com.ellomix.android.ellomix.Style.Actor
             android:id="@+id/from_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="From recipient"/>
+            android:hint="From recipient"
+            android:textSize="14sp"
+            />
 
         <Space
             android:layout_width="wrap_content"
@@ -33,12 +36,14 @@
             android:layout_below="@id/from_text_view"
             android:id="@+id/space_between" />
 
-        <TextView
+        <com.ellomix.android.ellomix.Style.Actor
             android:id="@+id/recent_message_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/space_between"
-            android:hint="Last message received"/>
+            android:hint="Last message received"
+            android:textSize="14sp"
+            />
 
     </RelativeLayout>
 
