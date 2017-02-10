@@ -206,7 +206,7 @@ public class MusicService extends Service implements
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
-        mServiceController.show();
+        mServiceController.show(5*1000);
     }
 
     public class MusicBinder extends Binder {

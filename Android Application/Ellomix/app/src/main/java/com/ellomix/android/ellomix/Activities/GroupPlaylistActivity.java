@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ellomix.android.ellomix.Services.MusicService.MusicBinder;
 import android.widget.MediaController.MediaPlayerControl;
+import android.widget.Toast;
 
 public class GroupPlaylistActivity extends AppCompatActivity implements MediaPlayerControl {
 
@@ -117,7 +119,26 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
             startService(playIntent);
         }
     }
-    
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(this, "onBackPressed", Toast.LENGTH_SHORT).show();
+        //moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop");
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -130,7 +151,7 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
 
     private void setController() {
         if (mController == null) {
-            mController = new MusicController(this);
+            mController = new MusicController(this, false);
         }
         mController.setMediaPlayer(this);
         mController.setAnchorView(findViewById(R.id.layout_group_playlist));

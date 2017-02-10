@@ -13,7 +13,8 @@ public class MusicController extends MediaController {
         super(context);
     }
 
-    public void hide() {
-
+    public MusicController(Context context, boolean useFastForward) {
+        super(context, useFastForward);
     }
+
 }
