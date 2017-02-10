@@ -22,8 +22,10 @@ import java.util.concurrent.TimeUnit;
 
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.view.View;
 import android.widget.Toast;
 
+import com.ellomix.android.ellomix.Model.MusicController;
 import com.ellomix.android.ellomix.Model.Track;
 
 
@@ -41,6 +43,7 @@ public class MusicService extends Service implements
     private final static String TAG = "MusicService";
     private boolean shuffle = false;
     private Random rand;
+    MusicController mServiceController;
     private AudioManager audioManager;
     private AudioManager.OnAudioFocusChangeListener afChangeListener;
 
@@ -130,6 +133,24 @@ public class MusicService extends Service implements
         mPlayer.setOnErrorListener(this);
     }
 
+    public void setController(MusicController mc) {
+        mServiceController = mc;
+        mServiceController.setPrevNextListeners(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        playNext();
+                    }
+                },
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        playPrev();
+                    }
+                }
+        );
+    }
+
     public void setShuffle() {
         shuffle = !shuffle;
     }
@@ -185,6 +206,7 @@ public class MusicService extends Service implements
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
+        mServiceController.show();
     }
 
     public class MusicBinder extends Binder {
@@ -219,7 +241,7 @@ public class MusicService extends Service implements
 
     public void playPrev() {
         mSongPosn--;
-        if (mSongPosn == 0) {
+        if (mSongPosn < 0) {
             mSongPosn = mSongs.size() - 1;
         }
         playSong();
@@ -235,7 +257,7 @@ public class MusicService extends Service implements
 //            mSongPosn = newSong;
 //        }
         mSongPosn++;
-        if (mSongPosn == mSongs.size()) {
+        if (mSongPosn >= mSongs.size()) {
             mSongPosn = 0;
         }
 

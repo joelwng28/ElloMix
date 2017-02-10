@@ -1,11 +1,9 @@
 package com.ellomix.android.ellomix.Activities;
 
-import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,8 +42,7 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
     private Intent playIntent;
     private MusicService musicService;
     private boolean musicBound = false;
-    private MusicController controller;
-    private boolean paused=false, playbackPaused=false;
+    private MusicController mController;
 
     //Firebase instance variable
     ChildEventListener playlistEventListener;
@@ -60,12 +57,6 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_playlist);
-
-        if (playIntent == null) {
-            playIntent = new Intent(this, MusicService.class);
-            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
-            startService(playIntent);
-        }
 
         mGroupPlaylistRecyclerView = (RecyclerView)
                 findViewById(R.id.group_playlist_recycler_view);
@@ -108,19 +99,8 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         FirebaseService
                 .getChatPlaylistQuery(mChatId)
                 .addChildEventListener(playlistEventListener);
-
         setController();
 
-    }
-
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override
@@ -131,24 +111,13 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
     @Override
     protected void onResume() {
         super.onResume();
-        if (paused) {
-            setController();
-            paused = false;
+        if (playIntent == null) {
+            playIntent = new Intent(this, MusicService.class);
+            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+            startService(playIntent);
         }
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        paused = true;
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        controller.hide();
-    }
-
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -160,23 +129,12 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
     }
 
     private void setController() {
-        if (controller == null) {
-            controller = new MusicController(this);
+        if (mController == null) {
+            mController = new MusicController(this);
         }
-        controller.setPrevNextListeners(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playNext();
-            }
-        }, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playPrev();
-            }
-        });
-        controller.setMediaPlayer(this);
-        controller.setAnchorView(findViewById(R.id.activity_group_playlist));
-        controller.setEnabled(true);
+        mController.setMediaPlayer(this);
+        mController.setAnchorView(findViewById(R.id.layout_group_playlist));
+        mController.setEnabled(true);
     }
 
     //connect to the service
@@ -189,6 +147,7 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
             musicService = binder.getService();
             //pass list
             musicService.setList(mGroupPlaylist);
+            musicService.setController(mController);
             musicBound = true;
         }
 
@@ -212,24 +171,6 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         }
     }
 
-    private void playNext() {
-        musicService.playNext();
-        if(playbackPaused){
-            setController();
-            playbackPaused=false;
-        }
-        controller.show(0);
-    }
-
-    private void playPrev() {
-        musicService.playPrev();
-        if(playbackPaused){
-            setController();
-            playbackPaused=false;
-        }
-        controller.show(0);
-    }
-
     @Override
     public void start() {
         musicService.go();
@@ -237,7 +178,6 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
 
     @Override
     public void pause() {
-        playbackPaused = true;
         musicService.pausePlayer();
     }
 
@@ -326,11 +266,6 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         @Override
         public void onClick(View v) {
             musicService.playSong(mPosition);
-            if(playbackPaused){
-                setController();
-                playbackPaused=false;
-            }
-            controller.show(0);
         }
     }
 
@@ -346,7 +281,6 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         public PlaylistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
             View view = inflater.inflate(R.layout.track_list_item, parent, false);
-
 
             return new PlaylistViewHolder(view);
         }

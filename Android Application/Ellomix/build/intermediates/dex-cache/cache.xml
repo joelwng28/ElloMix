@@ -57,6 +57,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\libs\google-http-client-android-1.22.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="676b43815230fdc699e745ce605df340edb2992e">
+        <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\2\google-http-client-android-1.22.0_4608cc1fd107a38d4fcd42c51872377d02310b30\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\exploded-aar\com.google.firebase\firebase-database-connection\10.0.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -129,12 +138,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\libs\google-oauth-client-1.22.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="996cf55e05a6179a16fb13203b7771c87342bac5">
+        <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\2\google-oauth-client-1.22.0_610742439610ac61b08584282724f97237904b3d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
         sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
         <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_2b4edf7c3ba16688deb54ab9d9e763090c053586\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\libs\gson-2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="2e66da15851f9f5b5079228f856c2f090ba98c38">
+        <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\2\gson-2.1_3ecd2c527fe98d2a2f5fa16f3f4faa1e669abc36\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -192,12 +219,30 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\libs\YouTubeAndroidPlayerApi.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="3c4f96ff493456651cc7bdb0b47e10eb25545a16">
+        <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\2\YouTubeAndroidPlayerApi_aa3d39b4abccc2bbd875b6e4e5c69167e2dd11ae\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\exploded-aar\com.spotify.sdk\spotify-android-auth-1.0.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
         sha1="0e7c2daeb5c4e8a4b0874bd62367979bb1c0c82a">
         <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10\exploded-aar-com.spotify.sdk-spotify-android-auth-1.0.0_7aa50cdbb40f244940e4d5a6323291fe2aef5a08\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\libs\google-api-client-android-1.22.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="ec45ce6d2af4b1c5ec9977e2648f6a85e0b3d70c">
+        <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\2\google-api-client-android-1.22.0_896d0693733a21cfe375b2f0b51c9c54160257f3\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -327,6 +372,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\libs\google-http-client-1.22.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="3451dc7c3e18faaaa38821311e4d01336872700e">
+        <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\2\google-http-client-1.22.0_8f78a56063f96711bf2ac3ac58aba6585c2034b6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -390,11 +444,20 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\libs\jsr305-1.3.9.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf">
+        <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\2\jsr305-1.3.9_c18b37338d379412af14e569bc51211595e65dbe\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="97e7636e892a687c8e4dca192181c2595defe3e8">
+        sha1="aace2a22cbf862fcd15f5be18987779e58724247">
         <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_e32008e5b48d51499c631a7e30e6f2a60e402952\classes.dex" />
     </item>
     <item
@@ -430,7 +493,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="2f0271a4e1ed5932214bc90ffeca8dff28bf932b">
+        sha1="081fd745777848067105a88efead7d403267fe86">
         <dex dex="C:\Users\ath-ajt2437\Documents\Macbook pro\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_b819920f26690554e9ad0705762c037edd58ecf3\classes.dex" />
     </item>
 
