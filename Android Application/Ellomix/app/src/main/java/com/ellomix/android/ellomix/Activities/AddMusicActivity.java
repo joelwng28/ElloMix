@@ -1,11 +1,9 @@
 package com.ellomix.android.ellomix.Activities;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +26,7 @@ import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
 import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
 import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
+import com.ellomix.android.ellomix.YoutubeAPI.YTPlayerActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -76,20 +75,44 @@ public class AddMusicActivity extends AppCompatActivity {
         inflater.inflate(R.menu.add_music_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
-        final SearchView searchView = (SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        //searchView.setQueryHint("Search...");
+        int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        View searchPlate = searchView.findViewById(searchPlateId);
+        if (searchPlate != null) {
+            searchPlate.setBackgroundColor(Color.DKGRAY);
+            int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
+            if (searchText!=null) {
+                searchText.setTextColor(Color.WHITE);
+                searchText.setHintTextColor(Color.WHITE);
+            }
+        }
 
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
+
+                        //TODO: Implement youtube
+//                        youtubeSearchAPI.AsyncResponse asyncResponse =
+//                                new youtubeSearchAPI.AsyncResponse() {
+//                                    @Override
+//                                    public void processFinish(List<Track> outputResult) {
+//                                        mTrackList = outputResult;
+//                                        updateUI();
+//                                    }
+//                                };
+//
+//                        new youtubeSearchAPI(asyncResponse, query);
                         SCService scService = SoundCloud.getService();
 
-                        //TODO: sanitize display and input ex<script><dghdfgkjhdf></scrpt>
+                        //TODO: sanitize input ex<script><dghdfgkjhdf></scrpt>
                         scService.searchFor(query).enqueue(new Callback<List<SCTrack>>() {
                             @Override
                             public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
                                 if (response.isSuccess()) {
-                                    //TODO: sanitize display and input ex<script><dghdfgkjhdf></scrpt>
+                                    //TODO: sanitize display ex<script><dghdfgkjhdf></scrpt>
                                     List<SCTrack> tracks = response.body();
                                     mTrackList = new ArrayList<Track>(tracks);
                                     updateUI();
@@ -132,7 +155,7 @@ public class AddMusicActivity extends AppCompatActivity {
                 }
                 Resources res = getResources();
                 int count = mTracksSelected.size();
-                String songsAdded = res.getQuantityString(R.plurals.numberOfSongsAdded, count);
+                String songsAdded = res.getQuantityString(R.plurals.numberOfSongsAdded, count, count);
                 Toast.makeText(this, songsAdded, Toast.LENGTH_SHORT).show();
                 Intent intent = GroupPlaylistActivity.newIntent(this, mChatId);
                 finish();
@@ -190,7 +213,12 @@ public class AddMusicActivity extends AppCompatActivity {
                 mTracksSelected.remove(mTrack);
             }
             isSelected = !isSelected;
+
+//            Intent i = YTPlayerActivity.newIntent(AddMusicActivity.this, mTrack.getID());
+//            startActivity(i);
         }
+
+        //TODO: Implement long click listener so you can preview the song
     }
 
     private class SearchResultAdapter extends RecyclerView.Adapter<SearchResultViewHolder> {

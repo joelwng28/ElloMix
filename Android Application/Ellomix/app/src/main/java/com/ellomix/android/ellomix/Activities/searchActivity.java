@@ -6,8 +6,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.api.services.youtube.model.SearchResultSnippet;
+
+import java.util.List;
 
 /**
  * Created by Abhi on 2/4/2017.
@@ -22,11 +26,7 @@ public class searchActivity extends YouTubeBaseActivity implements youtubeSearch
     }
 
     @Override
-    public void processFinish(String output) {
-        Log.i("callback::processFinish", output);
-        //Do shit with the output here
+    public void processFinish(List<Track> outputResult) {
+
     }
-
-
-
 }

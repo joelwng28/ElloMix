@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Model.MusicController;
+import com.ellomix.android.ellomix.Model.MusicLab;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.Services.MusicService;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import com.ellomix.android.ellomix.Services.MusicService.MusicBinder;
 import android.widget.MediaController.MediaPlayerControl;
@@ -45,6 +47,7 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
     private MusicService musicService;
     private boolean musicBound = false;
     private MusicController mController;
+    private MusicLab mMusicLab;
 
     //Firebase instance variable
     ChildEventListener playlistEventListener;
@@ -63,6 +66,27 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         mGroupPlaylistRecyclerView = (RecyclerView)
                 findViewById(R.id.group_playlist_recycler_view);
         mGroupPlaylistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mGroupPlaylistRecyclerView.addOnScrollListener(
+                new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                        if (mController != null) {
+                            mController.show(0);
+                        }
+                    }
+                }
+        );
+        mGroupPlaylistRecyclerView.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (mController != null) {
+                            mController.show(0);
+                        }
+                    }
+                }
+        );
 
         mChatId = getIntent().getStringExtra(EXTRA_CHATID);
 
@@ -142,6 +166,7 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbindService(musicConnection);
         stopService(playIntent);
         FirebaseService
                 .getChatPlaylistQuery(mChatId)
@@ -187,6 +212,7 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
             mAdapter.setTracks(mGroupPlaylist);
             if (musicService != null) {
                 musicService.setList(mGroupPlaylist);
+
             }
             mAdapter.notifyDataSetChanged();
         }
@@ -287,6 +313,15 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         @Override
         public void onClick(View v) {
             musicService.playSong(mPosition);
+            String now = new Date().toString();
+            mTrack.setCreatedAt(now);
+            mMusicLab = MusicLab.get(getApplicationContext());
+            if (mMusicLab.getTrack(mTrack.getID()) == null) {
+                mMusicLab.addTrack(mTrack);
+            }
+            else {
+                mMusicLab.updateTrack(mTrack);
+            }
         }
     }
 

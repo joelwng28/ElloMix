@@ -69,6 +69,7 @@ public class FirebaseService {
     }
 
     public static void addNewFriend(String userId, User friend) {
+        //TODO: Add to current user +1 to his following count and +1 to the "friend"'s follower count
         mDatabase.child(USERS).child(userId).child(USER_FRIEND).child(friend.getId()).setValue(friend.getId());
     }
 

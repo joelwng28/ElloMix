@@ -17,4 +17,9 @@ public class MusicController extends MediaController {
         super(context, useFastForward);
     }
 
+    @Override
+    public void hide() {
+        super.hide();
+        // TODO: make sure view does not disappear
+    }
 }

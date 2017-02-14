@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.ellomix.android.ellomix.Model.MusicController;
 import com.ellomix.android.ellomix.Model.Track;
+import com.ellomix.android.ellomix.SoundCloudAPI.SCMusicService;
 
 
 /**
@@ -46,6 +47,15 @@ public class MusicService extends Service implements
     MusicController mServiceController;
     private AudioManager audioManager;
     private AudioManager.OnAudioFocusChangeListener afChangeListener;
+
+    public static Intent newIntent(Context context, String songUrl, String songTitle) {
+        Log.d(TAG, "SCMusicService Intent");
+        Intent intent = new Intent(context, SCMusicService.class);
+        intent.setAction("PLAY_FROM_APP");
+        intent.putExtra("songUrl", songUrl);
+        intent.putExtra("songTitle", songTitle);
+        return intent;
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -189,6 +199,7 @@ public class MusicService extends Service implements
     public Track getCurrentSong() {
         return mSongs.get(mSongPosn);
     }
+
     @Override
     public void onCompletion(MediaPlayer mp) {
         if (mPlayer.getCurrentPosition() == 0) {
@@ -206,7 +217,7 @@ public class MusicService extends Service implements
     @Override
     public void onPrepared(MediaPlayer mp) {
         mp.start();
-        mServiceController.show(5*1000);
+        mServiceController.show(0);
     }
 
     public class MusicBinder extends Binder {

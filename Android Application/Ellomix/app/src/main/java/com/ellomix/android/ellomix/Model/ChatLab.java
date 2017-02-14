@@ -20,7 +20,6 @@ import java.util.List;
 public class ChatLab {
     private static ChatLab sChatLab;
 
-    private List<Chat> mChats;
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
@@ -35,7 +34,6 @@ public class ChatLab {
         mContext = context.getApplicationContext();
         mDatabase = new ChatBaseHelper(mContext)
                 .getWritableDatabase();
-        mChats = new ArrayList<>();
     }
 
     public List<Chat> getChats() {
@@ -58,13 +56,6 @@ public class ChatLab {
     }
 
     public Chat getChat(String id) {
-//        for (Chat chat : mChats) {
-//            if (chat.getId().equals(id)) {
-//                return chat;
-//            }
-//        }
-//        return null;
-
         ChatCursorWrapper cursor = queryChat(
                 ChatTable.Cols.ID + " = ?",
                 new String[] {id}

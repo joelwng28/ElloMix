@@ -39,6 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton facebookLoginButton;
     private CallbackManager callbackManager;
     private String userId;
+    private SharedPreferences preferences;
+    private boolean isFirstTime = false;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -119,7 +121,6 @@ public class LoginActivity extends AppCompatActivity {
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            //TODO: Add new user to the database
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -157,52 +158,49 @@ public class LoginActivity extends AppCompatActivity {
     // TODO: Fix bug where user has friends and is re-installing app
     private void prepareUser() {
         // Need to check if this is the first time they open the app, if so download all the friends into the phone
-        SharedPreferences preferences = getSharedPreferences(PREFS, 0);
-        boolean isFirstTime = preferences.getBoolean(FIRST_TIME, true);
+        preferences = getSharedPreferences(PREFS, 0);
+        isFirstTime = preferences.getBoolean(FIRST_TIME, true);
 
-//        if (isFirstTime) {
-//            //Download friends from firebase
-//            FirebaseService.getMainUserFollowingQuery().addValueEventListener(
-//                    new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-//
-//                        // Get the userId and with that search for the user in firebase
-//                        String friendId = child.getKey();
-//
-//                        FirebaseService.getUserQuery(friendId).addValueEventListener(
-//                                new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//                                User friend = (User) dataSnapshot.getValue(User.class);
-//                                if (friend != null) {
-//                                    FriendLab friendLab = FriendLab.get(getApplicationContext());
-//                                    friendLab.addFriend(friend);
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(DatabaseError databaseError) {
-//
-//                            }
-//                        });
-//
-//
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
-//        }
+        if (isFirstTime) {
+            //Download friends from firebase
+            FirebaseService.getMainUserFollowingQuery().addValueEventListener(
+                    new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean(FIRST_TIME, false);
-        editor.apply();
+                        // Get the userId and with that search for the user in firebase
+                        String friendId = child.getKey();
+
+                        FirebaseService.getUserQuery(friendId).addValueEventListener(
+                                new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                User friend = (User) dataSnapshot.getValue(User.class);
+                                if (friend != null) {
+                                    FriendLab friendLab = FriendLab.get(getApplicationContext());
+                                    friendLab.addFriend(friend);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
     }
 
     @Override
@@ -212,10 +210,22 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goMainScreen(){
+        Intent i;
         prepareUser();
-        Intent i = new Intent(this, FriendSearchActivity.class);
-        finish();
+        preferences = getSharedPreferences(PREFS, 0);
+        isFirstTime = preferences.getBoolean(FIRST_TIME, true);
+        if (isFirstTime) {
+            i = new Intent(this, FriendSearchActivity.class);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(FIRST_TIME, false);
+            editor.apply();
+        }
+        else {
+            i = new Intent(this, ScreenSlidePagerActivity.class);
+        }
+
         startActivity(i);
+        finish();
     }
 
 }

@@ -28,7 +28,6 @@
             android:screenOrientation="portrait" />
 
         <service android:name=".SoundCloudAPI.SCMusicService" />
-
         <service android:name=".Services.MusicService" />
 
         <activity
@@ -79,8 +78,9 @@
         <activity android:name=".Activities.CommentsActivity" />
         <activity android:name=".Activities.NewMessageActivity" />
         <activity android:name=".Activities.FriendSearchActivity" />
-        <activity android:name=".Activities.AddMusicActivity"></activity>
-        <activity android:name=".Activities.GroupPlaylistActivity"></activity>
+        <activity android:name=".Activities.AddMusicActivity" />
+        <activity android:name=".Activities.GroupPlaylistActivity" />
+        <activity android:name=".YoutubeAPI.YTPlayerActivity"></activity>
     </application>
 
 </manifest>

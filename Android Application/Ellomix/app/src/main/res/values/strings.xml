@@ -28,6 +28,7 @@
     <string name="add_music">Add music</string>
     <string name="group_playlists">Group playlists</string>
     <string name="search_song">Search song</string>
+    <string name="skip">Skip</string>
     <plurals name="numberOfSongsAdded">
         <item quantity="one">%d song added.</item>
         <item quantity="other">%d songs added.</item>

@@ -45,6 +45,7 @@ public class FriendSearchActivity extends AppCompatActivity {
     private FriendAdapter mAdapter;
     private static final String TAG = "FriendSearchActivity";
     private StringBuffer mFriendsSelectedStringBuffer;
+    private boolean mFriendsFlag = false;
 
     //Firebase instance variable
     private DatabaseReference mFirebaseDatabaseReference;
@@ -111,12 +112,13 @@ public class FriendSearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.add_friends_menu, menu);
-
+        menu.findItem(R.id.menu_item_add_friends).setEnabled(mFriendsFlag);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.menu_item_add_friends:
                 Iterator it = mFriendSelectedSet.iterator();
@@ -126,17 +128,20 @@ public class FriendSearchActivity extends AppCompatActivity {
                     friendLab.addFriend(friend);
                     FirebaseService.addNewFriend(userId, friend);
                 }
-
-                Intent intent = new Intent(this, ScreenSlidePagerActivity.class);
-                startActivity(intent);
-                finish();
+            case R.id.menu_item_skip:
+                startApp();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
 
         }
 
+    }
+
+    public void startApp() {
+        Intent intent = new Intent(this, ScreenSlidePagerActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private class FriendAdapter extends RecyclerView.Adapter<FriendViewHolder> {
@@ -206,6 +211,15 @@ public class FriendSearchActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+
+            if (mFriendSelectedSet.size() == 0) {
+                mFriendsFlag = false;
+                invalidateOptionsMenu();
+            }
+            else if (mFriendSelectedSet.size() == 1) {
+                mFriendsFlag = true;
+                invalidateOptionsMenu();
+            }
 
             if(!isSelected) {
                 v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
