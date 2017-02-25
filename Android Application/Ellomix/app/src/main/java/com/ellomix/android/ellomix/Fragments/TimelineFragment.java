@@ -140,7 +140,7 @@ public class TimelineFragment extends Fragment {
 
     private class TimelineHolder extends RecyclerView.ViewHolder {
 
-        TimelinePost mPost;
+        private TimelinePost mPost;
         private CircleImageView mProfileImageView;
         private TextView mUploaderTextView;
         private TextView mLongAgoTextView;

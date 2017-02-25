@@ -26,6 +26,10 @@
             android:name=".Activities.TimelineActivity"
             android:screenOrientation="portrait" />
         <service android:name=".SoundCloudAPI.SCMusicService" />
+
+        <service android:name=".Services.MusicService" />
+
+
         <activity
             android:name=".Activities.SignedInActivity"
             android:screenOrientation="portrait" />
@@ -86,7 +90,13 @@
         <activity android:name=".AddPhotoActivity"></activity>
 
         <activity android:name=".Activities.CommentsActivity" />
+
         <activity android:name=".Activities.NewMessageActivity"></activity>
+        <activity android:name=".Activities.NewMessageActivity" />
+        <activity android:name=".Activities.FriendSearchActivity" />
+        <activity android:name=".Activities.AddMusicActivity" />
+        <activity android:name=".Activities.GroupPlaylistActivity" />
+        <activity android:name=".YoutubeAPI.YTPlayerActivity"></activity>
 
     </application>
 

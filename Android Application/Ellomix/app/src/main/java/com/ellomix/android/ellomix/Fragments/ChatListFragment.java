@@ -24,6 +24,8 @@ import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Messaging.Chat;
 import com.ellomix.android.ellomix.Messaging.Chats;
 import com.ellomix.android.ellomix.Messaging.Message;
+import com.ellomix.android.ellomix.Model.ChatLab;
+import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,7 +57,7 @@ public class ChatListFragment extends Fragment {
     private TextView mGroupRecentMessage;
     private Chats mChats;
     private List<String> mChatIds;
-    //private ChatAdapter mAdapter;
+    private ChatAdapter mAdapter;
 
     // Firebase Instance variable
     private DatabaseReference mDatabase;
@@ -63,6 +65,9 @@ public class ChatListFragment extends Fragment {
             mFirebaseAdapter;
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
+    private ChildEventListener chatIdsEventListener;
+    private ChildEventListener chatEventListener;
+    private ChatLab chatLab;
 
     public static ChatListFragment newInstance() {
         return new ChatListFragment();
@@ -75,46 +80,17 @@ public class ChatListFragment extends Fragment {
         mChats = new Chats();
         mChatIds = new ArrayList<>();
 
+        if (getActivity() == null) {
+            Log.e(TAG, "context is null");
+        }
+        else {
+            chatLab = ChatLab.get(getActivity());
+        }
+
+
         mFirebaseUser = FirebaseService.getFirebaseUser();
         mDatabase = FirebaseService.getFirebaseDatabase();
         setHasOptionsMenu(true);
-
-        mDatabase.child("Users")
-                .child(mFirebaseUser.getUid())
-                .child("chatIds")
-                .addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // A new chat has been added, add it to the displayed list
-                // TODO: Check against phone persistance database and decide if need to be added
-                //mChatIds.add(dataSnapshot.getKey());
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                // Got a new response, update it on the displayed list
-//                Chat chat = dataSnapshot.getValue(Chat.class);
-//                String chatKey = dataSnapshot.getKey();
-//                mChats.updateChat(chatKey, chat);
-//                updateUI();
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                // Chat was deleted
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Nullable
@@ -131,70 +107,191 @@ public class ChatListFragment extends Fragment {
 
         generateGroupChat();
 
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Chat, ChatHolder>(
-                Chat.class,
-                R.layout.chat_feed_item,
-                ChatHolder.class,
-                mDatabase.child(CHATS)) {
+        chatIdsEventListener = new ChildEventListener() {
             @Override
-            protected void populateViewHolder(ChatHolder viewHolder, final Chat model, int position) {
-                //viewHolder.mFromTextView.setText(model.getFromRecipient());
-                //viewHolder.mRecentMessageTextView.setText(model.getMostRecentMessage());
-                viewHolder.bindChat(model);
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //Toast.makeText(getActivity(), "chat Id: " + model.getId(), Toast.LENGTH_SHORT).show();
-                        Intent i = ChatActivity.newIntent(getContext(), model.getId());
-                        startActivity(i);
-                    }
-                });
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                // Add new chat to database
+                String chatId = dataSnapshot.getKey();
+                Chat chat = chatLab.getChat(chatId);
+
+                // if the chat does not exist in the database, add it
+                if (chat == null) {
+                    Log.d(TAG, "adding new chat id");
+                    chat = new Chat(chatId);
+                    chatLab.addChat(chat);
+                }
+
             }
 
             @Override
-            protected Chat parseSnapshot(DataSnapshot snapshot) {
-                Chat chat = super.parseSnapshot(snapshot);
-                if (chat != null) {
-                    chat.setId(snapshot.getKey());
-                }
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
 
-                return chat;
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                // Chat was deleted
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         };
 
-        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                super.onItemRangeInserted(positionStart, itemCount);
-                int chatCount = mFirebaseAdapter.getItemCount();
-                int lastVisiblePosition =
-                        mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-                // If the recycler view is initially being loaded or the
-                // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
-                if (lastVisiblePosition == -1 ||
-                        (positionStart >= (chatCount - 1) &&
-                                lastVisiblePosition == (positionStart - 1))) {
-                    mChatFeedRecyclerView.scrollToPosition(positionStart);
-                }
-            }
-        });
+        // Checks for new chats
+        mDatabase.child("Users")
+                .child(mFirebaseUser.getUid())
+                .child("chatIds")
+                .addChildEventListener(chatIdsEventListener);
 
-        mChatFeedRecyclerView.setAdapter(mFirebaseAdapter);
+        /*TODO: From recipient can be either one of 3 cases
+        case 1: If no group name, then every else in the group
+        case 2: Else group name
+        */
+        chatEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String chatId = (String) dataSnapshot.getKey();
+                Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
+                Chat chat = chatLab.getChat(firebaseChat.getId());
+
+                // if the chat does exist, it means we update it in the database
+                if (chat != null) {
+                    Log.d(TAG, "adding to chat feed");
+                    chatLab.updateChat(firebaseChat);
+                    updateUI();
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                String chatId = (String) dataSnapshot.getKey();
+                Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
+                Chat chat = chatLab.getChat(firebaseChat.getId());
+
+                // if the chat does exist, it means we update it in the database
+                if (chat != null) {
+                    Log.d(TAG, "updating chat feed");
+                    chatLab.updateChat(firebaseChat);
+                    updateUI();
+                }
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                // Do nothing
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                // Do nothing
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        // Check for changes in current chats
+        mDatabase.child("Chats")
+                .addChildEventListener(chatEventListener);
+
+//        mFirebaseAdapter = new FirebaseRecyclerAdapter<Chat, ChatHolder>(
+//                Chat.class,
+//                R.layout.chat_feed_item,
+//                ChatHolder.class,
+//                mDatabase.child(CHATS)) {
+//            @Override
+//            protected void populateViewHolder(ChatHolder viewHolder, final Chat model, int position) {
+//                //viewHolder.mFromTextView.setText(model.getFromRecipient());
+//                //viewHolder.mRecentMessageTextView.setText(model.getMostRecentMessage());
+//                viewHolder.bindChat(model);
+//                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        //Toast.makeText(getActivity(), "chat Id: " + model.getId(), Toast.LENGTH_SHORT).show();
+//                        Intent i = ChatActivity.newIntent(getContext(), model.getId());
+//                        startActivity(i);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            protected Chat parseSnapshot(DataSnapshot snapshot) {
+//                Chat chat = super.parseSnapshot(snapshot);
+//                if (chat != null) {
+//                    chat.setId(snapshot.getKey());
+//                }
+//
+//                return chat;
+//            }
+//        };
+//
+//        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+//            @Override
+//            public void onItemRangeInserted(int positionStart, int itemCount) {
+//                super.onItemRangeInserted(positionStart, itemCount);
+//                int chatCount = mFirebaseAdapter.getItemCount();
+//                int lastVisiblePosition =
+//                        mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
+//                // If the recycler view is initially being loaded or the
+//                // user is at the bottom of the list, scroll to the bottom
+//                // of the list to show the newly added message.
+//                if (lastVisiblePosition == -1 ||
+//                        (positionStart >= (chatCount - 1) &&
+//                                lastVisiblePosition == (positionStart - 1))) {
+//                    mChatFeedRecyclerView.scrollToPosition(positionStart);
+//                }
+//            }
+//        });
+//
+//        mChatFeedRecyclerView.setAdapter(mFirebaseAdapter);
         //generateModel();
 
-        //updateUI();
+        updateUI();
 
         return v;
     }
 
-    public void updateUI() {
-        if (mFirebaseAdapter == null) {
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        mDatabase.child("Users")
+                .child(mFirebaseUser.getUid())
+                .child("chatIds")
+                .removeEventListener(chatIdsEventListener);
+        mDatabase.child("Chats")
+                .removeEventListener(chatEventListener);
+    }
+
+    private void updateUI() {
+        ChatLab chatLab = ChatLab.get(getActivity());
+        List<Chat> chats = chatLab.getChats();
+
+        // Set up adapter
+        if (mAdapter == null) {
+            mAdapter = new ChatAdapter(chats);
+            mChatFeedRecyclerView.setAdapter(mAdapter);
         }
         else {
-            mFirebaseAdapter.notifyDataSetChanged();
+            Log.d(TAG, "update list");
+            mAdapter.setChats(chats);
+            mAdapter.notifyDataSetChanged();
         }
+
     }
 
     @Override
@@ -233,35 +330,30 @@ public class ChatListFragment extends Fragment {
         //updateUI();
     }
 
-//    public void updateUI() {
-//
-//        List<Chat> chats = mChats.getChats();
-//        if (mAdapter == null) {
-//            mAdapter = new ChatAdapter(chats);
-//            mChatFeedRecyclerView.setAdapter(mAdapter);
-//        }
-//        else {
-//            mAdapter.setChats(chats);
-//            mAdapter.notifyDataSetChanged();
-//        }
-//    }
-
-    public static class ChatHolder extends RecyclerView.ViewHolder {
+    public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView mFromTextView;
         public TextView mRecentMessageTextView;
+        private Chat mChat;
 
         public ChatHolder(View view) {
             super(view);
             mFromTextView = (TextView) view.findViewById(R.id.from_text_view);
             mRecentMessageTextView = (TextView) view.findViewById(R.id.recent_message_text_view);
+            view.setOnClickListener(this);
         }
 
         public void bindChat(Chat chat) {
-            mFromTextView.setText(chat.getFromRecipient());
-            mRecentMessageTextView.setText(chat.getMostRecentMessage());
+            mChat = chat;
+            mFromTextView.setText(mChat.getFromRecipient());
+            mRecentMessageTextView.setText(mChat.getMostRecentMessage());
         }
 
+        @Override
+        public void onClick(View v) {
+            Intent i = ChatActivity.newIntent(getActivity(), mChat.getId());
+            startActivity(i);
+        }
     }
 
     private class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {

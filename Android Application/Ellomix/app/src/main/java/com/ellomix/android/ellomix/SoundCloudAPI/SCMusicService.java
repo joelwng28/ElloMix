@@ -1,6 +1,7 @@
 package com.ellomix.android.ellomix.SoundCloudAPI;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.io.IOException;
@@ -16,6 +18,8 @@ import java.io.IOException;
 /**
  * Created by teodor on 11.03.2016.
  */
+
+// TODO: Need to figure how to use this code to create a notification media bar
 public class SCMusicService extends Service implements MediaPlayer.OnPreparedListener,
         MediaPlayer.OnCompletionListener {
 
@@ -66,19 +70,19 @@ public class SCMusicService extends Service implements MediaPlayer.OnPreparedLis
 
 
             }
-            // TODO: need to figure out if this is useful
-//            else if(((String)intent.getAction()).equals("PLAY_FROM_NOTIF") && player != null) {
-//                player.start();
-//            }
-//            else if(((String)intent.getAction()).equals("PAUSE_FROM_NOTIF") && player != null) {
-//                player.pause();
-//            }
-//            else if(intent.getAction().equals("STOP_FROM_NOTIF") && player != null) {
-//                player.stop();
-//                player.release();
-//                player = null;
-//                stopForeground(true);
-//            }
+
+            else if(((String)intent.getAction()).equals("PLAY_FROM_NOTIF") && player != null) {
+                player.start();
+            }
+            else if(((String)intent.getAction()).equals("PAUSE_FROM_NOTIF") && player != null) {
+                player.pause();
+            }
+            else if(intent.getAction().equals("STOP_FROM_NOTIF") && player != null) {
+                player.stop();
+                player.release();
+                player = null;
+                stopForeground(true);
+            }
         } else {
             Log.e(TAG, "INTENT extras null");
         }
@@ -99,7 +103,6 @@ public class SCMusicService extends Service implements MediaPlayer.OnPreparedLis
         stopForeground(true);
     }
 
-    // TODO: Check if this is useful or not
 //    public void showNotification() {
 //        Intent notificationIntent = new Intent(this, SearchActivity.class);
 //        notificationIntent.setAction("SEARCH_ACTIVITY");

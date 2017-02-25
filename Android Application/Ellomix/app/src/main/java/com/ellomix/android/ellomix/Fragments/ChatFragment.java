@@ -11,15 +11,24 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.ellomix.android.ellomix.Activities.AddMusicActivity;
+import com.ellomix.android.ellomix.Activities.GroupPlaylistActivity;
+import com.ellomix.android.ellomix.Activities.NewMessageActivity;
+import com.ellomix.android.ellomix.Messaging.Chat;
 import com.ellomix.android.ellomix.Messaging.Message;
+import com.ellomix.android.ellomix.Model.ChatLab;
 import com.ellomix.android.ellomix.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,19 +72,6 @@ public class ChatFragment extends Fragment {
         return fragment;
     }
 
-    public static class MessageViewHolder extends RecyclerView.ViewHolder {
-        public TextView messageTextView;
-        public TextView messengerTextView;
-        public CircleImageView messengerImageView;
-
-        public MessageViewHolder(View v) {
-            super(v);
-            messageTextView = (TextView) itemView.findViewById(R.id.messageTextView);
-            messengerTextView = (TextView) itemView.findViewById(R.id.messengerTextView);
-            messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
-        }
-    }
-
     public static final String MESSAGES_CHILD = "messages";
     public static final String ANONYMOUS = "anonymous";
     private String mUsername;
@@ -99,6 +95,15 @@ public class ChatFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mChatId = getArguments().getString(ARG_CHAT_ID);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+//        ChatLab.get(getActivity())
+//                .updateChat(mChat);
     }
 
     @Nullable
@@ -122,11 +127,14 @@ public class ChatFragment extends Fragment {
             }
         }
 
-        mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        //mProgressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+
         mMessageRecyclerView = (RecyclerView) view.findViewById(R.id.message_recycler_view);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        //TODO: UI to show if a chat is empty
 
         // New child entries
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
@@ -149,7 +157,7 @@ public class ChatFragment extends Fragment {
             @Override
             protected void populateViewHolder(MessageViewHolder viewHolder,
                                               Message message, int position) {
-                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+                //mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 viewHolder.messageTextView.setText(message.getText());
                 viewHolder.messengerTextView.setText(message.getName());
                 if (message.getPhotoUrl() == null) {
@@ -230,6 +238,41 @@ public class ChatFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.chat_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.menu_item_add_music:
+                intent = AddMusicActivity.newIntent(getActivity(), mChatId);
+                startActivity(intent);
+                return true;
+            case R.id.menu_item_play_playlist:
+                intent = GroupPlaylistActivity.newIntent(getActivity(), mChatId);
+                startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public static class MessageViewHolder extends RecyclerView.ViewHolder {
+        public TextView messageTextView;
+        public TextView messengerTextView;
+        public CircleImageView messengerImageView;
+
+        public MessageViewHolder(View v) {
+            super(v);
+            messageTextView = (TextView) itemView.findViewById(R.id.messageTextView);
+            messengerTextView = (TextView) itemView.findViewById(R.id.messengerTextView);
+            messengerImageView = (CircleImageView) itemView.findViewById(R.id.messengerImageView);
+        }
     }
 
 }

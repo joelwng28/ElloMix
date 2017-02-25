@@ -28,8 +28,6 @@ public class PostLab {
     private static final String TAG = "PostLab";
 
     private List<TimelinePost> mPosts;
-    private List<SCTrack> mListItems = new ArrayList<>();
-
 
     public static PostLab get(Context context) {
         if (sPostLab == null) {

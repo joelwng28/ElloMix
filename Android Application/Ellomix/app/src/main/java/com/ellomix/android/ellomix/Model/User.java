@@ -29,7 +29,7 @@ public class User {
         mFollowingCount = 0;
         mPhotoUrl = "";
         mChatIds = new ArrayList<>();
-        mFollowingIds = new ArrayList<>();;
+        mFollowingIds = new ArrayList<>();
     }
 
     public User(String name, String description, int followers, int following, String photoUrl) {
@@ -40,6 +40,17 @@ public class User {
         mPhotoUrl = photoUrl;
         mChatIds = new ArrayList<>();
         mFollowingIds = new ArrayList<>();;
+    }
+
+    public User(String id, String name, String photoUrl) {
+        mId = id;
+        mName = name;
+        mDescription = "";
+        mFollowersCount = 0;
+        mFollowingCount = 0;
+        mPhotoUrl = photoUrl;
+        mChatIds = new ArrayList<>();
+        mFollowingIds = new ArrayList<>();
     }
 
     public String getId() {

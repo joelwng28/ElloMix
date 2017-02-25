@@ -14,7 +14,7 @@ public class SCTrack extends Track {
     private String mTitle;
 
     @SerializedName("id")
-    private int mID;
+    private String mID;
 
     @SerializedName("created_at")
     private String mCreatedAt;
@@ -43,11 +43,11 @@ public class SCTrack extends Track {
         mTitle = title;
     }
 
-    public int getID() {
+    public String getID() {
         return mID;
     }
 
-    public void setID(int id) {
+    public void setID(String id) {
         mID = id;
     }
 

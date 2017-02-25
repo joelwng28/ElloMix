@@ -1,6 +1,11 @@
 package com.ellomix.android.ellomix.Messaging;
 
+import com.ellomix.android.ellomix.Model.Track;
+import com.ellomix.android.ellomix.Model.User;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -11,29 +16,37 @@ public class Chat {
 
     private String mId;
     private String mFromRecipient;
-    private List<String> mGroupMembers;
+    private HashMap<String, String> mGroupMembers;
     private String mMostRecentMessage;
+    private HashMap<String, Track> mGroupPlaylist;
+    private int currentSongIndex;
     // TODO: add playlist list
 
     public Chat() {
         mId = "";
         mFromRecipient = "From";
-        mMostRecentMessage = "Long Long Time Ago...";
-        mGroupMembers = new ArrayList<>();
+        mMostRecentMessage = "Start messaging with your friends";
+        mGroupMembers = new HashMap<>();
+        mGroupPlaylist = new HashMap<>();
+        currentSongIndex = 0;
     }
 
     public Chat(String id) {
         mId = id;
         mFromRecipient = "From";
-        mMostRecentMessage = "Long Long Time Ago...";
-        mGroupMembers = new ArrayList<>();
+        mMostRecentMessage = "Start messaging with your friends";
+        mGroupMembers = new HashMap<>();
+        mGroupPlaylist = new HashMap<>();
+        currentSongIndex = 0;
     }
 
-    public Chat(String id, List<String> group) {
+    public Chat(String id, HashMap<String, String> group) {
         mId = id;
         mFromRecipient = "From";
         mMostRecentMessage = "Long Long Time Ago...";
         mGroupMembers = group;
+        mGroupPlaylist = new HashMap<>();
+        currentSongIndex = 0;
     }
 
     public String getId() {
@@ -65,13 +78,17 @@ public class Chat {
         return false if it fails to add or is already on group
         else true
      */
-    public boolean addGroupMember(String name) {
-        if (name == null) {
+    public boolean addGroupMember(User user) {
+        if (user == null) {
             return false;
         }
-        mGroupMembers.add(name);
-        //TODO: Need to check for duplicates
-        return true;
+        if (!mGroupMembers.containsKey(user.getId())) {
+            mGroupMembers.put(user.getId(), user.getName());
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     /*
@@ -79,17 +96,21 @@ public class Chat {
         return false if it fails to remove or is not in chat
         else true
      */
-    public boolean removeGroupMember(String name) {
-        if (name == null) {
-            return false;
+    public void removeGroupMember(String userId) {
+        if (userId == null) {
+            return;
         }
+        mGroupMembers.remove(userId);
+    }
 
-        mGroupMembers.remove(name);
-        //TODO: Change when user class is added
-//        for (int i = 0; i < mGroupMembers.size(); i++) {
-//
-//        }
-        return true;
+    public void addMusic(Track track) {
+        String indexString = currentSongIndex + "";
+        mGroupPlaylist.put(indexString, track);
+        currentSongIndex++;
+    }
+
+    public HashMap<String, Track> getGroupPlaylist() {
+        return mGroupPlaylist;
     }
 
 }

@@ -3,11 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.ellomix.android.ellomix.Style.Actor
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timeline_comment_text_view"
         android:text="profile"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
 
 </LinearLayout>
