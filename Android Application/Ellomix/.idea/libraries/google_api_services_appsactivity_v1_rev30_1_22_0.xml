@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="google-api-services-appsactivity-v1-rev30-1.22.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-appsactivity/v1-rev30-1.22.0/cdab4024a969e536e375144776f1347c367808a9/google-api-services-appsactivity-v1-rev30-1.22.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-appsactivity/v1-rev30-1.22.0/be9b9a98423908aa8d5c202b959d801cc249c034/google-api-services-appsactivity-v1-rev30-1.22.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
