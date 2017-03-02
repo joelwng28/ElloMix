@@ -4,11 +4,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:paddingTop="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -43,20 +44,22 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.ellomix.android.ellomix.Style.Actor
                         android:id="@+id/posts_count_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
+                        android:textColor="@color/colorWhite"
                         android:text="0"
                         android:textSize="20sp"/>
 
-                    <TextView
+                    <com.ellomix.android.ellomix.Style.Actor
                         android:id="@+id/posts_titles"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/posts_title"
                         android:textSize="12sp"
+                        android:textColor="@color/colorWhite"
                         android:paddingBottom="5dp"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
@@ -72,21 +75,23 @@
                     android:orientation="vertical"
                     android:weightSum="1">
 
-                    <TextView
+                    <com.ellomix.android.ellomix.Style.Actor
                         android:id="@+id/followers_count_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingBottom="10dp"
+                        android:textColor="@color/colorWhite"
                         android:text="1 K"
                         android:textSize="20sp"/>
 
-                    <TextView
+                    <com.ellomix.android.ellomix.Style.Actor
                         android:id="@+id/followers_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/followers_title"
                         android:textSize="12sp"
                         android:paddingBottom="5dp"
+                        android:textColor="@color/colorWhite"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
                         android:paddingTop="5dp"
@@ -101,20 +106,22 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.ellomix.android.ellomix.Style.Actor
                         android:id="@+id/following_count_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/colorWhite"
                         android:paddingBottom="10dp"
                         android:text="1 K"
                         android:textSize="20sp"/>
 
-                    <TextView
+                    <com.ellomix.android.ellomix.Style.Actor
                         android:id="@+id/following_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/following_title"
                         android:textSize="12sp"
+                        android:textColor="@color/colorWhite"
                         android:paddingBottom="5dp"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
@@ -129,7 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="74dp"
-                android:layout_gravity="center"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:weightSum="1">
 
                 <Button
@@ -146,8 +153,6 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <!--TODO: Add favourite artists-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recent_music_recycler_view"

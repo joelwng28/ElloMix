@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.ellomix.android.ellomix.Activities.FriendSearchActivity">
+    tools:context="com.ellomix.android.ellomix.Activities.FriendSearchActivity"
+    android:background="@color/colorPrimary">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -23,13 +24,15 @@
             android:id="@+id/space_left"
             android:layout_centerVertical="true"/>
 
-        <TextView
+        <com.ellomix.android.ellomix.Style.OpenSansSemibold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add_text_view"
             android:text="@string/add_friend"
             android:maxLines="1"
             android:layout_centerVertical="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
             android:layout_toRightOf="@id/space_left"
             android:layout_toEndOf="@id/space_left"
             />

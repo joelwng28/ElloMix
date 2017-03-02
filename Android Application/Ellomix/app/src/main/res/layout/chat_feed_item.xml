@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentStart="true"
-    android:layout_alignParentLeft="true">
+    android:layout_alignParentLeft="true"
+    android:background="@color/colorPrimary">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/receipt_image_view"
@@ -26,8 +27,9 @@
             android:id="@+id/from_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="From recipient"
-            android:textSize="14sp"
+            android:hint="From sender"
+            android:textSize="17sp"
+            android:textColor="@color/colorWhite"
             />
 
         <Space
@@ -42,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/space_between"
             android:hint="Last message received"
-            android:textSize="14sp"
+            android:textSize="17sp"
+            android:textColor="@color/colorWhite"
             />
 
     </RelativeLayout>
