@@ -67,6 +67,13 @@ public class ProfileFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         mProfilePicImageView = (CircleImageView) v.findViewById(R.id.profile_picture_image_view);
+
+        String photoURL = FirebaseService.getFirebaseUser().getPhotoUrl().toString();
+
+        Glide.with(getActivity())
+                .load(photoURL)
+                .into(mProfilePicImageView);
+
         mNumPostsTextView = (TextView) v.findViewById(R.id.posts_count_text_view);
         mNumFollewerTextView = (TextView) v.findViewById(R.id.followers_count_text_view);
         mNumFollowingTextView = (TextView) v.findViewById(R.id.following_count_text_view);

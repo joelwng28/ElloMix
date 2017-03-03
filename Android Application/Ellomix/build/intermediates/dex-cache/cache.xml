@@ -588,21 +588,21 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Abhi\ellomix_abe\ellomix\Android Application\Ellomix\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.20.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="cb2ef781533c3f11c4e80341cbaebad275c66586">
+        <dex dex="C:\Users\Abhi\ellomix_abe\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.20.0_f5e7966dbbb4d7a2de011fe2d37c81657514ebf5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Abhi\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit\converter-gson\2.0.0-beta2\392c3d09e0f5e7087544093cc0cb23bb9c7af5fa\converter-gson-2.0.0-beta2.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
         sha1="392c3d09e0f5e7087544093cc0cb23bb9c7af5fa">
         <dex dex="C:\Users\Abhi\ellomix_abe\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10\converter-gson-2.0.0-beta2_4a6bd50bfaf73aade82b944a65580fc807c26393\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Abhi\ellomix_abe\ellomix\Android Application\Ellomix\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.19.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="c6047a34af07d6ec4e950ba1dc70ce23ac65ecaa">
-        <dex dex="C:\Users\Abhi\ellomix_abe\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.facebook.android-facebook-android-sdk-4.19.0_a7df5e90746a9981a0ff35056086c0c0ad01182d\classes.dex" />
     </item>
 
 </items>

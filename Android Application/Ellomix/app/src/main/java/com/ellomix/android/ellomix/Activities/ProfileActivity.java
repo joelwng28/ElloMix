@@ -7,6 +7,8 @@ import android.view.View;
 
 import com.ellomix.android.ellomix.Fragments.ProfileFragment;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ProfileActivity extends SingleFragmentActivity {
 
 
