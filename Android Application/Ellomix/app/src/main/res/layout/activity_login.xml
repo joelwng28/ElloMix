@@ -13,91 +13,92 @@ tools:context="com.ellomix.android.ellomix.Activities.LoginActivity"
 android:background="@color/background">
 
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:background="@color/background">
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:background="@color/background"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/or"
-        android:id="@+id/imageView2" />
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp" />
 
-    <EditText
-        android:layout_width="259dp"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:background="@android:color/white"
-        android:paddingBottom="10dp"
-        android:padding="10dp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/or"
+            android:id="@+id/imageView2" />
 
-    <EditText
-        android:layout_width="259dp"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:background="@android:color/white"
-        android:layout_height="50dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="password"
-        tools:text="password"
-        android:contentDescription="password"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:layout_marginTop="10dp" />
+        <EditText
+            android:layout_width="259dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:background="@android:color/white"
+            android:paddingBottom="10dp"
+            android:padding="10dp" />
 
-    <Button
-        android:text="Button"
-        android:layout_width="261dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:background="@drawable/medium_redrectangle"
-        android:layout_marginTop="10dp" />
+        <EditText
+            android:layout_width="259dp"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editText2"
+            android:background="@android:color/white"
+            android:layout_height="50dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="password"
+            tools:text="password"
+            android:contentDescription="password"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="forgot_userinfo"
-        android:ems="10"
-        android:id="@+id/editText3"
-        android:textColor="@color/white"
-        android:paddingBottom="35dp" />
+        <Button
+            android:text="Button"
+            android:layout_width="261dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:background="@drawable/medium_redrectangle"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorWhite"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="sign_up_text"
-        android:ems="10"
-        android:id="@+id/editText4"
-        android:gravity="center_vertical|fill_horizontal"
-        android:textSize="12sp"
-        android:textColor="@android:color/white" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="forgot_userinfo"
+            android:ems="10"
+            android:id="@+id/editText3"
+            android:textColor="@color/white"
+            android:paddingBottom="35dp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:background="@drawable/red_rectangle"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="sign_up_text"
+            android:ems="10"
+            android:id="@+id/editText4"
+            android:gravity="center_vertical|fill_horizontal"
+            android:textSize="12sp"
+            android:textColor="@android:color/white" />
 
-</LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/button3"
+            android:background="@drawable/red_rectangle"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
 
 </RelativeLayout>
