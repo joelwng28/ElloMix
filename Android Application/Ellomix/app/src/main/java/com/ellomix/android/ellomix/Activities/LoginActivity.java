@@ -1,11 +1,15 @@
 package com.ellomix.android.ellomix.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
@@ -30,7 +34,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity
+{
 
     private static final String TAG = "LoginActivity";
     private static final String PREFS = "PrefFile";
@@ -42,13 +47,34 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences preferences;
     private boolean isFirstTime = false;
 
+    //firebase auth stuff
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private Button buttonRegister;
+    private Button buttonSignIn;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        progressDialog = new ProgressDialog(this);
+
+        buttonRegister = (Button) findViewById(R.id.buttonRegister);
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSignUpScreen();
+            }
+        });
+
+        buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
+
+        editTextEmail = (EditText) findViewById(R.id.editTextEmail);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -67,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-        mAuth.addAuthStateListener(mAuthListener);
+       // mAuth.addAuthStateListener(mAuthListener);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -95,15 +121,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+
 
     }
 
@@ -226,5 +251,23 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
+    private void goToSignUpScreen(){
+        Intent i;
+        i = new Intent(this, SignUpActivity.class);
+        startActivity(i);
+        finish();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+        mAuthListener = null;
+
+    }
+
+
+
+
+
+
 
 }
