@@ -52,7 +52,8 @@ import retrofit.Retrofit;
  * Created by abetorres on 11/16/16.
  */
 
-public class TimelineFragment extends Fragment {
+public class
+TimelineFragment extends Fragment {
 
     private static final String TAG = "TimelineFragment";
     private List<SCTrack> mListItems = new ArrayList<>();
