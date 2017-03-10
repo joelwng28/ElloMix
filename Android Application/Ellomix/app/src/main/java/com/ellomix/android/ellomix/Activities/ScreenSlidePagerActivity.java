@@ -20,6 +20,7 @@ import com.ellomix.android.ellomix.Fragments.ChatListFragment;
 import com.ellomix.android.ellomix.Fragments.ProfileFragment;
 import com.ellomix.android.ellomix.Fragments.TimelineFragment;
 import com.ellomix.android.ellomix.R;
+import com.ellomix.android.ellomix.Style.CustomViewPager;
 
 /**
  * Created by abetorres on 12/10/16.
@@ -28,14 +29,13 @@ import com.ellomix.android.ellomix.R;
 public class ScreenSlidePagerActivity extends AppCompatActivity {
 
     private static final int NUM_PAGES = 3;
-    private boolean isPagingEnabled = true;
 
     private CustomViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private int[] imageResId = {
             R.drawable.ic_time_line,
-            R.drawable.ic_chat,
-            R.drawable.ic_profile
+            R.drawable.ic_profile,
+            R.drawable.ic_chat
     };
 
     @Override
@@ -93,32 +93,4 @@ public class ScreenSlidePagerActivity extends AppCompatActivity {
 //        }
 
     }
-
-    public class CustomViewPager extends ViewPager {
-
-        private boolean isPagingEnabled = false;
-
-        public CustomViewPager(Context context) {
-            super(context);
-        }
-
-        public CustomViewPager(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        @Override
-        public boolean onTouchEvent(MotionEvent event) {
-            return this.isPagingEnabled && super.onTouchEvent(event);
-        }
-
-        @Override
-        public boolean onInterceptTouchEvent(MotionEvent event) {
-            return this.isPagingEnabled && super.onInterceptTouchEvent(event);
-        }
-
-        public void setPagingEnabled(boolean b) {
-            this.isPagingEnabled = b;
-        }
-    }
-
 }

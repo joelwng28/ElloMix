@@ -128,8 +128,6 @@ public class LoginActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-
-
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -187,43 +185,43 @@ public class LoginActivity extends AppCompatActivity
                 }
         );
 
-        //Download friends from firebase
-        FirebaseService.getMainUserFollowingQuery().addValueEventListener(
-                new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-
-                    // Get the userId and with that search for the user in firebase
-                    String friendId = child.getKey();
-
-                    FirebaseService.getUserQuery(friendId).addValueEventListener(
-                            new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            User friend = (User) dataSnapshot.getValue(User.class);
-                            if (friend != null) {
-                                FriendLab friendLab = FriendLab.get(getApplicationContext());
-                                friendLab.addFriend(friend);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        //Download friends from firebase
+//        FirebaseService.getMainUserFollowingQuery().addValueEventListener(
+//                new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot child : dataSnapshot.getChildren()) {
+//
+//                    // Get the userId and with that search for the user in firebase
+//                    String friendId = child.getKey();
+//
+//                    FirebaseService.getUserQuery(friendId).addValueEventListener(
+//                            new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            User friend = (User) dataSnapshot.getValue(User.class);
+//                            if (friend != null) {
+//                                FriendLab friendLab = FriendLab.get(getApplicationContext());
+//                                friendLab.addFriend(friend);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
     }
 

@@ -143,11 +143,13 @@ public class ChatListFragment extends Fragment {
             }
         };
 
-        // Checks for new chats
-        mDatabase.child("Users")
-                .child(mFirebaseUser.getUid())
-                .child("chatIds")
-                .addChildEventListener(chatIdsEventListener);
+        if (mFirebaseUser != null) {
+            // Checks for new chats
+            mDatabase.child("Users")
+                    .child(mFirebaseUser.getUid())
+                    .child("chatIds")
+                    .addChildEventListener(chatIdsEventListener);
+        }
 
         /*TODO: From recipient can be either one of 3 cases
         case 1: If no group name, then every else in the group
@@ -269,12 +271,14 @@ public class ChatListFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        mDatabase.child("Users")
-                .child(mFirebaseUser.getUid())
-                .child("chatIds")
-                .removeEventListener(chatIdsEventListener);
-        mDatabase.child("Chats")
-                .removeEventListener(chatEventListener);
+        if (mFirebaseUser != null) {
+            mDatabase.child("Users")
+                    .child(mFirebaseUser.getUid())
+                    .child("chatIds")
+                    .removeEventListener(chatIdsEventListener);
+            mDatabase.child("Chats")
+                    .removeEventListener(chatEventListener);
+        }
     }
 
     private void updateUI() {
