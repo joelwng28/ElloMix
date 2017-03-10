@@ -130,6 +130,12 @@ public class LoginActivity extends AppCompatActivity
         super.onStop();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAuth.removeAuthStateListener(mAuthListener);
+    }
+
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
@@ -185,6 +191,7 @@ public class LoginActivity extends AppCompatActivity
                 }
         );
 
+        // TODO: Fix this
 //        //Download friends from firebase
 //        FirebaseService.getMainUserFollowingQuery().addValueEventListener(
 //                new ValueEventListener() {

@@ -33,9 +33,9 @@ public class ScreenSlidePagerActivity extends AppCompatActivity {
     private CustomViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private int[] imageResId = {
-            R.drawable.ic_time_line,
-            R.drawable.ic_profile,
-            R.drawable.ic_chat
+            R.drawable.ic_home,
+            R.drawable.ic_messsages,
+            R.drawable.ic_profile
     };
 
     @Override
@@ -62,16 +62,16 @@ public class ScreenSlidePagerActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                //TODO: Change once new features added
+                //TODO: Missing Search(1), Upload(2)
                 case 0:
                     //timeline
                     return TimelineFragment.newInstance();
                 case 1:
-                    // profile
-                    return ProfileFragment.newInstance();
-                case 2:
-                    //chat
+                    // chat
                     return ChatListFragment.newInstance();
+                case 2:
+                    //profile
+                    return ProfileFragment.newInstance();
                 default:
                     return null;
             }
