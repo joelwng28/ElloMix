@@ -35,13 +35,16 @@ public class SplashActivity extends AppCompatActivity {
                 iv.startAnimation(an2);
 
                 Intent i;
-                if(AccessToken.getCurrentAccessToken() == null)
-                {
-                    i = new Intent(SplashActivity.this, LoginActivity.class);
-                }
-                else {
-                    i = new Intent(SplashActivity.this, FriendSearchActivity.class);
-                }
+//                if(AccessToken.getCurrentAccessToken() == null)
+//                {
+//                    i = new Intent(SplashActivity.this, LoginActivity.class);
+//                }
+//                else {
+//                    i = new Intent(SplashActivity.this, FriendSearchActivity.class);
+//                }
+
+                //just for testing
+                i = new Intent(SplashActivity.this, ScreenSlidePagerActivity.class);
                 finish();
                 startActivity(i);
             }
