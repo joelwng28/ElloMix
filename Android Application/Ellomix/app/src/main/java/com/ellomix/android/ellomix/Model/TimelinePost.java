@@ -25,7 +25,7 @@ public class TimelinePost {
     private Track mTrack;
     private Date mDatePosted;
     private String mDescription;
-    private List<Comment> mComments;
+    private ArrayList<Comment> mComments;
 
     public TimelinePost(User user, SCTrack track, String description) {
         mCreator = user;
@@ -94,11 +94,15 @@ public class TimelinePost {
         mDescription = description;
     }
 
-    public List<Comment> getCommentList() {
+    public ArrayList<Comment> getCommentList() {
         return mComments;
     }
 
     public void addComment (Comment comment) {
         mComments.add(comment);
+    }
+
+    public void setComments (ArrayList<Comment> comments) {
+        mComments = comments;
     }
 }

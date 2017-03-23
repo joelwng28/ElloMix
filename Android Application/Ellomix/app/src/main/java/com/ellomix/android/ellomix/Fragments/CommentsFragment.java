@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.ellomix.android.ellomix.Model.Comment;
 import com.ellomix.android.ellomix.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,7 +40,7 @@ public class CommentsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_comments, container, false);
+        View view = inflater.inflate(R.layout.activity_comments, container, false);
 
         commentRecyclerView = (RecyclerView) view.findViewById(R.id.comments_recycler_view);
         commentRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -100,7 +99,7 @@ public class CommentsFragment extends Fragment {
         @Override
         public CommentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
-            View view = inflater.inflate(R.layout.comment_fragment_item, parent, false);
+            View view = inflater.inflate(R.layout.comment_activity_item, parent, false);
             return new CommentHolder(view);
         }
 

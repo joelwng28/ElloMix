@@ -5,7 +5,7 @@
                 android:paddingRight="@dimen/activity_vertical_margin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/background">
+                android:background="@color/main_background">
 
     <ImageView
         android:id="@+id/track_image"

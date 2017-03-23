@@ -1,5 +1,8 @@
 package com.ellomix.android.ellomix.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +10,7 @@ import java.util.List;
  * Created by abetorres on 12/15/16.
  */
 
-public class User {
+public class User implements Parcelable {
 
     private String mId;
     private String mName;
@@ -15,11 +18,20 @@ public class User {
     private int mFollowersCount;
     private int mFollowingCount;
     private String mPhotoUrl;
-    private List<String> mChatIds;
-    private List<String> mFollowingIds;
+//    private List<String> mChatIds;
+//    private List<String> mFollowingIds;
 
     public User(){
 
+    }
+
+    public User(Parcel in) {
+        this.mId = in.readString();
+        this.mName = in.readString();
+        this.mDescription = in.readString();
+        this.mFollowersCount = in.readInt();
+        this.mFollowingCount = in.readInt();
+        this.mPhotoUrl = in.readString();
     }
 
     public User(String name) {
@@ -28,8 +40,6 @@ public class User {
         mFollowersCount = 0;
         mFollowingCount = 0;
         mPhotoUrl = "";
-        mChatIds = new ArrayList<>();
-        mFollowingIds = new ArrayList<>();
     }
 
     public User(String name, String description, int followers, int following, String photoUrl) {
@@ -38,8 +48,6 @@ public class User {
         mFollowersCount = followers;
         mFollowingCount = following;
         mPhotoUrl = photoUrl;
-        mChatIds = new ArrayList<>();
-        mFollowingIds = new ArrayList<>();;
     }
 
     public User(String id, String name, String photoUrl) {
@@ -49,8 +57,6 @@ public class User {
         mFollowersCount = 0;
         mFollowingCount = 0;
         mPhotoUrl = photoUrl;
-        mChatIds = new ArrayList<>();
-        mFollowingIds = new ArrayList<>();
     }
 
     public String getId() {
@@ -109,31 +115,60 @@ public class User {
         mPhotoUrl = photoUrl;
     }
 
-    public void addChat(String chatId) {
-        mChatIds.add(chatId);
+//    public void addChat(String chatId) {
+//        mChatIds.add(chatId);
+//    }
+//
+//    public void removeChat(String chatId) {
+//        for (int i = 0; i < mChatIds.size(); i++) {
+//            if (mChatIds.get(i).equals(chatId)) {
+//                mChatIds.remove(i);
+//            }
+//        }
+//    }
+//
+//    public List<String> getChat() {
+//        return mChatIds;
+//    }
+//
+//    public void addFollowing(String followingId) {
+//        mFollowingIds.add(followingId);
+//    }
+//
+//    public void removeFollowing(String followingId) {
+//        for (int i = 0; i < mFollowingIds.size(); i++) {
+//            if (mFollowingIds.get(i).equals(followingId)) {
+//                mFollowingIds.remove(i);
+//            }
+//        }
+//    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void removeChat(String chatId) {
-        for (int i = 0; i < mChatIds.size(); i++) {
-            if (mChatIds.get(i).equals(chatId)) {
-                mChatIds.remove(i);
-            }
-        }
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mName);
+        dest.writeString(mDescription);
+        dest.writeInt(mFollowersCount);
+        dest.writeInt(mFollowingCount);
+        dest.writeString(mPhotoUrl);
     }
 
-    public List<String> getChat() {
-        return mChatIds;
-    }
+    static final Parcelable.Creator<User> CREATOR =
+            new Parcelable.Creator<User>() {
 
-    public void addFollowing(String followingId) {
-        mFollowingIds.add(followingId);
-    }
+                @Override
+                public User createFromParcel(Parcel source) {
+                    return new User(source);
+                }
 
-    public void removeFollowing(String followingId) {
-        for (int i = 0; i < mFollowingIds.size(); i++) {
-            if (mFollowingIds.get(i).equals(followingId)) {
-                mFollowingIds.remove(i);
-            }
-        }
-    }
+                @Override
+                public User[] newArray(int size) {
+                    return new User[size];
+                }
+            };
 }
