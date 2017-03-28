@@ -146,9 +146,11 @@ TimelineFragment extends Fragment {
         call.enqueue(new Callback<List<SCTrack>>() {
             @Override
             public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
-                List<SCTrack> listItems = response.body();
-                Log.e(TAG, "date created: " + listItems.get(0).getCreatedAt().substring(0, 19));
-                generateModel(listItems);
+                if (response.isSuccess()) {
+                    List<SCTrack> listItems = response.body();
+                    //Log.e(TAG, "date created: " + listItems.get(0).getCreatedAt().substring(0, 19));
+                    generateModel(listItems);
+                }
             }
 
             @Override
