@@ -27,11 +27,11 @@ public class SPTrack extends Track {
         mTitle = title;
     }
 
-    public String getStreamUri() {
+    public String getStreamURL() {
         return mStreamUri;
     }
 
-    public void setStreamUri(String uri) {
+    public void setStreamURL(String uri) {
         mStreamUri = uri;
     }
 }

@@ -16,7 +16,7 @@ import retrofit.http.Query;
 
 public interface SPService {
 
-    @GET("/v1/search")
+    @GET("/v1/search?type=track")
     Call<SpotifyResponse> searchFor(@Query("q") String search);
 
     @GET("/v1/search?offset={off}")

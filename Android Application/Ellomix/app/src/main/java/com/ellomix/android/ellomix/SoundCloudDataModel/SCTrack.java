@@ -55,6 +55,10 @@ public class SCTrack extends Track {
         return mCreatedAt;
     }
 
+    public void setCreatedAt(String createdAt) {
+        mCreatedAt = createdAt;
+    }
+
     public String getStreamURL() {
         return mStreamURL;
     }
@@ -67,7 +71,7 @@ public class SCTrack extends Track {
         return mArtworkURL;
     }
 
-    public void setmArtworkURL(String artworkURL) {
+    public void setArtworkURL(String artworkURL) {
         mArtworkURL = artworkURL;
     }
 

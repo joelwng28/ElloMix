@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.SpotifyAPI;
 
+import com.ellomix.android.ellomix.SpotifyDataModel.SPTrack;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -10,13 +11,13 @@ import java.util.List;
 
 public class SPTracks {
     @SerializedName("items")
-    private List<SPTracks> mListItems;
+    private List<SPTrack> mListItems;
 
-    public void setItems(List<SPTracks> items) {
+    public void setItems(List<SPTrack> items) {
         mListItems = items;
     }
 
-    public List<SPTracks> getItems() {
+    public List<SPTrack> getItems() {
         return mListItems;
     }
 }

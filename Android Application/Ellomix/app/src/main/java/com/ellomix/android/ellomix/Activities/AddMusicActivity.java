@@ -26,6 +26,10 @@ import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
 import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
 import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
+import com.ellomix.android.ellomix.SpotifyAPI.SPService;
+import com.ellomix.android.ellomix.SpotifyAPI.Spotify;
+import com.ellomix.android.ellomix.SpotifyAPI.SpotifyResponse;
+import com.ellomix.android.ellomix.SpotifyDataModel.SPTrack;
 import com.ellomix.android.ellomix.YoutubeAPI.YTPlayerActivity;
 
 import java.util.ArrayList;
@@ -105,15 +109,16 @@ public class AddMusicActivity extends AppCompatActivity {
 //                                };
 //
 //                        new youtubeSearchAPI(asyncResponse, query);
-                        SCService scService = SoundCloud.getService();
 
-                        //TODO: sanitize input ex<script><dghdfgkjhdf></scrpt>
-                        scService.searchFor(query).enqueue(new Callback<List<SCTrack>>() {
+                        //Spotify API service
+
+                        SPService spService = Spotify.getService();
+
+                        spService.searchFor(query).enqueue(new Callback<SpotifyResponse>() {
                             @Override
-                            public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
+                            public void onResponse(Response<SpotifyResponse> response, Retrofit retrofit) {
                                 if (response.isSuccess()) {
-                                    //TODO: sanitize display ex<script><dghdfgkjhdf></scrpt>
-                                    List<SCTrack> tracks = response.body();
+                                    List<SPTrack> tracks = response.body().getTracks().getItems();
                                     mTrackList = new ArrayList<Track>(tracks);
                                     updateUI();
                                 }
@@ -121,11 +126,34 @@ public class AddMusicActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Throwable t) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Search failed, try again",
-                                        Toast.LENGTH_LONG).show();
+
                             }
                         });
+
+//                        // Soundcloud API service
+//                        SCService scService = SoundCloud.getService();
+//
+//                        //TODO: sanitize input ex<script><dghdfgkjhdf></scrpt>
+//                        scService.searchFor(query).enqueue(new Callback<List<SCTrack>>() {
+//                            @Override
+//                            public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
+//                                if (response.isSuccess()) {
+//                                    //TODO: sanitize display ex<script><dghdfgkjhdf></scrpt>
+//                                    List<SCTrack> tracks = response.body();
+//                                    mTrackList = new ArrayList<Track>(tracks);
+//                                    updateUI();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Throwable t) {
+//                                Toast.makeText(getApplicationContext(),
+//                                        "Soundcloud search failed, try again",
+//                                        Toast.LENGTH_LONG).show();
+//                            }
+//                        });
+
+                        //TODO: Merge results
 
 
                         return true;
