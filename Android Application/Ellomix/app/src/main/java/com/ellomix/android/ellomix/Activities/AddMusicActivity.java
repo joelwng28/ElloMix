@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -48,6 +49,9 @@ public class AddMusicActivity extends AppCompatActivity {
     private static final String EXTRA_CHATID = "chatId";
 
     private RecyclerView mSearchResultRecyclerView;
+    private List<Track> mSoundcloudList;
+    private List<Track> mSpotifyList;
+    private List<Track> mYoutubeList;
     private List<Track> mTrackList;
     private SearchResultAdapter mAdapter;
     private Set<Track> mTracksSelected;
@@ -67,6 +71,10 @@ public class AddMusicActivity extends AppCompatActivity {
                 findViewById(R.id.search_result_recyler_view);
         mSearchResultRecyclerView.setLayoutManager(
                 new LinearLayoutManager(getApplicationContext()));
+
+        mSpotifyList = new ArrayList<Track>();
+        mSoundcloudList = new ArrayList<Track>();
+        mYoutubeList = new ArrayList<Track>();
 
         mTracksSelected = new HashSet<>();
 
@@ -126,36 +134,43 @@ public class AddMusicActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Throwable t) {
+                                Log.d(TAG, "Spotify search failed");
 
                             }
                         });
 
-//                        // Soundcloud API service
-//                        SCService scService = SoundCloud.getService();
-//
-//                        //TODO: sanitize input ex<script><dghdfgkjhdf></scrpt>
-//                        scService.searchFor(query).enqueue(new Callback<List<SCTrack>>() {
-//                            @Override
-//                            public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
-//                                if (response.isSuccess()) {
-//                                    //TODO: sanitize display ex<script><dghdfgkjhdf></scrpt>
-//                                    List<SCTrack> tracks = response.body();
-//                                    mTrackList = new ArrayList<Track>(tracks);
-//                                    updateUI();
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Throwable t) {
-//                                Toast.makeText(getApplicationContext(),
-//                                        "Soundcloud search failed, try again",
-//                                        Toast.LENGTH_LONG).show();
-//                            }
-//                        });
+                        // Soundcloud API service
+                        SCService scService = SoundCloud.getService();
+
+                        //TODO: sanitize input ex<script><dghdfgkjhdf></scrpt>
+                        scService.searchFor(query).enqueue(new Callback<List<SCTrack>>() {
+                            @Override
+                            public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
+                                if (response.isSuccess()) {
+                                    //TODO: sanitize display ex<script><dghdfgkjhdf></scrpt>
+                                    List<SCTrack> tracks = response.body();
+                                    mSoundcloudList = new ArrayList<Track>(tracks);
+                                    //updateUI();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Throwable t) {
+                                Log.d(TAG, "Soundcloud search failed");
+                            }
+                        });
 
                         //TODO: Merge results
-
-
+//                        int size
+//                        Iterator<Track> scIterator = mSoundcloudList.iterator();
+//                        while(spIterator.hasNext() || scIterator.hasNext()) {
+//                            if (spIterator.hasNext()) {
+//                                mTrackList.add(spIterator.next());
+//                            }
+//                            if (scIterator.hasNext()) {
+//                                mTrackList.add(scIterator.next());
+//                            }
+//                        }
                         return true;
                     }
 
@@ -209,6 +224,8 @@ public class AddMusicActivity extends AppCompatActivity {
 
         private ImageView mTrackImageView;
         private TextView mTrackTitleTextView;
+        private TextView mTrackArtistTextView;
+        private ImageView mTrackSourceImageView;
         private Track mTrack;
         private boolean isSelected;
 
@@ -216,6 +233,8 @@ public class AddMusicActivity extends AppCompatActivity {
             super(view);
             mTrackImageView = (ImageView) view.findViewById(R.id.track_image);
             mTrackTitleTextView = (TextView) view.findViewById(R.id.track_title);
+            mTrackArtistTextView = (TextView) view.findViewById(R.id.track_artist);
+            mTrackSourceImageView = (ImageView) view.findViewById(R.id.track_source);
             view.setOnClickListener(this);
         }
 
@@ -227,13 +246,31 @@ public class AddMusicActivity extends AppCompatActivity {
                         .into(mTrackImageView);
             }
             mTrackTitleTextView.setText(mTrack.getTitle());
+            mTrackArtistTextView.setText(mTrack.getArtist());
+            int source = -1;
+            switch (mTrack.getSource()) {
+                case SPOTIFY:
+                    source = R.drawable.spotify;
+                    break;
+                case SOUNDCLOUD:
+                    source = R.drawable.soundcloud;
+                    break;
+                case YOUTUBE:
+                    source = R.drawable.youtube;
+                    break;
+                default:
+                    source = -1;
+            }
+            if (source != -1) {
+                mTrackSourceImageView.setImageResource(source);
+            }
+
         }
 
         @Override
         public void onClick(View v) {
             if(!isSelected) {
                 v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));
-
                 mTracksSelected.add(mTrack);
             }
             else {

@@ -750,21 +750,21 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="02c263935432e2d5759bab71d0ce45667c20d175">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_4bd2c168e6712c60c77b47bc498b62facdaf2030/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
         <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_dc38173fbe1376654db7b1259b7b7265df68e07b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="ca3acc2124ffa004fcd17097dafee00776fb0a63">
-        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_4bd2c168e6712c60c77b47bc498b62facdaf2030/classes.dex" />
     </item>
     <item
         is-multidex="true"

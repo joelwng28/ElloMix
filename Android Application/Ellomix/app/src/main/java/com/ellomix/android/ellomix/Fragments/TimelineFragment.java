@@ -91,12 +91,6 @@ TimelineFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateUI();
-    }
-
     //TODO: Create UpdateUI method to account for refreshing for more posts
     private void updateUI() {
         if (mAdapter == null) {

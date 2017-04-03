@@ -31,6 +31,10 @@ public class SCTrack extends Track {
     @SerializedName("user")
     private SCUser mSCUser;
 
+    public SCTrack() {
+        super.setSource(Sources.SOUNDCLOUD);
+    }
+
     public String getArtist(){
         return mSCUser.getUserName();
     }
@@ -78,4 +82,5 @@ public class SCTrack extends Track {
     public String getTime() {
         return mTime;
     }
+
 }
