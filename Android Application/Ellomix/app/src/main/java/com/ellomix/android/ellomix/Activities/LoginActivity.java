@@ -72,9 +72,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
         buttonSignIn.setOnClickListener(this);
+        //editTextEmail.setOnClickListener(this);
+        //
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextEmail.setOnClickListener(this);
+        editTextPassword.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -145,6 +149,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if(view == buttonSignIn){
             LogInTheUser();
+        }
+        if(view == editTextEmail){
+            editTextEmail.setText("");
+        }
+        if(view == editTextPassword){
+            editTextPassword.setText("");
         }
     }
 
