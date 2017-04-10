@@ -36,18 +36,22 @@
         <activity
             android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity
             android:name=".Activities.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.SpotifyActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+        </activity>
+
         <activity
             android:name=".Activities.ChatActivity"
             android:screenOrientation="portrait" />
@@ -82,7 +86,9 @@
         <activity android:name=".Activities.GroupPlaylistActivity" />
         <activity android:name=".YoutubeAPI.YTPlayerActivity" />
         <activity android:name=".Activities.SignUpActivity" />
-        <activity android:name=".Activities.LoginServicesActivity"></activity>
+        <activity android:name=".Activities.LoginServicesActivity">
+
+        </activity>
     </application>
 
 </manifest>

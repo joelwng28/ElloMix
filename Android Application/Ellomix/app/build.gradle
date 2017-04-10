@@ -44,8 +44,11 @@ dependencies {
 
     // This library handles authentication and authorization
     compile 'com.spotify.sdk:spotify-android-auth-1.0.0@aar'
+
+    // compile 'com.spotify.sdk:spotify-android-auth:1.0.0-beta11@aar'
     // This library handles music playback
     //compile 'com.spotify.sdk:spotify-player:beta24-noconnect-2.20b@aar'
+    compile 'com.spotify.sdk:spotify-player:24-noconnect-2.20b@aar'
 
     //Youtube stuffs below
     compile files('libs/YouTubeAndroidPlayerApi.jar')
@@ -72,7 +75,6 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.firebaseui:firebase-ui-database:0.4.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile 'com.spotify.sdk:spotify-player:24-noconnect-2.20b@aar'
     compile 'com.google.apis:google-api-services-appsactivity:v1-rev30-1.22.0'
     compile 'com.google.android.gms:play-services-auth:10.0.1'
     compile 'com.google.apis:google-api-services-youtube:v3-rev120-1.19.0'

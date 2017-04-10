@@ -40,7 +40,8 @@ public class SplashActivity extends AppCompatActivity {
                     i = new Intent(SplashActivity.this, LoginActivity.class);
                 }
                 else {
-                    i = new Intent(SplashActivity.this, ScreenSlidePagerActivity.class);
+                    //TODO: Testing
+                    i = new Intent(SplashActivity.this, LoginServicesActivity.class);
                 }
 
                 finish();
