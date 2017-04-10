@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/activity_vertical_margin"
-                android:paddingRight="@dimen/activity_vertical_margin"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/main_background">
 
+    <!--TODO: Limit the size of title and artist to avoid overlap source icon-->
     <ImageView
         android:id="@+id/track_image"
         android:layout_centerVertical="true"
@@ -18,24 +19,31 @@
         android:id="@+id/track_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
         android:layout_toRightOf="@id/track_image"
         android:layout_centerVertical="true">
 
         <com.ellomix.android.ellomix.Style.Actor
-            android:layout_centerVertical="true"
             android:id="@+id/track_title"
             android:textColor="@color/colorWhite"
-            android:padding="20dp"
+            android:text="title"
+            android:maxLines="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+        <android.support.v4.widget.Space
+            android:layout_width="wrap_content"
+            android:layout_height="4dp"
+            android:id="@+id/space_between"
+            android:layout_below="@id/track_title"/>
         <com.ellomix.android.ellomix.Style.Actor
             android:id="@+id/track_artist"
+            android:text="artist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
-            android:layout_centerVertical="true"
-            android:padding="20dp"
+            android:layout_below="@id/space_between"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
     </RelativeLayout>
 
@@ -43,8 +51,10 @@
         android:id="@+id/track_source"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:paddingTop="4dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"/>
+        android:layout_alignRight="@id/track_info"
+        android:layout_alignEnd="@id/track_info"/>
 
 </RelativeLayout>

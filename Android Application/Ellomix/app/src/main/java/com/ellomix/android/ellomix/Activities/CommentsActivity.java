@@ -156,7 +156,7 @@ public class CommentsActivity extends AppCompatActivity {
         public void bindItem(final Comment comment) {
             mComment = comment;
 
-            User user = mComment.getUser();
+            User user = mComment.getCommenter();
             if (user.getPhotoUrl() != null && !user.getPhotoUrl().equals("")) {
                 Picasso.with(CommentsActivity.this)
                         .load(user.getPhotoUrl())

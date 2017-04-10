@@ -1,7 +1,6 @@
 package com.ellomix.android.ellomix.Fragments;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -48,9 +47,6 @@ import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
-
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by abetorres on 11/16/16.
@@ -142,7 +138,6 @@ TimelineFragment extends Fragment {
             public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
                     List<SCTrack> listItems = response.body();
-                    //Log.e(TAG, "date created: " + listItems.get(0).getCreatedAt().substring(0, 19));
                     generateModel(listItems);
                 }
             }
@@ -301,8 +296,8 @@ TimelineFragment extends Fragment {
 
                     Comment comment = comments.get(position);
                     int start = 0;
-                    int end = comment.getUser().getName().length();
-                    String commentText = comment.getUser().getName() + " " + comment.getText();
+                    int end = comment.getCommenter().getName().length();
+                    String commentText = comment.getCommenter().getName() + " " + comment.getText();
 
                     holder.userAndText.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.userAndText.setText(commentText, TextView.BufferType.SPANNABLE);

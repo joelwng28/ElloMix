@@ -251,6 +251,8 @@ public class LoginActivity extends AppCompatActivity
         }
         else {
             i = new Intent(this, ScreenSlidePagerActivity.class);
+            //testing
+            //i = new Intent(this, SpotifyActivity.class);
         }
 
         startActivity(i);

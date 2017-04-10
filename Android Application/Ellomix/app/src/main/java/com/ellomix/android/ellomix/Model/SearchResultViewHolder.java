@@ -15,6 +15,8 @@ import com.ellomix.android.ellomix.R;
 
 public class SearchResultViewHolder extends RecyclerView.ViewHolder {
 
+    //TODO: Implement click listener
+
     private ImageView mTrackImageView;
     private TextView mTrackTitleTextView;
     private TextView mTrackArtistTextView;

@@ -16,7 +16,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +77,7 @@ public class AddMusicActivity extends AppCompatActivity {
         mSpotifyList = new ArrayList<Track>();
         mSoundcloudList = new ArrayList<Track>();
         mYoutubeList = new ArrayList<Track>();
+        mTrackList = new ArrayList<Track>();
 
         mTracksSelected = new HashSet<>();
 
@@ -88,6 +91,7 @@ public class AddMusicActivity extends AppCompatActivity {
 
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setIconifiedByDefault(false);
         //searchView.setQueryHint("Search...");
         int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
         View searchPlate = searchView.findViewById(searchPlateId);
@@ -95,16 +99,30 @@ public class AddMusicActivity extends AppCompatActivity {
             searchPlate.setBackgroundColor(Color.DKGRAY);
             int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
             TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
-            if (searchText!=null) {
+            if (searchText != null) {
                 searchText.setTextColor(Color.WHITE);
                 searchText.setHintTextColor(Color.WHITE);
             }
         }
 
+//        int submitAreaId = searchView.getContext().getResources().getIdentifier("android:id/submit_area", null, null);
+//        int goButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_go_btn", null, null);
+//
+//        View searchSubmitArea = searchView.findViewById(submitAreaId);
+//        ImageView submitGoImage = (ImageView) searchSubmitArea.findViewById(goButtonId);
+//        searchView.setSubmitButtonEnabled(true);
+//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
+//        submitGoImage.setLayoutParams(layoutParams);
+//        Button btnScan = new Button(getApplicationContext());
+//        btnScan.setText("Add");
+//        LinearLayout linearLayoutOfSearchView = (LinearLayout) searchView.getChildAt(0);
+//        linearLayoutOfSearchView.addView(btnScan);
+
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
+                        mTrackList = new ArrayList<Track>();
 
                         //TODO: Implement youtube
 //                        youtubeSearchAPI.AsyncResponse asyncResponse =
@@ -112,14 +130,12 @@ public class AddMusicActivity extends AppCompatActivity {
 //                                    @Override
 //                                    public void processFinish(List<Track> outputResult) {
 //                                        mTrackList = outputResult;
-//                                        updateUI();
 //                                    }
 //                                };
 //
 //                        new youtubeSearchAPI(asyncResponse, query);
 
                         //Spotify API service
-
                         SPService spService = Spotify.getService();
 
                         spService.searchFor(query).enqueue(new Callback<SpotifyResponse>() {
@@ -127,8 +143,7 @@ public class AddMusicActivity extends AppCompatActivity {
                             public void onResponse(Response<SpotifyResponse> response, Retrofit retrofit) {
                                 if (response.isSuccess()) {
                                     List<SPTrack> tracks = response.body().getTracks().getItems();
-                                    mTrackList = new ArrayList<Track>(tracks);
-                                    updateUI();
+                                    mSpotifyList = new ArrayList<Track>(tracks);
                                 }
                             }
 
@@ -161,16 +176,27 @@ public class AddMusicActivity extends AppCompatActivity {
                         });
 
                         //TODO: Merge results
-//                        int size
-//                        Iterator<Track> scIterator = mSoundcloudList.iterator();
-//                        while(spIterator.hasNext() || scIterator.hasNext()) {
-//                            if (spIterator.hasNext()) {
-//                                mTrackList.add(spIterator.next());
-//                            }
-//                            if (scIterator.hasNext()) {
-//                                mTrackList.add(scIterator.next());
-//                            }
-//                        }
+                        int spSize = mSpotifyList.size();
+                        int scSize = mSoundcloudList.size();
+                        int i = 0;
+                        int j = 0;
+                        while(i < spSize && j < scSize) {
+                            mTrackList.add(mSpotifyList.get(i));
+                            mTrackList.add(mSoundcloudList.get(j));
+                            i++;
+                            j++;
+                        }
+
+                        while (i < spSize) {
+                            mTrackList.add(mSpotifyList.get(i));
+                            i++;
+                        }
+                        while (j < scSize) {
+                            mTrackList.add(mSoundcloudList.get(j));
+                            j++;
+                        }
+                        updateUI();
+
                         return true;
                     }
 
@@ -187,23 +213,23 @@ public class AddMusicActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_add_music:
-                // Add tracks to firebase
-
-                Iterator it = mTracksSelected.iterator();
-
-                while (it.hasNext()) {
-                    Track track = (Track) it.next();
-                    FirebaseService.addMusic(mChatId, track);
-                }
-                Resources res = getResources();
-                int count = mTracksSelected.size();
-                String songsAdded = res.getQuantityString(R.plurals.numberOfSongsAdded, count, count);
-                Toast.makeText(this, songsAdded, Toast.LENGTH_SHORT).show();
-                Intent intent = GroupPlaylistActivity.newIntent(this, mChatId);
-                finish();
-                startActivity(intent);
-                return true;
+//            case R.id.menu_item_add_music:
+//                // Add tracks to firebase
+//
+//                Iterator it = mTracksSelected.iterator();
+//
+//                while (it.hasNext()) {
+//                    Track track = (Track) it.next();
+//                    FirebaseService.addMusic(mChatId, track);
+//                }
+//                Resources res = getResources();
+//                int count = mTracksSelected.size();
+//                String songsAdded = res.getQuantityString(R.plurals.numberOfSongsAdded, count, count);
+//                Toast.makeText(this, songsAdded, Toast.LENGTH_SHORT).show();
+//                Intent intent = GroupPlaylistActivity.newIntent(this, mChatId);
+//                finish();
+//                startActivity(intent);
+//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

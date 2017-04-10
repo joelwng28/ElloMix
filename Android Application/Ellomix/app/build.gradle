@@ -35,19 +35,18 @@ dependencies {
     })
 
     //compile 'com.google.api-client:google-api-client-android:1.22.0'
-    
 
     // Firebase
-    
+
     // Firebase Auth
-    
+
     // Firebase UI
-    
+
     // This library handles authentication and authorization
     compile 'com.spotify.sdk:spotify-android-auth-1.0.0@aar'
     // This library handles music playback
     //compile 'com.spotify.sdk:spotify-player:beta24-noconnect-2.20b@aar'
-    
+
     //Youtube stuffs below
     compile files('libs/YouTubeAndroidPlayerApi.jar')
     compile files('libs/google-api-client-android-1.22.0.jar')
@@ -56,7 +55,7 @@ dependencies {
     compile files('libs/google-oauth-client-1.22.0.jar')
     compile files('libs/jsr305-1.3.9.jar')
     compile files('libs/google-oauth-client-1.22.0.jar')
-    
+
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'

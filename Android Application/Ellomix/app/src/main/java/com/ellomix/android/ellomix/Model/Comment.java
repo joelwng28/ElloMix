@@ -9,27 +9,27 @@ import android.os.Parcelable;
  */
 
 public class Comment implements Parcelable {
-    private User mUser;
-    private String mCommentText;
+    private User mCommenter;
+    private String mText;
 
     public Comment(Parcel in) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            this.mUser = in.readTypedObject(User.CREATOR);
+            this.mCommenter = in.readTypedObject(User.CREATOR);
         }
-        this.mCommentText = in.readString();
+        this.mText = in.readString();
     }
 
     public Comment(User user, String text) {
-        mUser = user;
-        mCommentText = text;
+        mCommenter = user;
+        mText = text;
     }
 
-    public User getUser() {
-        return mUser;
+    public User getCommenter() {
+        return mCommenter;
     }
 
     public String getText() {
-        return mCommentText;
+        return mText;
     }
 
     @Override
@@ -40,9 +40,9 @@ public class Comment implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            dest.writeTypedObject(mUser, 0);
+            dest.writeTypedObject(mCommenter, 0);
         }
-        dest.writeString(mCommentText);
+        dest.writeString(mText);
     }
 
     static final Parcelable.Creator<Comment> CREATOR =

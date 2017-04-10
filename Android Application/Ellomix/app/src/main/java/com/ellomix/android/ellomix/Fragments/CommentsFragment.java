@@ -69,8 +69,8 @@ public class CommentsFragment extends Fragment {
         public void bindItem(final Comment comment) {
             mComment = comment;
             int start = 0;
-            int end = comment.getUser().getName().length();
-            String commentText = comment.getUser().getName() + " " + comment.getText();
+            int end = comment.getCommenter().getName().length();
+            String commentText = comment.getCommenter().getName() + " " + comment.getText();
 
             mCommentTextView.setMovementMethod(LinkMovementMethod.getInstance());
             mCommentTextView.setText(commentText, TextView.BufferType.SPANNABLE);

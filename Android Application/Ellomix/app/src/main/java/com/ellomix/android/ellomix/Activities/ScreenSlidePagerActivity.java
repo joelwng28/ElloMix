@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import com.ellomix.android.ellomix.Fragments.ChatFragment;
 import com.ellomix.android.ellomix.Fragments.ChatListFragment;
 import com.ellomix.android.ellomix.Fragments.ProfileFragment;
+import com.ellomix.android.ellomix.Fragments.SearchFragment;
 import com.ellomix.android.ellomix.Fragments.TimelineFragment;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.Style.CustomViewPager;
@@ -28,12 +29,13 @@ import com.ellomix.android.ellomix.Style.CustomViewPager;
 
 public class ScreenSlidePagerActivity extends AppCompatActivity {
 
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 4;
 
     private CustomViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private int[] imageResId = {
             R.drawable.ic_home,
+            R.drawable.ic_search,
             R.drawable.ic_messsages,
             R.drawable.ic_profile
     };
@@ -62,14 +64,20 @@ public class ScreenSlidePagerActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                //TODO: Missing Search(1), Upload(2)
+                //TODO: Missing Upload(2)
                 case 0:
                     //timeline
                     return TimelineFragment.newInstance();
                 case 1:
+                    //search
+                    return SearchFragment.newInstance();
+//                case 2:
+//                    //upload
+//
+                case 2:
                     // chat
                     return ChatListFragment.newInstance();
-                case 2:
+                case 3:
                     //profile
                     return ProfileFragment.newInstance();
                 default:

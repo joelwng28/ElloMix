@@ -1,18 +1,11 @@
 package com.ellomix.android.ellomix.Model;
 
-import android.content.Context;
-import android.text.format.DateUtils;
-
-import com.ellomix.android.ellomix.Activities.LoginActivity;
 import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -21,26 +14,26 @@ import java.util.TimeZone;
 
 public class TimelinePost {
 
-    private User mCreator;
-    private Track mTrack;
+    private User mAuthor;
+    private Track mSong;
     private Date mDatePosted;
     private String mDescription;
     private ArrayList<Comment> mComments;
 
     public TimelinePost(User user, SCTrack track, String description) {
-        mCreator = user;
-        mTrack = track;
+        mAuthor = user;
+        mSong = track;
         mDatePosted = new Date();
         mDescription = description;
         mComments = new ArrayList<>();
     }
 
     public User getUser() {
-        return mCreator;
+        return mAuthor;
     }
 
     public Track getTrack() {
-        return mTrack;
+        return mSong;
     }
 
     public Date getDateCreated() {
@@ -50,7 +43,7 @@ public class TimelinePost {
     public String getSinceCreated() throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String trackCreated = mTrack.getCreatedAt().substring(0, 19).replaceAll("/", "-");
+        String trackCreated = mSong.getCreatedAt().substring(0, 19).replaceAll("/", "-");
         Date dateCreated = formatter.parse(trackCreated);
         long createdMillis = dateCreated.getTime();
         long postedMillis = mDatePosted.getTime() + 2000;
