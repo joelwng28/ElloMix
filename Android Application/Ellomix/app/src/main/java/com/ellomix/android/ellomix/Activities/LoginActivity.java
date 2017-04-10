@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,12 +35,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 
-public class LoginActivity extends AppCompatActivity
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
 
     private static final String TAG = "LoginActivity";
-    private static final String PREFS = "PrefFile";
-    private static final String FIRST_TIME = "firstTime";
 
     private LoginButton facebookLoginButton;
     private CallbackManager callbackManager;
@@ -72,6 +71,7 @@ public class LoginActivity extends AppCompatActivity
         });
 
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
+        buttonSignIn.setOnClickListener(this);
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    goMainScreen();
+                   // goMainScreen();
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -116,6 +116,15 @@ public class LoginActivity extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), R.string.error_login, Toast.LENGTH_SHORT).show();
             }
         });
+
+        if(mAuth.getCurrentUser() != null){
+            //profile activity
+            // start the profile activity
+            //startActivity(new Intent(getApplicationContext(),GenreActivity.class));
+            goToHomeScreen();
+        }
+
+
     }
 
     @Override
@@ -130,6 +139,19 @@ public class LoginActivity extends AppCompatActivity
         super.onStop();
 
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == buttonSignIn){
+            LogInTheUser();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -227,34 +249,55 @@ public class LoginActivity extends AppCompatActivity
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+    public void toastRegistrationError() {
+        Toast.makeText(this, "Log In Error", Toast.LENGTH_SHORT).show();
+
     }
 
-    private void goMainScreen(){
-        Intent i;
-        preferences = getSharedPreferences(PREFS, 0);
-        isFirstTime = preferences.getBoolean(FIRST_TIME, true);
-        if (isFirstTime) {
-            prepareUser();
-            i = new Intent(this, FriendSearchActivity.class);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean(FIRST_TIME, false);
-            editor.apply();
-        }
-        else {
-            i = new Intent(this, ScreenSlidePagerActivity.class);
+    private void LogInTheUser() {
+        String email= editTextEmail.getText().toString().trim();
+        String password= editTextPassword.getText().toString().trim();
+
+        if(TextUtils.isEmpty(email)){
+            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        startActivity(i);
-        finish();
+        if(TextUtils.isEmpty(password)){
+            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        progressDialog.setMessage("Signing in Please Wait...");
+        progressDialog.show();
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
+                        if(task.isSuccessful())
+                        {
+                            //finish();
+                            goToHomeScreen();
+                            // start the profile activity
+                            // startActivity(new Intent(getApplicationContext(),SignedInActivity.class));
+                            Log.d(TAG, "Successful Sign In" );
+                        }else
+                        {
+                            toastRegistrationError();
+                        }
+                        progressDialog.dismiss();
+                    }
+                });
     }
+
 
     private void goToSignUpScreen(){
-        Intent i;
-        i = new Intent(this, SignUpActivity.class);
+        Intent i = new Intent(this, SignUpActivity.class);
         startActivity(i);
         finish();
         if (mAuthListener != null) {
@@ -264,9 +307,11 @@ public class LoginActivity extends AppCompatActivity
 
     }
 
-
-
-
+    private void goToHomeScreen(){
+        //send to the Home Screen
+        Intent i = new Intent(this, GenreActivity.class);
+        startActivity(i);
+    }
 
 
 

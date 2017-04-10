@@ -19,15 +19,19 @@ android:background="@color/background">
         android:layout_height="match_parent"
         android:background="@color/background"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:weightSum="1">
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp" />
+            android:layout_weight="0.27"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -41,10 +45,11 @@ android:background="@color/background">
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:ems="10"
+            android:gravity="left"
             android:inputType="textPersonName"
             android:padding="10dp"
             android:paddingBottom="10dp"
-            android:text="Name" />
+            android:text="Email@myEmail.com" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -54,7 +59,7 @@ android:background="@color/background">
             android:background="@android:color/white"
             android:contentDescription="password"
             android:ems="10"
-            android:gravity="center_vertical|center_horizontal"
+            android:gravity="left|center_vertical"
             android:inputType="textPassword"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
@@ -67,37 +72,31 @@ android:background="@color/background">
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/medium_redrectangle"
-            android:text="Button"
-            android:textColor="@color/colorWhite" />
+            android:text="@string/log_in"
+            android:textAppearance="@android:style/TextAppearance.Holo.Large"
+            android:textColor="@color/cardview_light_background"
+            android:textColorLink="@color/login" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="forgot_userinfo"
+            android:text="@string/forgot_userinfo"
             android:ems="10"
             android:id="@+id/editText3"
             android:textColor="@color/white"
             android:paddingBottom="35dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="sign_up_text"
-            android:ems="10"
-            android:id="@+id/editText4"
-            android:gravity="center_vertical|fill_horizontal"
-            android:textSize="12sp"
-            android:textColor="@android:color/white" />
-
         <Button
             android:id="@+id/buttonRegister"
-            android:layout_width="match_parent"
+            android:layout_width="261dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
-            android:background="@drawable/red_rectangle" />
+            android:background="@drawable/medium_redrectangle"
+            android:text="@string/sign_up"
+            android:textAppearance="@android:style/TextAppearance.Holo.Large"
+            android:textColor="@color/cardview_light_background"
+            android:textColorLink="@color/login"/>
 
     </LinearLayout>
 

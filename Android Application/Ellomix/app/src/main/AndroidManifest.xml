@@ -81,7 +81,8 @@
         <activity android:name=".Activities.AddMusicActivity" />
         <activity android:name=".Activities.GroupPlaylistActivity" />
         <activity android:name=".YoutubeAPI.YTPlayerActivity" />
-        <activity android:name=".Activities.SignUpActivity"></activity>
+        <activity android:name=".Activities.SignUpActivity" />
+        <activity android:name=".Activities.GenreActivity"></activity>
     </application>
 
 </manifest>

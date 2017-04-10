@@ -3,9 +3,9 @@ package com.ellomix.android.ellomix.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.bumptech.glide.Glide;
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Model.FriendLab;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -65,6 +67,12 @@ public class FriendSearchActivity extends AppCompatActivity {
         mFriendSelectedSet = new HashSet<>();
 
         // Add friends to the data base
+
+
+
+
+        //
+
 
         // New child entries
         mFirebaseDatabaseReference = FirebaseService.getFirebaseDatabase();
@@ -168,6 +176,11 @@ public class FriendSearchActivity extends AppCompatActivity {
 
         public void setFriends(List<User> friends) {
             mFriends = friends;
+        }
+
+        public void goToGenreActivity() {
+            //intent
+            startActivity(new Intent(getApplicationContext(),GenreActivity.class));
         }
 
         @Override

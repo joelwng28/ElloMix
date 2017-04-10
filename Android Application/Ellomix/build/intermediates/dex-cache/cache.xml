@@ -52,8 +52,17 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
         <dex dex="C:\Users\elena\Desktop\Ellomix\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_6eac16f1d152ef152773b6be5c50f5b81909b9ca\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\elena\Desktop\Ellomix\ellomix\Android Application\Ellomix\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f29c4b4adfb3d874be906186e84e1753f73512cb">
+        <dex dex="C:\Users\elena\Desktop\Ellomix\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_7e46e4c63af327b5db5f92d923e853c21372500b\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -63,15 +72,6 @@
         revision="25.0.0"
         sha1="2e66da15851f9f5b5079228f856c2f090ba98c38">
         <dex dex="C:\Users\elena\Desktop\Ellomix\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\2\gson-2.1_75a9ccfb4d42797559875910668586d1a9827c41\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\elena\Desktop\Ellomix\ellomix\Android Application\Ellomix\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.0"
-        sha1="9b34970e2e3ab1a301aeb848214b3b0252324b89">
-        <dex dex="C:\Users\elena\Desktop\Ellomix\ellomix\Android Application\Ellomix\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_7e46e4c63af327b5db5f92d923e853c21372500b\classes.dex" />
     </item>
     <item
         is-multidex="true"

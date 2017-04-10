@@ -11,13 +11,14 @@ android:paddingTop="@dimen/activity_vertical_margin"
 tools:context="com.ellomix.android.ellomix.Activities.SignedInActivity"
 android:background="@color/background">
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Hello World!"
-    android:gravity="center_horizontal"
-    android:textAppearance="@android:style/TextAppearance.Material.Body1"
-    android:textColor="@color/cardview_light_background" />
+    <TextView
+        android:id="@+id/textViewUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Hello World!"
+        android:textAppearance="@android:style/TextAppearance.Material.Body1"
+        android:textColor="@color/cardview_light_background" />
 
 <LinearLayout
     android:orientation="vertical"
