@@ -30,7 +30,7 @@ import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCMusicService;
 import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
-import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
+import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloudAPI;
 import com.ellomix.android.ellomix.Style.NoUnderlineSpan;
 import com.squareup.picasso.Picasso;
 
@@ -130,7 +130,7 @@ TimelineFragment extends Fragment {
     }
 
     private void loadRecentTracks() {
-        SCService scService = SoundCloud.getService();
+        SCService scService = SoundCloudAPI.getService();
         Call<List<SCTrack>> call = scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US).format(new Date()));
 
         call.enqueue(new Callback<List<SCTrack>>() {

@@ -2,11 +2,12 @@
 //  AppDelegate.swift
 //  Ellomix
 //
-//  Created by Micah Peoples on 1/30/17.
-//  Copyright © 2017 micah. All rights reserved.
+//  Created by Akshay Vyas on 12/19/16.
+//  Copyright © 2016 Akshay Vyas. All rights reserved.
 //
 
 import UIKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        FIRApp.configure()
         return true
     }
 

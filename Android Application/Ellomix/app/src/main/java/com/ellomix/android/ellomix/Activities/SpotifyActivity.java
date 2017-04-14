@@ -17,7 +17,7 @@ import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
-import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
+//import static com.spotify.sdk.android.authentication.LoginActivity.REQUEST_CODE;
 
 
 public class SpotifyActivity extends Activity implements
@@ -27,6 +27,7 @@ public class SpotifyActivity extends Activity implements
     private static final String TAG = "SpotifyActivity";
     private static final String CLIENT_ID = "8390a95e6e6a4236a4f40cca17f13150";
     private static final String REDIRECT_URI = "my-spotify-login-one://callback";
+    private static final int REQUEST_CODE = 1337;
 
     private Player mPlayer;
 

@@ -2,7 +2,6 @@ package com.ellomix.android.ellomix.Activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,28 +15,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
-import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
+import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloudAPI;
 import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
 import com.ellomix.android.ellomix.SpotifyAPI.SPService;
-import com.ellomix.android.ellomix.SpotifyAPI.Spotify;
+import com.ellomix.android.ellomix.SpotifyAPI.SpotifyAPI;
 import com.ellomix.android.ellomix.SpotifyAPI.SpotifyResponse;
 import com.ellomix.android.ellomix.SpotifyDataModel.SPTrack;
-import com.ellomix.android.ellomix.YoutubeAPI.YTPlayerActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -135,8 +128,8 @@ public class AddMusicActivity extends AppCompatActivity {
 //
 //                        new youtubeSearchAPI(asyncResponse, query);
 
-                        //Spotify API service
-                        SPService spService = Spotify.getService();
+                        //SpotifyAPI API service
+                        SPService spService = SpotifyAPI.getService();
 
                         spService.searchFor(query).enqueue(new Callback<SpotifyResponse>() {
                             @Override
@@ -149,13 +142,13 @@ public class AddMusicActivity extends AppCompatActivity {
 
                             @Override
                             public void onFailure(Throwable t) {
-                                Log.d(TAG, "Spotify search failed");
+                                Log.d(TAG, "SpotifyAPI search failed");
 
                             }
                         });
 
                         // Soundcloud API service
-                        SCService scService = SoundCloud.getService();
+                        SCService scService = SoundCloudAPI.getService();
 
                         //TODO: sanitize input ex<script><dghdfgkjhdf></scrpt>
                         scService.searchFor(query).enqueue(new Callback<List<SCTrack>>() {

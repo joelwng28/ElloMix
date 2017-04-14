@@ -45,6 +45,8 @@ public class ScreenSlidePagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
 
+        //TODO: Figure how to fix bug that cause view to disappear when changing between pages
+
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (CustomViewPager) findViewById(R.id.fragment_view_pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
