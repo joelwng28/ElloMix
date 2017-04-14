@@ -1,14 +1,12 @@
 package com.ellomix.android.ellomix.Fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
-import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
@@ -16,14 +14,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ellomix.android.ellomix.Activities.CommentsActivity;
 import com.ellomix.android.ellomix.Model.Comment;
 import com.ellomix.android.ellomix.Model.TimelinePost;
 import com.ellomix.android.ellomix.Model.User;
@@ -31,7 +30,8 @@ import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCMusicService;
 import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
-import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
+import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloudAPI;
+import com.ellomix.android.ellomix.Style.NoUnderlineSpan;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -52,12 +52,17 @@ import retrofit.Retrofit;
  * Created by abetorres on 11/16/16.
  */
 
-public class TimelineFragment extends Fragment {
+public class
+TimelineFragment extends Fragment {
 
     private static final String TAG = "TimelineFragment";
+    static final int COMMENT_REQUEST = 1;
+
     private List<SCTrack> mListItems = new ArrayList<>();
-    private List<TimelinePost> mPostList = new ArrayList<>();
+    private ArrayList<TimelinePost> mPostList = new ArrayList<>();
     private RecyclerView mTimelineRecyclerView;
+    private TimelineAdapter mAdapter;
+    private int lastIndexPressed = 0;
 
     public static TimelineFragment newInstance() {
         return new TimelineFragment();
@@ -79,13 +84,19 @@ public class TimelineFragment extends Fragment {
         mTimelineRecyclerView = (RecyclerView) v.findViewById(R.id.fragment_time_line_recycler_view);
         mTimelineRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        setupAdapter();
-
         return v;
     }
 
-    private void setupAdapter() {
-        mTimelineRecyclerView.setAdapter(new TimelineAdapter(mPostList));
+    //TODO: Create UpdateUI method to account for refreshing for more posts
+    private void updateUI() {
+        if (mAdapter == null) {
+            mAdapter = new TimelineAdapter(mPostList);
+            mTimelineRecyclerView.setAdapter(mAdapter);
+        }
+        else {
+            mAdapter.setPosts(mPostList);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     // Testing SC
@@ -115,19 +126,20 @@ public class TimelineFragment extends Fragment {
             mPostList.add(post);
         }
 
-        setupAdapter();
+        updateUI();
     }
 
     private void loadRecentTracks() {
-        SCService scService = SoundCloud.getService();
+        SCService scService = SoundCloudAPI.getService();
         Call<List<SCTrack>> call = scService.getRecentTracks(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US).format(new Date()));
 
         call.enqueue(new Callback<List<SCTrack>>() {
             @Override
             public void onResponse(Response<List<SCTrack>> response, Retrofit retrofit) {
-                List<SCTrack> listItems = response.body();
-                Log.e(TAG, "date created: " + listItems.get(0).getCreatedAt().substring(0, 19));
-                generateModel(listItems);
+                if (response.isSuccess()) {
+                    List<SCTrack> listItems = response.body();
+                    generateModel(listItems);
+                }
             }
 
             @Override
@@ -141,6 +153,8 @@ public class TimelineFragment extends Fragment {
     private class TimelineHolder extends RecyclerView.ViewHolder {
 
         private TimelinePost mPost;
+        private int mIndex;
+        private RelativeLayout mContainerView;
         private CircleImageView mProfileImageView;
         private TextView mUploaderTextView;
         private TextView mLongAgoTextView;
@@ -153,11 +167,14 @@ public class TimelineFragment extends Fragment {
         private ImageButton mRepostButton;
         private ImageButton mShareButton;
         private ListView mCommentListView;
+        private BaseAdapter mAdapter;
+        private TextView mShowAllComments;
 
         public TimelineHolder(View itemView) {
             super(itemView);
 
             //bind resources
+            mContainerView = (RelativeLayout) itemView.findViewById(R.id.item_container);
             mProfileImageView = (CircleImageView) itemView.findViewById(R.id.post_profile_image_view);
             mUploaderTextView = (TextView) itemView.findViewById(R.id.uploader_text_view);
             mLongAgoTextView = (TextView) itemView.findViewById(R.id.long_ago_text_view);
@@ -170,46 +187,86 @@ public class TimelineFragment extends Fragment {
             mRepostButton = (ImageButton) itemView.findViewById(R.id.repost);
             mShareButton = (ImageButton) itemView.findViewById(R.id.share);
             mCommentListView = (ListView) itemView.findViewById(R.id.comment_timeline_list_view);
+            mShowAllComments = (TextView) itemView.findViewById(R.id.view_comments_button);
         }
 
-        public void bindItem(final TimelinePost post) {
+        public void bindItem(final TimelinePost post, int index) {
             mPost = post;
+            mIndex = index;
 
-            mUploaderTextView.setText(post.getUser().getName());
+            User poster = mPost.getUser();
+            if (poster.getPhotoUrl() !=  null && !poster.getPhotoUrl().equals("")) {
+                Picasso.with(getActivity())
+                        .load(poster.getPhotoUrl())
+                        .into(mProfileImageView);
+            }
+            mProfileImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(), TimelineHolder.this.mPost.getUser().getName(), Toast.LENGTH_SHORT).show();
+                }
+            });
+            mUploaderTextView.setText(mPost.getUser().getName());
 
             try {
-                Log.d(TAG, "date of post: " + post.getSinceCreated());
-                Log.d(TAG, "long time ago: " + post.getSinceCreated());
-                mLongAgoTextView.setText(post.getSinceCreated());
+                Log.d(TAG, "date of post: " + mPost.getSinceCreated());
+                Log.d(TAG, "long time ago: " + mPost.getSinceCreated());
+                mLongAgoTextView.setText(mPost.getSinceCreated());
             }
 
             catch (ParseException pe) {
                 Log.e(TAG, pe.getLocalizedMessage());
             }
+
+            //TODO: Reasearch for better source of album artwork
             Picasso.with(getActivity())
-                    .load(post.getTrack().getArtworkURL())
-                    //.placeholder(R.drawable.art_work_placeholder)
+                    .load(mPost.getTrack().getArtworkURL())
                     .into(mTrackArtworkImageView);
             mTrackArtworkImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = SCMusicService.newIntent(getActivity(), mPost.getTrack().getStreamURL(), mPost.getTrack().getTitle());
+                    Intent intent = SCMusicService.newIntent(getActivity(), TimelineHolder.this.mPost.getTrack().getStreamURL(), TimelineHolder.this.mPost.getTrack().getTitle());
                     getActivity().startService(intent);
                 }
             });
             //mArtistTextView.setText(mPost.getTrack().getArtist());
             //mTitleTextView.setText(mPost.getTrack().getTitle());
-            mMessageTextView.setText(mPost.getDescription());
+            mMessageTextView.setText(this.mPost.getDescription());
+            mCommentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    lastIndexPressed = mIndex;
+                    Intent i = CommentsActivity.newIntent(getActivity(), mPost.getCommentList());
+                    startActivityForResult(i, COMMENT_REQUEST);
+                }
+            });
             mCommentListView.setAdapter(new BaseAdapter() {
-                List<Comment> comments = post.getCommentList();
+                ArrayList<Comment> comments = mPost.getCommentList();
                 @Override
                 public int getCount() {
                     //limit to 5 comments displayed on timeline post
                     int size = comments.size();
                     if (size <= 5) {
+                        mContainerView.removeView(mShowAllComments);
                         return size;
                     }
                     else {
+                        mShowAllComments.setMovementMethod(LinkMovementMethod.getInstance());
+                        Spannable mySpannable = (Spannable) mShowAllComments.getText();
+                        ClickableSpan myClickableSpan = new ClickableSpan()
+                        {
+                            @Override
+                            public void onClick(View widget) {
+                                Toast.makeText(getActivity(), "show all commments", Toast.LENGTH_SHORT).show();
+                            }
+
+                        };
+                        int start = 0;
+                        int end = 17;
+
+                        mySpannable.setSpan(myClickableSpan, start, start + end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        mySpannable.setSpan(new NoUnderlineSpan(), start, start + end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        mySpannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.white)), start, start + end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                         return 5;
                     }
                 }
@@ -239,8 +296,8 @@ public class TimelineFragment extends Fragment {
 
                     Comment comment = comments.get(position);
                     int start = 0;
-                    int end = comment.getUser().getName().length();
-                    String commentText = comment.getUser().getName() + " " + comment.getText();
+                    int end = comment.getCommenter().getName().length();
+                    String commentText = comment.getCommenter().getName() + " " + comment.getText();
 
                     holder.userAndText.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.userAndText.setText(commentText, TextView.BufferType.SPANNABLE);
@@ -249,11 +306,13 @@ public class TimelineFragment extends Fragment {
                     {
                         @Override
                         public void onClick(View widget) {
-                            Toast.makeText(getActivity(), "pop comment", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "pop users profile", Toast.LENGTH_SHORT).show();
                         }
 
                     };
+
                     mySpannable.setSpan(myClickableSpan, start, start + end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    mySpannable.setSpan(new NoUnderlineSpan(), start, start + end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     mySpannable.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorBlue)), start, start + end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                     return convertView;
@@ -268,9 +327,9 @@ public class TimelineFragment extends Fragment {
 
     private class TimelineAdapter extends RecyclerView.Adapter<TimelineHolder> {
 
-        private List<TimelinePost> mPosts;
+        private ArrayList<TimelinePost> mPosts;
 
-        public TimelineAdapter(List<TimelinePost> posts) {
+        public TimelineAdapter(ArrayList<TimelinePost> posts) {
             mPosts = posts;
         }
 
@@ -284,12 +343,16 @@ public class TimelineFragment extends Fragment {
         @Override
         public void onBindViewHolder(TimelineHolder holder, int position) {
             TimelinePost post = mPosts.get(position);
-            holder.bindItem(post);
+            holder.bindItem(post, position);
         }
 
         @Override
         public int getItemCount() {
             return mPosts.size();
+        }
+
+        public void setPosts(ArrayList<TimelinePost> posts) {
+            mPosts = posts;
         }
     }
 

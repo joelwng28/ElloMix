@@ -1,6 +1,5 @@
 package com.ellomix.android.ellomix.Fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,17 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ellomix.android.ellomix.Activities.ChatActivity;
-import com.ellomix.android.ellomix.Activities.MyApplication;
 import com.ellomix.android.ellomix.Activities.NewMessageActivity;
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Messaging.Chat;
 import com.ellomix.android.ellomix.Messaging.Chats;
-import com.ellomix.android.ellomix.Messaging.Message;
 import com.ellomix.android.ellomix.Model.ChatLab;
-import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +29,6 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,11 +137,13 @@ public class ChatListFragment extends Fragment {
             }
         };
 
-        // Checks for new chats
-        mDatabase.child("Users")
-                .child(mFirebaseUser.getUid())
-                .child("chatIds")
-                .addChildEventListener(chatIdsEventListener);
+        if (mFirebaseUser != null) {
+            // Checks for new chats
+            mDatabase.child("Users")
+                    .child(mFirebaseUser.getUid())
+                    .child("chatIds")
+                    .addChildEventListener(chatIdsEventListener);
+        }
 
         /*TODO: From recipient can be either one of 3 cases
         case 1: If no group name, then every else in the group
@@ -263,18 +259,27 @@ public class ChatListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        updateUI();
+        Log.d(TAG, "onResume");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mDatabase.child("Users")
-                .child(mFirebaseUser.getUid())
-                .child("chatIds")
-                .removeEventListener(chatIdsEventListener);
-        mDatabase.child("Chats")
-                .removeEventListener(chatEventListener);
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+        if (mFirebaseUser != null) {
+            mDatabase.child("Users")
+                    .child(mFirebaseUser.getUid())
+                    .child("chatIds")
+                    .removeEventListener(chatIdsEventListener);
+            mDatabase.child("Chats")
+                    .removeEventListener(chatEventListener);
+        }
     }
 
     private void updateUI() {
@@ -327,7 +332,6 @@ public class ChatListFragment extends Fragment {
         }
 
         Log.d(TAG, "current chats: " + mChats.getChats().size());
-        //updateUI();
     }
 
     public class ChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

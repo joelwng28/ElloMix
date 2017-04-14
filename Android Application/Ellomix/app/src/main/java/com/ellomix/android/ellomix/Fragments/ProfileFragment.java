@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.data.StreamAssetPathFetcher;
 import com.ellomix.android.ellomix.Activities.LoginActivity;
 import com.ellomix.android.ellomix.Activities.NewMessageActivity;
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
@@ -25,6 +26,7 @@ import com.ellomix.android.ellomix.Model.User;
 import com.ellomix.android.ellomix.R;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -68,11 +70,18 @@ public class ProfileFragment extends Fragment {
 
         mProfilePicImageView = (CircleImageView) v.findViewById(R.id.profile_picture_image_view);
 
-        String photoURL = FirebaseService.getFirebaseUser().getPhotoUrl().toString();
+        FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
+        String userId = "";
+        if (firebaseUser != null) {
+            String photoURL = firebaseUser.getPhotoUrl().toString();
+            userId = firebaseUser.getUid();
 
-        Glide.with(getActivity())
-                .load(photoURL)
-                .into(mProfilePicImageView);
+            if (photoURL != null) {
+                Glide.with(getActivity())
+                        .load(photoURL)
+                        .into(mProfilePicImageView);
+            }
+        }
 
         mNumPostsTextView = (TextView) v.findViewById(R.id.posts_count_text_view);
         mNumFollewerTextView = (TextView) v.findViewById(R.id.followers_count_text_view);
@@ -81,7 +90,8 @@ public class ProfileFragment extends Fragment {
         mRecentMusicRecyclerView.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-        String userId = FirebaseService.getFirebaseUser().getUid();
+
+
 
         mStatsEventListener = new ChildEventListener() {
             @Override
@@ -112,8 +122,10 @@ public class ProfileFragment extends Fragment {
             }
         };
 
-        FirebaseService.getUserQuery(userId)
-                .addChildEventListener(mStatsEventListener);
+        if (userId.length() != 0) {
+            FirebaseService.getUserQuery(userId)
+                    .addChildEventListener(mStatsEventListener);
+        }
 
         logOutButton = (Button) v.findViewById(R.id.log_out_button);
         logOutButton.setOnClickListener(

@@ -3,6 +3,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/main_background">
@@ -156,6 +157,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/comment_timeline_list_view"
         android:layout_below="@id/like_count_text_view"
+        android:layout_toRightOf="@id/space_left"/>
+
+    <TextView
+        android:id="@+id/view_comments_button"
+        android:text="@string/view_comments"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment_timeline_list_view"
         android:layout_toRightOf="@id/space_left"/>
 
 </RelativeLayout>

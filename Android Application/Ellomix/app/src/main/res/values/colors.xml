@@ -9,7 +9,6 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlue">#6690F0</color>
     <color name="colorRed">#e84e3c</color>
-     <color name="background">#272727</color>
     <color name="login">#769f6c</color>
     <color name="white">#FFFFFF</color>
 </resources>

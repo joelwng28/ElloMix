@@ -40,6 +40,10 @@ gradle/._.DS_Store
 .idea/workspace.xml
 Ellomix.iml
 app/app.iml
+.gradle/
+build/
+app/build/
+
 
 #NDK
 obj/

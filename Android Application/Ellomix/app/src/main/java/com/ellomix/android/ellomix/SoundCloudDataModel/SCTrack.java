@@ -31,6 +31,10 @@ public class SCTrack extends Track {
     @SerializedName("user")
     private SCUser mSCUser;
 
+    public SCTrack() {
+        super.setSource(Sources.SOUNDCLOUD);
+    }
+
     public String getArtist(){
         return mSCUser.getUserName();
     }
@@ -55,6 +59,10 @@ public class SCTrack extends Track {
         return mCreatedAt;
     }
 
+    public void setCreatedAt(String createdAt) {
+        mCreatedAt = createdAt;
+    }
+
     public String getStreamURL() {
         return mStreamURL;
     }
@@ -67,11 +75,12 @@ public class SCTrack extends Track {
         return mArtworkURL;
     }
 
-    public void setmArtworkURL(String artworkURL) {
+    public void setArtworkURL(String artworkURL) {
         mArtworkURL = artworkURL;
     }
 
     public String getTime() {
         return mTime;
     }
+
 }

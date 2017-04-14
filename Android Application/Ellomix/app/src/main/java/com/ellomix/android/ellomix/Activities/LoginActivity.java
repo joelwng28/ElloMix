@@ -141,8 +141,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onStop() {
         super.onStop();
+    }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAuth.removeAuthStateListener(mAuthListener);
     }
 
     @Override
@@ -219,43 +223,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
         );
 
-        //Download friends from firebase
-        FirebaseService.getMainUserFollowingQuery().addValueEventListener(
-                new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-
-                    // Get the userId and with that search for the user in firebase
-                    String friendId = child.getKey();
-
-                    FirebaseService.getUserQuery(friendId).addValueEventListener(
-                            new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            User friend = (User) dataSnapshot.getValue(User.class);
-                            if (friend != null) {
-                                FriendLab friendLab = FriendLab.get(getApplicationContext());
-                                friendLab.addFriend(friend);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        // TODO: Fix this
+//        //Download friends from firebase
+//        FirebaseService.getMainUserFollowingQuery().addValueEventListener(
+//                new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot child : dataSnapshot.getChildren()) {
+//
+//                    // Get the userId and with that search for the user in firebase
+//                    String friendId = child.getKey();
+//
+//                    FirebaseService.getUserQuery(friendId).addValueEventListener(
+//                            new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            User friend = (User) dataSnapshot.getValue(User.class);
+//                            if (friend != null) {
+//                                FriendLab friendLab = FriendLab.get(getApplicationContext());
+//                                friendLab.addFriend(friend);
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    });
+//
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
     }
 
@@ -273,10 +278,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             return;
         }
+<<<<<<< HEAD
 
         if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             return;
+=======
+        else {
+            //TODO: Testing
+            i = new Intent(this, LoginServicesActivity.class);
+>>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
         }
 
         progressDialog.setMessage("Signing in Please Wait...");

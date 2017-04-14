@@ -181,7 +181,7 @@ public class NewMessageActivity extends AppCompatActivity  {
                     while (it.hasNext()) {
                         User groupMember = (User) it.next();
                         FirebaseService.addChatIdToUser(groupMember, chat);
-                        groupMember.addChat(chatId);
+                        //groupMember.addChat(chatId);
                     }
 
 

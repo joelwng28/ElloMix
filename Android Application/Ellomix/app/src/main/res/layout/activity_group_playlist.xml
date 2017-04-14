@@ -11,7 +11,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.ellomix.android.ellomix.Activities.GroupPlaylistActivity"
-    android:background="@color/background">
+    android:background="@color/main_background">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/group_playlist_recycler_view"

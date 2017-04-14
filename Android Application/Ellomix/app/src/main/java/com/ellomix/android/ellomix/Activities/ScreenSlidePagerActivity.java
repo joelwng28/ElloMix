@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.Activities;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,12 +12,16 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import com.ellomix.android.ellomix.Fragments.ChatFragment;
 import com.ellomix.android.ellomix.Fragments.ChatListFragment;
 import com.ellomix.android.ellomix.Fragments.ProfileFragment;
+import com.ellomix.android.ellomix.Fragments.SearchFragment;
 import com.ellomix.android.ellomix.Fragments.TimelineFragment;
 import com.ellomix.android.ellomix.R;
+import com.ellomix.android.ellomix.Style.CustomViewPager;
 
 /**
  * Created by abetorres on 12/10/16.
@@ -24,13 +29,14 @@ import com.ellomix.android.ellomix.R;
 
 public class ScreenSlidePagerActivity extends AppCompatActivity {
 
-    private static final int NUM_PAGES = 2;
+    private static final int NUM_PAGES = 4;
 
-    private ViewPager mPager;
+    private CustomViewPager mPager;
     private PagerAdapter mPagerAdapter;
     private int[] imageResId = {
-            R.drawable.ic_time_line,
-            R.drawable.ic_chat,
+            R.drawable.ic_home,
+            R.drawable.ic_search,
+            R.drawable.ic_messsages,
             R.drawable.ic_profile
     };
 
@@ -39,8 +45,10 @@ public class ScreenSlidePagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screen_slide);
 
+        //TODO: Figure how to fix bug that cause view to disappear when changing between pages
+
         // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.fragment_view_pager);
+        mPager = (CustomViewPager) findViewById(R.id.fragment_view_pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -58,16 +66,22 @@ public class ScreenSlidePagerActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                //TODO: Change once new features added
-//                case 0:
-//                    //timeline
-//                    return TimelineFragment.newInstance();
+                //TODO: Missing Upload(2)
                 case 0:
-                    // profile
-                    return ProfileFragment.newInstance();
+                    //timeline
+                    return TimelineFragment.newInstance();
                 case 1:
-                    //chat
+                    //search
+                    return SearchFragment.newInstance();
+//                case 2:
+//                    //upload
+//
+                case 2:
+                    // chat
                     return ChatListFragment.newInstance();
+                case 3:
+                    //profile
+                    return ProfileFragment.newInstance();
                 default:
                     return null;
             }
@@ -89,6 +103,4 @@ public class ScreenSlidePagerActivity extends AppCompatActivity {
 //        }
 
     }
-
-
 }

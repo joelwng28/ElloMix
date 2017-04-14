@@ -7,173 +7,249 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D3F5DF71E42D7D5004AC13C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3F5DF61E42D7D5004AC13C /* NavigationController.swift */; };
-		0D7554E51E42C3FB004D7F61 /* facebook_logowhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7554E41E42C3FB004D7F61 /* facebook_logowhite.png */; };
-		0D7554E71E42C49F004D7F61 /* ellomix.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D7554E61E42C49F004D7F61 /* ellomix.png */; };
-		0D7821641E401EC900941828 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7821631E401EC900941828 /* AppDelegate.swift */; };
-		0D7821691E401EC900941828 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D7821671E401EC900941828 /* Main.storyboard */; };
-		0D78216B1E401EC900941828 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0D78216A1E401EC900941828 /* Assets.xcassets */; };
-		0D78216E1E401EC900941828 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D78216C1E401EC900941828 /* LaunchScreen.storyboard */; };
-		0D7821791E401EC900941828 /* EllomixUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7821781E401EC900941828 /* EllomixUITests.swift */; };
-		0D7821851E40313800941828 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D7821841E40313800941828 /* LogInViewController.swift */; };
-		0FE1E7342BB00CADF10C1B12 /* Pods_Ellomix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE0C46DC046936D59DD270EA /* Pods_Ellomix.framework */; };
-		6F420FA6BBAE147293D486E0 /* Pods_EllomixUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94394AACC488D608EFBEA15C /* Pods_EllomixUITests.framework */; };
+		35B95F0B09AA0D4D290F2B53 /* Pods_EllomixUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60F42159EA00C7245320515D /* Pods_EllomixUITests.framework */; };
+		79465F4F359335E43F682CB8 /* Pods_Ellomix.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD660CB1B6612123B4653350 /* Pods_Ellomix.framework */; };
+		BA14B00A1E654535004B8B67 /* AddMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA14B0091E654535004B8B67 /* AddMusicTableViewCell.swift */; };
+		BA14B00C1E654B1C004B8B67 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA14B00B1E654B1C004B8B67 /* AudioViewController.swift */; };
+		BA37F5CB1E5D600C00C937CD /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA37F5CA1E5D600B00C937CD /* ChatViewController.swift */; };
+		BA37F5CF1E5D658300C937CD /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA37F5CE1E5D658300C937CD /* ChatTableViewCell.swift */; };
+		BA4E4BB51E6212E100A4C4B9 /* GroupPlaylistTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4E4BB41E6212E100A4C4B9 /* GroupPlaylistTableViewController.swift */; };
+		BA4E4BFE1E63763800A4C4B9 /* SpotifyLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4E4BFD1E63763800A4C4B9 /* SpotifyLoginViewController.swift */; };
+		BA4E4C021E63906D00A4C4B9 /* SpotifyAudioPlayback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4E4BFF1E63906D00A4C4B9 /* SpotifyAudioPlayback.framework */; };
+		BA4E4C031E63906D00A4C4B9 /* SpotifyAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4E4C001E63906D00A4C4B9 /* SpotifyAuthentication.framework */; };
+		BA4E4C041E63906D00A4C4B9 /* SpotifyMetadata.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4E4C011E63906D00A4C4B9 /* SpotifyMetadata.framework */; };
+		BA4E4C061E63924700A4C4B9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4E4C051E63924700A4C4B9 /* AVFoundation.framework */; };
+		BA4E4C091E63944C00A4C4B9 /* AddMusicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4E4C081E63944C00A4C4B9 /* AddMusicTableViewController.swift */; };
+		BA894FD11E56C3B000BA3F73 /* ChatFeedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA894FD01E56C3B000BA3F73 /* ChatFeedTableViewController.swift */; };
+		BA894FD31E56C64600BA3F73 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BA894FD21E56C64600BA3F73 /* GoogleService-Info.plist */; };
+		BA894FD71E57F59700BA3F73 /* FirebaseApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA894FD61E57F59700BA3F73 /* FirebaseApi.swift */; };
+		BA894FDF1E5BD5F000BA3F73 /* ChatFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA894FDE1E5BD5F000BA3F73 /* ChatFeedTableViewCell.swift */; };
+		E193B0AC9A542B67F255F143 /* Pods_EllomixTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51D24004B5B584B342FE1703 /* Pods_EllomixTests.framework */; };
+		E33080271E342DAB0046D58F /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E33080261E342DAB0046D58F /* FBSDKCoreKit.framework */; };
+		E33080291E342DBB0046D58F /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E33080281E342DBB0046D58F /* FBSDKLoginKit.framework */; };
+		E330802B1E342EC50046D58F /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E330802A1E342EC50046D58F /* Bolts.framework */; };
+		E379E6221E08B69500B0256F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E379E6211E08B69500B0256F /* AppDelegate.swift */; };
+		E379E6241E08B69500B0256F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E379E6231E08B69500B0256F /* ViewController.swift */; };
+		E379E6271E08B69500B0256F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E379E6251E08B69500B0256F /* Main.storyboard */; };
+		E379E6291E08B69500B0256F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E379E6281E08B69500B0256F /* Assets.xcassets */; };
+		E379E62C1E08B69500B0256F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E379E62A1E08B69500B0256F /* LaunchScreen.storyboard */; };
+		E379E6371E08B69500B0256F /* EllomixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E379E6361E08B69500B0256F /* EllomixTests.swift */; };
+		E379E6421E08B69500B0256F /* EllomixUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E379E6411E08B69500B0256F /* EllomixUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0D7821751E401EC900941828 /* PBXContainerItemProxy */ = {
+		E379E6331E08B69500B0256F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0D7821581E401EC900941828 /* Project object */;
+			containerPortal = E379E6161E08B69500B0256F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0D78215F1E401EC900941828;
+			remoteGlobalIDString = E379E61D1E08B69500B0256F;
+			remoteInfo = Ellomix;
+		};
+		E379E63E1E08B69500B0256F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E379E6161E08B69500B0256F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E379E61D1E08B69500B0256F;
 			remoteInfo = Ellomix;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D3F5DF61E42D7D5004AC13C /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		0D7554E41E42C3FB004D7F61 /* facebook_logowhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook_logowhite.png; sourceTree = "<group>"; };
-		0D7554E61E42C49F004D7F61 /* ellomix.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ellomix.png; sourceTree = "<group>"; };
-		0D7821601E401EC900941828 /* Ellomix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ellomix.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0D7821631E401EC900941828 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0D7821681E401EC900941828 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0D78216A1E401EC900941828 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0D78216D1E401EC900941828 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0D78216F1E401EC900941828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0D7821741E401EC900941828 /* EllomixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EllomixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0D7821781E401EC900941828 /* EllomixUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllomixUITests.swift; sourceTree = "<group>"; };
-		0D78217A1E401EC900941828 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0D7821841E40313800941828 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		0DF6F6411E4050D2009E9907 /* Actor-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Actor-Regular.ttf"; path = "../../../design/Fonts/Actor-Regular.ttf"; sourceTree = "<group>"; };
-		0DF6F6421E4050D2009E9907 /* NeutraText DemiSCItalicAlt.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "NeutraText DemiSCItalicAlt.otf"; path = "../../../design/Fonts/NeutraText DemiSCItalicAlt.otf"; sourceTree = "<group>"; };
-		0DF6F6431E4050D2009E9907 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "../../../design/Fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
-		0DF6F6441E4050D2009E9907 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Semibold.ttf"; path = "../../../design/Fonts/OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
-		266D8595B85A36949330C469 /* Pods-EllomixUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EllomixUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EllomixUITests/Pods-EllomixUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		5090FFC38F6A853A96F138EE /* Pods-Ellomix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ellomix.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ellomix/Pods-Ellomix.release.xcconfig"; sourceTree = "<group>"; };
-		752F0CC08FEE5C503DC7F525 /* Pods-EllomixUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EllomixUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EllomixUITests/Pods-EllomixUITests.release.xcconfig"; sourceTree = "<group>"; };
-		94394AACC488D608EFBEA15C /* Pods_EllomixUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EllomixUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AE0C46DC046936D59DD270EA /* Pods_Ellomix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ellomix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE89B09E48B9A73B0B1C19DA /* Pods-Ellomix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ellomix.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ellomix/Pods-Ellomix.debug.xcconfig"; sourceTree = "<group>"; };
+		12016942F6C44225458DBBAF /* Pods-Ellomix.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ellomix.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Ellomix/Pods-Ellomix.debug.xcconfig"; sourceTree = "<group>"; };
+		34C16BA52CE61328DE8C8CD5 /* Pods-EllomixUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EllomixUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EllomixUITests/Pods-EllomixUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4A1BF9AAABD2A86C22E0CE5E /* Pods-EllomixTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EllomixTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EllomixTests/Pods-EllomixTests.release.xcconfig"; sourceTree = "<group>"; };
+		51D24004B5B584B342FE1703 /* Pods_EllomixTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EllomixTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		540DAA8C272C14067F94158B /* Pods-EllomixTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EllomixTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EllomixTests/Pods-EllomixTests.debug.xcconfig"; sourceTree = "<group>"; };
+		60F42159EA00C7245320515D /* Pods_EllomixUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EllomixUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6930722A09922E5F7220E98F /* Pods-EllomixUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EllomixUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EllomixUITests/Pods-EllomixUITests.release.xcconfig"; sourceTree = "<group>"; };
+		BA14B0091E654535004B8B67 /* AddMusicTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMusicTableViewCell.swift; sourceTree = "<group>"; };
+		BA14B00B1E654B1C004B8B67 /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		BA37F5CA1E5D600B00C937CD /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		BA37F5CE1E5D658300C937CD /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		BA4E4BB41E6212E100A4C4B9 /* GroupPlaylistTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupPlaylistTableViewController.swift; sourceTree = "<group>"; };
+		BA4E4BFD1E63763800A4C4B9 /* SpotifyLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyLoginViewController.swift; sourceTree = "<group>"; };
+		BA4E4BFF1E63906D00A4C4B9 /* SpotifyAudioPlayback.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAudioPlayback.framework; sourceTree = "<group>"; };
+		BA4E4C001E63906D00A4C4B9 /* SpotifyAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyAuthentication.framework; sourceTree = "<group>"; };
+		BA4E4C011E63906D00A4C4B9 /* SpotifyMetadata.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyMetadata.framework; sourceTree = "<group>"; };
+		BA4E4C051E63924700A4C4B9 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		BA4E4C081E63944C00A4C4B9 /* AddMusicTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMusicTableViewController.swift; sourceTree = "<group>"; };
+		BA894FD01E56C3B000BA3F73 /* ChatFeedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatFeedTableViewController.swift; sourceTree = "<group>"; };
+		BA894FD21E56C64600BA3F73 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BA894FD61E57F59700BA3F73 /* FirebaseApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseApi.swift; sourceTree = "<group>"; };
+		BA894FDE1E5BD5F000BA3F73 /* ChatFeedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatFeedTableViewCell.swift; sourceTree = "<group>"; };
+		CB58748A5C034C0CC7DBE1AB /* Pods-Ellomix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Ellomix.release.xcconfig"; path = "Pods/Target Support Files/Pods-Ellomix/Pods-Ellomix.release.xcconfig"; sourceTree = "<group>"; };
+		DD660CB1B6612123B4653350 /* Pods_Ellomix.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Ellomix.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E33080261E342DAB0046D58F /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		E33080281E342DBB0046D58F /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		E330802A1E342EC50046D58F /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		E330802C1E342F2B0046D58F /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "../Bridging-Header.h"; sourceTree = "<group>"; };
+		E379E61E1E08B69500B0256F /* Ellomix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ellomix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E379E6211E08B69500B0256F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E379E6231E08B69500B0256F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E379E6261E08B69500B0256F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E379E6281E08B69500B0256F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E379E62B1E08B69500B0256F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E379E62D1E08B69500B0256F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E379E6321E08B69500B0256F /* EllomixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EllomixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E379E6361E08B69500B0256F /* EllomixTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllomixTests.swift; sourceTree = "<group>"; };
+		E379E6381E08B69500B0256F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E379E63D1E08B69500B0256F /* EllomixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EllomixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E379E6411E08B69500B0256F /* EllomixUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllomixUITests.swift; sourceTree = "<group>"; };
+		E379E6431E08B69500B0256F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0D78215D1E401EC900941828 /* Frameworks */ = {
+		E379E61B1E08B69500B0256F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0FE1E7342BB00CADF10C1B12 /* Pods_Ellomix.framework in Frameworks */,
+				BA4E4C061E63924700A4C4B9 /* AVFoundation.framework in Frameworks */,
+				E330802B1E342EC50046D58F /* Bolts.framework in Frameworks */,
+				E33080291E342DBB0046D58F /* FBSDKLoginKit.framework in Frameworks */,
+				BA4E4C041E63906D00A4C4B9 /* SpotifyMetadata.framework in Frameworks */,
+				BA4E4C031E63906D00A4C4B9 /* SpotifyAuthentication.framework in Frameworks */,
+				BA4E4C021E63906D00A4C4B9 /* SpotifyAudioPlayback.framework in Frameworks */,
+				E33080271E342DAB0046D58F /* FBSDKCoreKit.framework in Frameworks */,
+				79465F4F359335E43F682CB8 /* Pods_Ellomix.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0D7821711E401EC900941828 /* Frameworks */ = {
+		E379E62F1E08B69500B0256F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F420FA6BBAE147293D486E0 /* Pods_EllomixUITests.framework in Frameworks */,
+				E193B0AC9A542B67F255F143 /* Pods_EllomixTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E379E63A1E08B69500B0256F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35B95F0B09AA0D4D290F2B53 /* Pods_EllomixUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0D7821571E401EC900941828 = {
+		67A20A8E352D884DD1B1B4DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0D7821621E401EC900941828 /* Ellomix */,
-				0D7821771E401EC900941828 /* EllomixUITests */,
-				0D7821611E401EC900941828 /* Products */,
-				596C5833DAC107F42080C87B /* Pods */,
-				368350957C5FDCE664345DBD /* Frameworks */,
-			);
-			sourceTree = "<group>";
-		};
-		0D7821611E401EC900941828 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0D7821601E401EC900941828 /* Ellomix.app */,
-				0D7821741E401EC900941828 /* EllomixUITests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		0D7821621E401EC900941828 /* Ellomix */ = {
-			isa = PBXGroup;
-			children = (
-				0DF6F6401E4050A9009E9907 /* Fonts */,
-				0D7821831E40305100941828 /* View Controllers */,
-				0D7821631E401EC900941828 /* AppDelegate.swift */,
-				0D7821671E401EC900941828 /* Main.storyboard */,
-				0D78216A1E401EC900941828 /* Assets.xcassets */,
-				0D78216C1E401EC900941828 /* LaunchScreen.storyboard */,
-				0D78216F1E401EC900941828 /* Info.plist */,
-				0D7554E41E42C3FB004D7F61 /* facebook_logowhite.png */,
-				0D7554E61E42C49F004D7F61 /* ellomix.png */,
-			);
-			path = Ellomix;
-			sourceTree = "<group>";
-		};
-		0D7821771E401EC900941828 /* EllomixUITests */ = {
-			isa = PBXGroup;
-			children = (
-				0D7821781E401EC900941828 /* EllomixUITests.swift */,
-				0D78217A1E401EC900941828 /* Info.plist */,
-			);
-			path = EllomixUITests;
-			sourceTree = "<group>";
-		};
-		0D7821831E40305100941828 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				0D7821841E40313800941828 /* LogInViewController.swift */,
-				0D3F5DF61E42D7D5004AC13C /* NavigationController.swift */,
-			);
-			name = "View Controllers";
-			sourceTree = "<group>";
-		};
-		0DF6F6401E4050A9009E9907 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				0DF6F6411E4050D2009E9907 /* Actor-Regular.ttf */,
-				0DF6F6421E4050D2009E9907 /* NeutraText DemiSCItalicAlt.otf */,
-				0DF6F6431E4050D2009E9907 /* OpenSans-Regular.ttf */,
-				0DF6F6441E4050D2009E9907 /* OpenSans-Semibold.ttf */,
-			);
-			name = Fonts;
-			sourceTree = "<group>";
-		};
-		368350957C5FDCE664345DBD /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AE0C46DC046936D59DD270EA /* Pods_Ellomix.framework */,
-				94394AACC488D608EFBEA15C /* Pods_EllomixUITests.framework */,
+				BA4E4C051E63924700A4C4B9 /* AVFoundation.framework */,
+				BA4E4BFF1E63906D00A4C4B9 /* SpotifyAudioPlayback.framework */,
+				BA4E4C001E63906D00A4C4B9 /* SpotifyAuthentication.framework */,
+				BA4E4C011E63906D00A4C4B9 /* SpotifyMetadata.framework */,
+				DD660CB1B6612123B4653350 /* Pods_Ellomix.framework */,
+				51D24004B5B584B342FE1703 /* Pods_EllomixTests.framework */,
+				60F42159EA00C7245320515D /* Pods_EllomixUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		596C5833DAC107F42080C87B /* Pods */ = {
+		98E642340DC8BDFF6D2E93F6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DE89B09E48B9A73B0B1C19DA /* Pods-Ellomix.debug.xcconfig */,
-				5090FFC38F6A853A96F138EE /* Pods-Ellomix.release.xcconfig */,
-				266D8595B85A36949330C469 /* Pods-EllomixUITests.debug.xcconfig */,
-				752F0CC08FEE5C503DC7F525 /* Pods-EllomixUITests.release.xcconfig */,
+				12016942F6C44225458DBBAF /* Pods-Ellomix.debug.xcconfig */,
+				CB58748A5C034C0CC7DBE1AB /* Pods-Ellomix.release.xcconfig */,
+				540DAA8C272C14067F94158B /* Pods-EllomixTests.debug.xcconfig */,
+				4A1BF9AAABD2A86C22E0CE5E /* Pods-EllomixTests.release.xcconfig */,
+				34C16BA52CE61328DE8C8CD5 /* Pods-EllomixUITests.debug.xcconfig */,
+				6930722A09922E5F7220E98F /* Pods-EllomixUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		E33080251E342DAA0046D58F /* Facebook Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E330802A1E342EC50046D58F /* Bolts.framework */,
+				E33080281E342DBB0046D58F /* FBSDKLoginKit.framework */,
+				E33080261E342DAB0046D58F /* FBSDKCoreKit.framework */,
+			);
+			name = "Facebook Frameworks";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		E379E6151E08B69500B0256F = {
+			isa = PBXGroup;
+			children = (
+				E379E6201E08B69500B0256F /* Ellomix */,
+				E379E6351E08B69500B0256F /* EllomixTests */,
+				E379E6401E08B69500B0256F /* EllomixUITests */,
+				E379E61F1E08B69500B0256F /* Products */,
+				98E642340DC8BDFF6D2E93F6 /* Pods */,
+				67A20A8E352D884DD1B1B4DB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E379E61F1E08B69500B0256F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E379E61E1E08B69500B0256F /* Ellomix.app */,
+				E379E6321E08B69500B0256F /* EllomixTests.xctest */,
+				E379E63D1E08B69500B0256F /* EllomixUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E379E6201E08B69500B0256F /* Ellomix */ = {
+			isa = PBXGroup;
+			children = (
+				BA894FD21E56C64600BA3F73 /* GoogleService-Info.plist */,
+				E330802C1E342F2B0046D58F /* Bridging-Header.h */,
+				E33080251E342DAA0046D58F /* Facebook Frameworks */,
+				E379E6211E08B69500B0256F /* AppDelegate.swift */,
+				E379E6231E08B69500B0256F /* ViewController.swift */,
+				E379E6251E08B69500B0256F /* Main.storyboard */,
+				E379E6281E08B69500B0256F /* Assets.xcassets */,
+				E379E62A1E08B69500B0256F /* LaunchScreen.storyboard */,
+				E379E62D1E08B69500B0256F /* Info.plist */,
+				BA894FD01E56C3B000BA3F73 /* ChatFeedTableViewController.swift */,
+				BA894FD61E57F59700BA3F73 /* FirebaseApi.swift */,
+				BA894FDE1E5BD5F000BA3F73 /* ChatFeedTableViewCell.swift */,
+				BA37F5CA1E5D600B00C937CD /* ChatViewController.swift */,
+				BA37F5CE1E5D658300C937CD /* ChatTableViewCell.swift */,
+				BA4E4BB41E6212E100A4C4B9 /* GroupPlaylistTableViewController.swift */,
+				BA4E4BFD1E63763800A4C4B9 /* SpotifyLoginViewController.swift */,
+				BA4E4C081E63944C00A4C4B9 /* AddMusicTableViewController.swift */,
+				BA14B0091E654535004B8B67 /* AddMusicTableViewCell.swift */,
+				BA14B00B1E654B1C004B8B67 /* AudioViewController.swift */,
+			);
+			path = Ellomix;
+			sourceTree = "<group>";
+		};
+		E379E6351E08B69500B0256F /* EllomixTests */ = {
+			isa = PBXGroup;
+			children = (
+				E379E6361E08B69500B0256F /* EllomixTests.swift */,
+				E379E6381E08B69500B0256F /* Info.plist */,
+			);
+			path = EllomixTests;
+			sourceTree = "<group>";
+		};
+		E379E6401E08B69500B0256F /* EllomixUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E379E6411E08B69500B0256F /* EllomixUITests.swift */,
+				E379E6431E08B69500B0256F /* Info.plist */,
+			);
+			path = EllomixUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0D78215F1E401EC900941828 /* Ellomix */ = {
+		E379E61D1E08B69500B0256F /* Ellomix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0D78217D1E401EC900941828 /* Build configuration list for PBXNativeTarget "Ellomix" */;
+			buildConfigurationList = E379E6461E08B69500B0256F /* Build configuration list for PBXNativeTarget "Ellomix" */;
 			buildPhases = (
-				C7A14DBAA3D33205E3A72068 /* [CP] Check Pods Manifest.lock */,
-				0D78215C1E401EC900941828 /* Sources */,
-				0D78215D1E401EC900941828 /* Frameworks */,
-				0D78215E1E401EC900941828 /* Resources */,
-				1547DC7BA98703A7CB2BD1E2 /* [CP] Embed Pods Frameworks */,
-				8166DFFF257EB91483300F22 /* [CP] Copy Pods Resources */,
+				2DA1E04306DC6CF545CF7D08 /* [CP] Check Pods Manifest.lock */,
+				E379E61A1E08B69500B0256F /* Sources */,
+				E379E61B1E08B69500B0256F /* Frameworks */,
+				E379E61C1E08B69500B0256F /* Resources */,
+				57EBD84D18CDCEE9FE505E5B /* [CP] Embed Pods Frameworks */,
+				F7F0884A815191DA9F68F6CC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -181,54 +257,78 @@
 			);
 			name = Ellomix;
 			productName = Ellomix;
-			productReference = 0D7821601E401EC900941828 /* Ellomix.app */;
+			productReference = E379E61E1E08B69500B0256F /* Ellomix.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0D7821731E401EC900941828 /* EllomixUITests */ = {
+		E379E6311E08B69500B0256F /* EllomixTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0D7821801E401EC900941828 /* Build configuration list for PBXNativeTarget "EllomixUITests" */;
+			buildConfigurationList = E379E6491E08B69500B0256F /* Build configuration list for PBXNativeTarget "EllomixTests" */;
 			buildPhases = (
-				39FD716BCFC8D7AD389FD9D8 /* [CP] Check Pods Manifest.lock */,
-				0D7821701E401EC900941828 /* Sources */,
-				0D7821711E401EC900941828 /* Frameworks */,
-				0D7821721E401EC900941828 /* Resources */,
-				9A35D04E5BAD2F9CE9AC45AA /* [CP] Embed Pods Frameworks */,
-				F46966C7C67D1C5676A34FA0 /* [CP] Copy Pods Resources */,
+				5DC6E9B4B3E63B842F90678F /* [CP] Check Pods Manifest.lock */,
+				E379E62E1E08B69500B0256F /* Sources */,
+				E379E62F1E08B69500B0256F /* Frameworks */,
+				E379E6301E08B69500B0256F /* Resources */,
+				418FFE50DFD8C3BAA979AE57 /* [CP] Embed Pods Frameworks */,
+				7C95696F26DEAC0ACF5A0747 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				0D7821761E401EC900941828 /* PBXTargetDependency */,
+				E379E6341E08B69500B0256F /* PBXTargetDependency */,
+			);
+			name = EllomixTests;
+			productName = EllomixTests;
+			productReference = E379E6321E08B69500B0256F /* EllomixTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E379E63C1E08B69500B0256F /* EllomixUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E379E64C1E08B69500B0256F /* Build configuration list for PBXNativeTarget "EllomixUITests" */;
+			buildPhases = (
+				35B082598D0E88DE2B66ABC4 /* [CP] Check Pods Manifest.lock */,
+				E379E6391E08B69500B0256F /* Sources */,
+				E379E63A1E08B69500B0256F /* Frameworks */,
+				E379E63B1E08B69500B0256F /* Resources */,
+				3383915B83CFDDD0E476566E /* [CP] Embed Pods Frameworks */,
+				B3BBF4EF03832379B2D6B5B0 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E379E63F1E08B69500B0256F /* PBXTargetDependency */,
 			);
 			name = EllomixUITests;
 			productName = EllomixUITests;
-			productReference = 0D7821741E401EC900941828 /* EllomixUITests.xctest */;
+			productReference = E379E63D1E08B69500B0256F /* EllomixUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		0D7821581E401EC900941828 /* Project object */ = {
+		E379E6161E08B69500B0256F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = micah;
+				ORGANIZATIONNAME = "Akshay Vyas";
 				TargetAttributes = {
-					0D78215F1E401EC900941828 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 647J3BCK2V;
+					E379E61D1E08B69500B0256F = {
+						CreatedOnToolsVersion = 8.2;
 						ProvisioningStyle = Automatic;
 					};
-					0D7821731E401EC900941828 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 647J3BCK2V;
+					E379E6311E08B69500B0256F = {
+						CreatedOnToolsVersion = 8.2;
 						ProvisioningStyle = Automatic;
-						TestTargetID = 0D78215F1E401EC900941828;
+						TestTargetID = E379E61D1E08B69500B0256F;
+					};
+					E379E63C1E08B69500B0256F = {
+						CreatedOnToolsVersion = 8.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = E379E61D1E08B69500B0256F;
 					};
 				};
 			};
-			buildConfigurationList = 0D78215B1E401EC900941828 /* Build configuration list for PBXProject "Ellomix" */;
+			buildConfigurationList = E379E6191E08B69500B0256F /* Build configuration list for PBXProject "Ellomix" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -236,31 +336,38 @@
 				en,
 				Base,
 			);
-			mainGroup = 0D7821571E401EC900941828;
-			productRefGroup = 0D7821611E401EC900941828 /* Products */;
+			mainGroup = E379E6151E08B69500B0256F;
+			productRefGroup = E379E61F1E08B69500B0256F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0D78215F1E401EC900941828 /* Ellomix */,
-				0D7821731E401EC900941828 /* EllomixUITests */,
+				E379E61D1E08B69500B0256F /* Ellomix */,
+				E379E6311E08B69500B0256F /* EllomixTests */,
+				E379E63C1E08B69500B0256F /* EllomixUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0D78215E1E401EC900941828 /* Resources */ = {
+		E379E61C1E08B69500B0256F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D7554E51E42C3FB004D7F61 /* facebook_logowhite.png in Resources */,
-				0D78216E1E401EC900941828 /* LaunchScreen.storyboard in Resources */,
-				0D7554E71E42C49F004D7F61 /* ellomix.png in Resources */,
-				0D78216B1E401EC900941828 /* Assets.xcassets in Resources */,
-				0D7821691E401EC900941828 /* Main.storyboard in Resources */,
+				E379E62C1E08B69500B0256F /* LaunchScreen.storyboard in Resources */,
+				BA894FD31E56C64600BA3F73 /* GoogleService-Info.plist in Resources */,
+				E379E6291E08B69500B0256F /* Assets.xcassets in Resources */,
+				E379E6271E08B69500B0256F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0D7821721E401EC900941828 /* Resources */ = {
+		E379E6301E08B69500B0256F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E379E63B1E08B69500B0256F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -270,22 +377,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1547DC7BA98703A7CB2BD1E2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ellomix/Pods-Ellomix-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		39FD716BCFC8D7AD389FD9D8 /* [CP] Check Pods Manifest.lock */ = {
+		2DA1E04306DC6CF545CF7D08 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -300,22 +392,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		8166DFFF257EB91483300F22 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ellomix/Pods-Ellomix-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9A35D04E5BAD2F9CE9AC45AA /* [CP] Embed Pods Frameworks */ = {
+		3383915B83CFDDD0E476566E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -330,7 +407,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EllomixUITests/Pods-EllomixUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C7A14DBAA3D33205E3A72068 /* [CP] Check Pods Manifest.lock */ = {
+		35B082598D0E88DE2B66ABC4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -345,7 +422,67 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F46966C7C67D1C5676A34FA0 /* [CP] Copy Pods Resources */ = {
+		418FFE50DFD8C3BAA979AE57 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EllomixTests/Pods-EllomixTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		57EBD84D18CDCEE9FE505E5B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ellomix/Pods-Ellomix-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5DC6E9B4B3E63B842F90678F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7C95696F26DEAC0ACF5A0747 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EllomixTests/Pods-EllomixTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3BBF4EF03832379B2D6B5B0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -360,50 +497,87 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EllomixUITests/Pods-EllomixUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F7F0884A815191DA9F68F6CC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Ellomix/Pods-Ellomix-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0D78215C1E401EC900941828 /* Sources */ = {
+		E379E61A1E08B69500B0256F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D7821641E401EC900941828 /* AppDelegate.swift in Sources */,
-				0D3F5DF71E42D7D5004AC13C /* NavigationController.swift in Sources */,
-				0D7821851E40313800941828 /* LogInViewController.swift in Sources */,
+				E379E6241E08B69500B0256F /* ViewController.swift in Sources */,
+				BA4E4C091E63944C00A4C4B9 /* AddMusicTableViewController.swift in Sources */,
+				BA4E4BFE1E63763800A4C4B9 /* SpotifyLoginViewController.swift in Sources */,
+				BA894FD11E56C3B000BA3F73 /* ChatFeedTableViewController.swift in Sources */,
+				E379E6221E08B69500B0256F /* AppDelegate.swift in Sources */,
+				BA14B00C1E654B1C004B8B67 /* AudioViewController.swift in Sources */,
+				BA894FDF1E5BD5F000BA3F73 /* ChatFeedTableViewCell.swift in Sources */,
+				BA37F5CF1E5D658300C937CD /* ChatTableViewCell.swift in Sources */,
+				BA14B00A1E654535004B8B67 /* AddMusicTableViewCell.swift in Sources */,
+				BA37F5CB1E5D600C00C937CD /* ChatViewController.swift in Sources */,
+				BA894FD71E57F59700BA3F73 /* FirebaseApi.swift in Sources */,
+				BA4E4BB51E6212E100A4C4B9 /* GroupPlaylistTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0D7821701E401EC900941828 /* Sources */ = {
+		E379E62E1E08B69500B0256F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D7821791E401EC900941828 /* EllomixUITests.swift in Sources */,
+				E379E6371E08B69500B0256F /* EllomixTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E379E6391E08B69500B0256F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E379E6421E08B69500B0256F /* EllomixUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0D7821761E401EC900941828 /* PBXTargetDependency */ = {
+		E379E6341E08B69500B0256F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0D78215F1E401EC900941828 /* Ellomix */;
-			targetProxy = 0D7821751E401EC900941828 /* PBXContainerItemProxy */;
+			target = E379E61D1E08B69500B0256F /* Ellomix */;
+			targetProxy = E379E6331E08B69500B0256F /* PBXContainerItemProxy */;
+		};
+		E379E63F1E08B69500B0256F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E379E61D1E08B69500B0256F /* Ellomix */;
+			targetProxy = E379E63E1E08B69500B0256F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0D7821671E401EC900941828 /* Main.storyboard */ = {
+		E379E6251E08B69500B0256F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0D7821681E401EC900941828 /* Base */,
+				E379E6261E08B69500B0256F /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		0D78216C1E401EC900941828 /* LaunchScreen.storyboard */ = {
+		E379E62A1E08B69500B0256F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0D78216D1E401EC900941828 /* Base */,
+				E379E62B1E08B69500B0256F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -411,7 +585,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0D78217B1E401EC900941828 /* Debug */ = {
+		E379E6441E08B69500B0256F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -460,7 +634,7 @@
 			};
 			name = Debug;
 		};
-		0D78217C1E401EC900941828 /* Release */ = {
+		E379E6451E08B69500B0256F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -502,58 +676,92 @@
 			};
 			name = Release;
 		};
-		0D78217E1E401EC900941828 /* Debug */ = {
+		E379E6471E08B69500B0256F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE89B09E48B9A73B0B1C19DA /* Pods-Ellomix.debug.xcconfig */;
+			baseConfigurationReference = 12016942F6C44225458DBBAF /* Pods-Ellomix.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 647J3BCK2V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Ellomix/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Ellomix;
+				PRODUCT_BUNDLE_IDENTIFIER = Ellomix.Ellomix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
-		0D78217F1E401EC900941828 /* Release */ = {
+		E379E6481E08B69500B0256F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5090FFC38F6A853A96F138EE /* Pods-Ellomix.release.xcconfig */;
+			baseConfigurationReference = CB58748A5C034C0CC7DBE1AB /* Pods-Ellomix.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 647J3BCK2V;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Ellomix/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.Ellomix;
+				PRODUCT_BUNDLE_IDENTIFIER = Ellomix.Ellomix;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
-		0D7821811E401EC900941828 /* Debug */ = {
+		E379E64A1E08B69500B0256F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 266D8595B85A36949330C469 /* Pods-EllomixUITests.debug.xcconfig */;
+			baseConfigurationReference = 540DAA8C272C14067F94158B /* Pods-EllomixTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = 647J3BCK2V;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = EllomixTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Ellomix.EllomixTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ellomix.app/Ellomix";
+			};
+			name = Debug;
+		};
+		E379E64B1E08B69500B0256F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A1BF9AAABD2A86C22E0CE5E /* Pods-EllomixTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = EllomixTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Ellomix.EllomixTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Ellomix.app/Ellomix";
+			};
+			name = Release;
+		};
+		E379E64D1E08B69500B0256F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34C16BA52CE61328DE8C8CD5 /* Pods-EllomixUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = EllomixUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.EllomixUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Ellomix.EllomixUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Ellomix;
 			};
 			name = Debug;
 		};
-		0D7821821E401EC900941828 /* Release */ = {
+		E379E64E1E08B69500B0256F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 752F0CC08FEE5C503DC7F525 /* Pods-EllomixUITests.release.xcconfig */;
+			baseConfigurationReference = 6930722A09922E5F7220E98F /* Pods-EllomixUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				DEVELOPMENT_TEAM = 647J3BCK2V;
 				INFOPLIST_FILE = EllomixUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.EllomixUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = Ellomix.EllomixUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Ellomix;
@@ -563,34 +771,43 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0D78215B1E401EC900941828 /* Build configuration list for PBXProject "Ellomix" */ = {
+		E379E6191E08B69500B0256F /* Build configuration list for PBXProject "Ellomix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0D78217B1E401EC900941828 /* Debug */,
-				0D78217C1E401EC900941828 /* Release */,
+				E379E6441E08B69500B0256F /* Debug */,
+				E379E6451E08B69500B0256F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0D78217D1E401EC900941828 /* Build configuration list for PBXNativeTarget "Ellomix" */ = {
+		E379E6461E08B69500B0256F /* Build configuration list for PBXNativeTarget "Ellomix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0D78217E1E401EC900941828 /* Debug */,
-				0D78217F1E401EC900941828 /* Release */,
+				E379E6471E08B69500B0256F /* Debug */,
+				E379E6481E08B69500B0256F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0D7821801E401EC900941828 /* Build configuration list for PBXNativeTarget "EllomixUITests" */ = {
+		E379E6491E08B69500B0256F /* Build configuration list for PBXNativeTarget "EllomixTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0D7821811E401EC900941828 /* Debug */,
-				0D7821821E401EC900941828 /* Release */,
+				E379E64A1E08B69500B0256F /* Debug */,
+				E379E64B1E08B69500B0256F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E379E64C1E08B69500B0256F /* Build configuration list for PBXNativeTarget "EllomixUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E379E64D1E08B69500B0256F /* Debug */,
+				E379E64E1E08B69500B0256F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 0D7821581E401EC900941828 /* Project object */;
+	rootObject = E379E6161E08B69500B0256F /* Project object */;
 }

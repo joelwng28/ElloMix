@@ -2,8 +2,8 @@
 //  EllomixUITests.swift
 //  EllomixUITests
 //
-//  Created by Micah Peoples on 1/30/17.
-//  Copyright © 2017 micah. All rights reserved.
+//  Created by Akshay Vyas on 12/19/16.
+//  Copyright © 2016 Akshay Vyas. All rights reserved.
 //
 
 import XCTest
