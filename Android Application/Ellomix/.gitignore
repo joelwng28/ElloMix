@@ -33,10 +33,13 @@ gradle/._.DS_Store
 
 # Android Studio
 *.iml
-#.idea/
+.idea/
 #.gradle/
 #build/
 #app/build/
+.idea/workspace.xml
+Ellomix.iml
+app/app.iml
 
 #NDK
 obj/
