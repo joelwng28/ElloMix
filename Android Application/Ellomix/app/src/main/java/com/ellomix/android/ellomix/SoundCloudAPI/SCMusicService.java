@@ -125,7 +125,7 @@ public class SCMusicService extends Service implements MediaPlayer.OnPreparedLis
 //        PendingIntent stop = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 //
 //        notification = new NotificationCompat.Builder(this)
-//                .setContentTitle("SoundCloud Player")
+//                .setContentTitle("SoundCloudAPI Player")
 //                .setTicker("Soundcloud Player")
 //                .setContentText(title)
 //                .setSmallIcon(android.R.drawable.stat_notify_chat)

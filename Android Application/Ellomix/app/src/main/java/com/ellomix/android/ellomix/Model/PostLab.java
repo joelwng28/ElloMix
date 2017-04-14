@@ -1,22 +1,10 @@
 package com.ellomix.android.ellomix.Model;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
-import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
-import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 /**
  * Created by ATH-AJT2437 on 12/22/2016.

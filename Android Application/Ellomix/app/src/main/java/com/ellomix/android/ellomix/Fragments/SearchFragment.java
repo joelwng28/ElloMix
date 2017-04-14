@@ -18,14 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.ellomix.android.ellomix.Activities.AddMusicActivity;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
-import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloud;
+import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloudAPI;
 import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
 import com.ellomix.android.ellomix.SpotifyAPI.SPService;
-import com.ellomix.android.ellomix.SpotifyAPI.Spotify;
+import com.ellomix.android.ellomix.SpotifyAPI.SpotifyAPI;
 import com.ellomix.android.ellomix.SpotifyAPI.SpotifyResponse;
 import com.ellomix.android.ellomix.SpotifyDataModel.SPTrack;
 
@@ -117,8 +116,8 @@ public class SearchFragment extends Fragment {
 //
 //                        new youtubeSearchAPI(asyncResponse, query);
 
-                        //Spotify API service
-                        SPService spService = Spotify.getService();
+                        //SpotifyAPI API service
+                        SPService spService = SpotifyAPI.getService();
 
                         spService.searchFor(query).enqueue(new Callback<SpotifyResponse>() {
                             @Override
@@ -131,13 +130,13 @@ public class SearchFragment extends Fragment {
 
                             @Override
                             public void onFailure(Throwable t) {
-                                Log.d(TAG, "Spotify search failed");
+                                Log.d(TAG, "SpotifyAPI search failed");
 
                             }
                         });
 
                         // Soundcloud API service
-                        SCService scService = SoundCloud.getService();
+                        SCService scService = SoundCloudAPI.getService();
 
                         //TODO: sanitize input ex<script><dghdfgkjhdf></scrpt>
                         scService.searchFor(query).enqueue(new Callback<List<SCTrack>>() {
