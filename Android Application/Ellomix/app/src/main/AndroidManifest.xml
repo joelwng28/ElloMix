@@ -87,9 +87,7 @@
         <activity android:name=".YoutubeAPI.YTPlayerActivity" />
         <activity android:name=".Activities.SignUpActivity" />
         <activity android:name=".Activities.GenreActivity"></activity>
-        <activity android:name=".Activities.LoginServicesActivity">
-
-        </activity>
+        <activity android:name=".Activities.LoginServicesActivity"></activity>
     </application>
 
 </manifest>
