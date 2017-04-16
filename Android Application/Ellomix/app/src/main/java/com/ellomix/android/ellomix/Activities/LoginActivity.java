@@ -278,16 +278,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             return;
         }
-<<<<<<< HEAD
 
         if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             return;
-=======
-        else {
-            //TODO: Testing
-            i = new Intent(this, LoginServicesActivity.class);
->>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
+
         }
 
         progressDialog.setMessage("Signing in Please Wait...");

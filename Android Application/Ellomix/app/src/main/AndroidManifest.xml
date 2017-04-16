@@ -86,13 +86,10 @@
         <activity android:name=".Activities.GroupPlaylistActivity" />
         <activity android:name=".YoutubeAPI.YTPlayerActivity" />
         <activity android:name=".Activities.SignUpActivity" />
-<<<<<<< HEAD
         <activity android:name=".Activities.GenreActivity"></activity>
-=======
         <activity android:name=".Activities.LoginServicesActivity">
 
         </activity>
->>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
     </application>
 
 </manifest>

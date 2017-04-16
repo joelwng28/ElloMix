@@ -27,6 +27,7 @@ import com.ellomix.android.ellomix.SpotifyAPI.SPService;
 import com.ellomix.android.ellomix.SpotifyAPI.SpotifyAPI;
 import com.ellomix.android.ellomix.SpotifyAPI.SpotifyResponse;
 import com.ellomix.android.ellomix.SpotifyDataModel.SPTrack;
+import com.ellomix.android.ellomix.YoutubeAPI.youtubeSearchAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +104,7 @@ public class SearchFragment extends Fragment {
                 new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
+
                         mTrackList = new ArrayList<Track>();
 
                         //TODO: Implement youtube
@@ -113,8 +115,13 @@ public class SearchFragment extends Fragment {
 //                                        mTrackList = outputResult;
 //                                    }
 //                                };
-//
-//                        new youtubeSearchAPI(asyncResponse, query);
+
+                        new youtubeSearchAPI(new youtubeSearchAPI.AsyncResponse() {
+                            @Override
+                            public void processFinish(List<Track> outputResult) {
+                                mYoutubeList = outputResult;
+                            }
+                        }, query);
 
                         //SpotifyAPI API service
                         SPService spService = SpotifyAPI.getService();
@@ -158,22 +165,23 @@ public class SearchFragment extends Fragment {
                         //TODO: Merge results
                         int spSize = mSpotifyList.size();
                         int scSize = mSoundcloudList.size();
+                        int ytSize = mYoutubeList.size();
                         int i = 0;
                         int j = 0;
-                        while(i < spSize && j < scSize) {
-                            mTrackList.add(mSpotifyList.get(i));
-                            mTrackList.add(mSoundcloudList.get(j));
-                            i++;
-                            j++;
-                        }
-
-                        while (i < spSize) {
-                            mTrackList.add(mSpotifyList.get(i));
-                            i++;
-                        }
-                        while (j < scSize) {
-                            mTrackList.add(mSoundcloudList.get(j));
-                            j++;
+                        int k = 0;
+                        while(i < spSize || j < scSize || k < ytSize) {
+                            if (i < spSize) {
+                                mTrackList.add(mSpotifyList.get(i));
+                                i++;
+                            }
+                            if (j < scSize) {
+                                mTrackList.add(mSoundcloudList.get(j));
+                                j++;
+                            }
+                            if (k < ytSize) {
+                                mTrackList.add(mYoutubeList.get(k));
+                                k++;
+                            }
                         }
                         updateUI();
 
