@@ -230,7 +230,7 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
 
     @Override
     public int getDuration() {
-        if(musicService != null && musicBound && musicService.isPng()){
+        if(musicService != null && musicBound){
             return musicService.getDur();
         }
         else return 0;
@@ -238,7 +238,7 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
 
     @Override
     public int getCurrentPosition() {
-        if (musicService != null && musicBound && musicService.isPng()){
+        if (musicService != null && musicBound){
             return musicService.getPosn();
         }
         else return 0;

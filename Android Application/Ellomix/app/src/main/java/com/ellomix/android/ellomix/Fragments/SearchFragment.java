@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.Fragments;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.ellomix.android.ellomix.Activities.ScreenSlidePagerActivity;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
@@ -49,7 +51,8 @@ public class SearchFragment extends Fragment {
     private List<Track> mSpotifyList;
     private List<Track> mYoutubeList;
     private List<Track> mTrackList;
-
+    private boolean mSpotifyFlag = false;
+    private boolean mSoundcloudFlag = false;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -125,6 +128,8 @@ public class SearchFragment extends Fragment {
                                 if (response.isSuccess()) {
                                     List<SPTrack> tracks = response.body().getTracks().getItems();
                                     mSpotifyList = new ArrayList<Track>(tracks);
+                                    mSpotifyFlag = true;
+                                    buildList();
                                 }
                             }
 
@@ -146,6 +151,8 @@ public class SearchFragment extends Fragment {
                                     //TODO: sanitize display ex<script><dghdfgkjhdf></scrpt>
                                     List<SCTrack> tracks = response.body();
                                     mSoundcloudList = new ArrayList<Track>(tracks);
+                                    mSoundcloudFlag = true;
+                                    buildList();
                                 }
                             }
 
@@ -154,28 +161,6 @@ public class SearchFragment extends Fragment {
                                 Log.d(TAG, "Soundcloud search failed");
                             }
                         });
-
-                        //TODO: Merge results
-                        int spSize = mSpotifyList.size();
-                        int scSize = mSoundcloudList.size();
-                        int i = 0;
-                        int j = 0;
-                        while(i < spSize && j < scSize) {
-                            mTrackList.add(mSpotifyList.get(i));
-                            mTrackList.add(mSoundcloudList.get(j));
-                            i++;
-                            j++;
-                        }
-
-                        while (i < spSize) {
-                            mTrackList.add(mSpotifyList.get(i));
-                            i++;
-                        }
-                        while (j < scSize) {
-                            mTrackList.add(mSoundcloudList.get(j));
-                            j++;
-                        }
-                        updateUI();
 
                         return true;
                     }
@@ -186,6 +171,28 @@ public class SearchFragment extends Fragment {
                     }
                 }
         );
+    }
+
+    public void buildList() {
+        if (mSpotifyFlag && mSoundcloudFlag) {
+            int spSize = mSpotifyList.size();
+            int scSize = mSoundcloudList.size();
+            int i = 0;
+            int j = 0;
+            while(i < spSize || j < scSize) {
+                if (i < spSize) {
+                    mTrackList.add(mSpotifyList.get(i));
+                    i++;
+                }
+                if (j < scSize) {
+                    mTrackList.add(mSoundcloudList.get(j));
+                    j++;
+                }
+            }
+            mSpotifyFlag = false;
+            mSoundcloudFlag = false;
+            updateUI();
+        }
     }
 
     public void updateUI() {
@@ -248,6 +255,8 @@ public class SearchFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
+            ScreenSlidePagerActivity mainActivity = (ScreenSlidePagerActivity) getActivity();
+            mainActivity.setTrack(mTrack);
         }
 
     }

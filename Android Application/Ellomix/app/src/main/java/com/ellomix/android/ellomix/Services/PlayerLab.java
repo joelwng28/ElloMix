@@ -28,7 +28,7 @@ public class PlayerLab extends Application {
     private SharedPreferences mConnectedServices;
 
     // SpotifyAPI instance variable
-    private Player mPlayer;
+    private SpotifyPlayer mPlayer;
 
     public static PlayerLab getInstance(){
         return singleton;
@@ -76,7 +76,7 @@ public class PlayerLab extends Application {
 
     //SpotifyAPI methods
 
-    public void setupSpotifyPlayer(Player player) {
+    public void setupSpotifyPlayer(SpotifyPlayer player) {
         if (player != null) {
             mPlayer = player;
             updateSpotifyStatus(true);
@@ -89,6 +89,10 @@ public class PlayerLab extends Application {
     public void spotifyLogOut() {
         Spotify.destroyPlayer(this);
         mPlayer = null;
+    }
+
+    public SpotifyPlayer getPlayer() {
+        return mPlayer;
     }
 
 //    // SpotifyAPI player callback
