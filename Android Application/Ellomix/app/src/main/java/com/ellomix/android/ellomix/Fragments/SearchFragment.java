@@ -19,7 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+<<<<<<< HEAD
 import com.ellomix.android.ellomix.Activities.ScreenSlidePagerActivity;
+=======
+>>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;

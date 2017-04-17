@@ -28,7 +28,11 @@ public class PlayerLab extends Application {
     private SharedPreferences mConnectedServices;
 
     // SpotifyAPI instance variable
+<<<<<<< HEAD
     private SpotifyPlayer mPlayer;
+=======
+    private Player mPlayer;
+>>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
 
     public static PlayerLab getInstance(){
         return singleton;
@@ -76,7 +80,11 @@ public class PlayerLab extends Application {
 
     //SpotifyAPI methods
 
+<<<<<<< HEAD
     public void setupSpotifyPlayer(SpotifyPlayer player) {
+=======
+    public void setupSpotifyPlayer(Player player) {
+>>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
         if (player != null) {
             mPlayer = player;
             updateSpotifyStatus(true);
@@ -91,10 +99,13 @@ public class PlayerLab extends Application {
         mPlayer = null;
     }
 
+<<<<<<< HEAD
     public SpotifyPlayer getPlayer() {
         return mPlayer;
     }
 
+=======
+>>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
 //    // SpotifyAPI player callback
 //    @Override
 //    public void onLoggedIn() {
