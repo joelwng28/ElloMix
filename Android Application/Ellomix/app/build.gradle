@@ -2,11 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-<<<<<<< HEAD
-    buildToolsVersion '25.0.2'
-=======
     buildToolsVersion '25.0.1'
->>>>>>> Dev-Abe
     defaultConfig {
         applicationId "com.ellomix.android.ellomix"
         multiDexEnabled true

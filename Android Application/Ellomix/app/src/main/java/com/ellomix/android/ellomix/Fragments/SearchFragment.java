@@ -172,32 +172,29 @@ public class SearchFragment extends Fragment {
                             }
                         });
 
-<<<<<<< HEAD
-                        //TODO: Merge results
-                        int spSize = mSpotifyList.size();
-                        int scSize = mSoundcloudList.size();
-                        int ytSize = mYoutubeList.size();
-                        int i = 0;
-                        int j = 0;
-                        int k = 0;
-                        while(i < spSize || j < scSize || k < ytSize) {
-                            if (i < spSize) {
-                                mTrackList.add(mSpotifyList.get(i));
-                                i++;
-                            }
-                            if (j < scSize) {
-                                mTrackList.add(mSoundcloudList.get(j));
-                                j++;
-                            }
-                            if (k < ytSize) {
-                                mTrackList.add(mYoutubeList.get(k));
-                                k++;
-                            }
-                        }
-                        updateUI();
+//                        //TODO: Merge results
+//                        int spSize = mSpotifyList.size();
+//                        int scSize = mSoundcloudList.size();
+//                        int ytSize = mYoutubeList.size();
+//                        int i = 0;
+//                        int j = 0;
+//                        int k = 0;
+//                        while(i < spSize || j < scSize || k < ytSize) {
+//                            if (i < spSize) {
+//                                mTrackList.add(mSpotifyList.get(i));
+//                                i++;
+//                            }
+//                            if (j < scSize) {
+//                                mTrackList.add(mSoundcloudList.get(j));
+//                                j++;
+//                            }
+//                            if (k < ytSize) {
+//                                mTrackList.add(mYoutubeList.get(k));
+//                                k++;
+//                            }
+//                        }
+//                        updateUI();
 
-=======
->>>>>>> Dev-Abe
                         return true;
                     }
 
