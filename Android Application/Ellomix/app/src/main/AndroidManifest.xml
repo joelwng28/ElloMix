@@ -79,6 +79,7 @@
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+<<<<<<< HEAD
         <activity android:name=".Activities.CommentsActivity" />
         <activity android:name=".Activities.NewMessageActivity" />
         <activity android:name=".Activities.FriendSearchActivity" />
@@ -88,6 +89,26 @@
         <activity android:name=".Activities.SignUpActivity" />
         <activity android:name=".Activities.GenreActivity"></activity>
         <activity android:name=".Activities.LoginServicesActivity"></activity>
+=======
+        <activity android:name=".Activities.CommentsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.NewMessageActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.FriendSearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.AddMusicActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.GroupPlaylistActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".YoutubeAPI.YTPlayerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.SignUpActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.LoginServicesActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+>>>>>>> Dev-Abe
     </application>
 
 </manifest>

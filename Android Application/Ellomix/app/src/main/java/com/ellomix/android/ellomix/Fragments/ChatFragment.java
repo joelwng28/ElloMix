@@ -250,13 +250,10 @@ public class ChatFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
-            case R.id.menu_item_add_music:
-                intent = AddMusicActivity.newIntent(getActivity(), mChatId);
-                startActivity(intent);
-                return true;
             case R.id.menu_item_play_playlist:
                 intent = GroupPlaylistActivity.newIntent(getActivity(), mChatId);
                 startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

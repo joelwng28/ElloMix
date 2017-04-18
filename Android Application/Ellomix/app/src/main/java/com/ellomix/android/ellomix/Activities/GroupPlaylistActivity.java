@@ -11,9 +11,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +27,7 @@ import com.ellomix.android.ellomix.Model.MusicLab;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.Services.MusicService;
+import com.ellomix.android.ellomix.Services.PlayerLab;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,14 +45,18 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
     private static final String EXTRA_CHATID = "chatId";
 
     private RecyclerView mGroupPlaylistRecyclerView;
+    private LinearLayout mMainLayout;
     private PlaylistAdapter mAdapter;
     private List<Track> mGroupPlaylist;
     private String mChatId;
     private Intent playIntent;
     private MusicService musicService;
     private boolean musicBound = false;
+    private Track mCurrentTrack;
+    private int currentPosition;
     private MusicController mController;
     private MusicLab mMusicLab;
+    private PlayerLab mPlayerLab;
 
     //Firebase instance variable
     ChildEventListener playlistEventListener;
@@ -66,27 +75,30 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         mGroupPlaylistRecyclerView = (RecyclerView)
                 findViewById(R.id.group_playlist_recycler_view);
         mGroupPlaylistRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mGroupPlaylistRecyclerView.addOnScrollListener(
-                new RecyclerView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                        super.onScrollStateChanged(recyclerView, newState);
-                        if (mController != null) {
-                            mController.show(0);
-                        }
-                    }
-                }
-        );
-        mGroupPlaylistRecyclerView.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mController != null) {
-                            mController.show(0);
-                        }
-                    }
-                }
-        );
+        mMainLayout = (LinearLayout) findViewById(R.id.layout_group_playlist);
+//        mGroupPlaylistRecyclerView.addOnScrollListener(
+//                new RecyclerView.OnScrollListener() {
+//                    @Override
+//                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+//                        super.onScrollStateChanged(recyclerView, newState);
+//                        if (mController != null) {
+//                            mController.show(0);
+//                        }
+//                    }
+//                }
+//        );
+//        mGroupPlaylistRecyclerView.setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if (mController != null) {
+//                            mController.show(0);
+//                        }
+//                    }
+//                }
+//        );
+
+        mPlayerLab = (PlayerLab) getApplicationContext();
 
         mChatId = getIntent().getStringExtra(EXTRA_CHATID);
 
@@ -125,53 +137,49 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         FirebaseService
                 .getChatPlaylistQuery(mChatId)
                 .addChildEventListener(playlistEventListener);
+
         setController();
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (playIntent == null) {
-            playIntent = new Intent(this, MusicService.class);
-            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
-            startService(playIntent);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Toast.makeText(this, "onBackPressed", Toast.LENGTH_SHORT).show();
-        //moveTaskToBack(true);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i(TAG, "onPause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i(TAG, "onStop");
+//        if (playIntent == null) {
+//            playIntent = new Intent(this, MusicService.class);
+//            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
+//            startService(playIntent);
+//        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unbindService(musicConnection);
-        stopService(playIntent);
+        //unbindService(musicConnection);
+        //stopService(playIntent);
         FirebaseService
                 .getChatPlaylistQuery(mChatId)
                 .removeEventListener(playlistEventListener);
-        musicService = null;
+        //musicService = null;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.group_playlist_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch(item.getItemId()) {
+            case R.id.menu_item_add_music:
+                intent = AddMusicActivity.newIntent(this, mChatId);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void setController() {
@@ -179,29 +187,30 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
             mController = new MusicController(this, false);
         }
         mController.setMediaPlayer(this);
-        mController.setAnchorView(findViewById(R.id.layout_group_playlist));
+        mController.setAnchorView(mMainLayout);
         mController.setEnabled(true);
+        mPlayerLab.setController(mController);
     }
 
-    //connect to the service
-    private ServiceConnection musicConnection = new ServiceConnection(){
-
-        @Override
-        public void onServiceConnected (ComponentName name, IBinder service) {
-            MusicBinder binder = (MusicBinder) service;
-            //get service
-            musicService = binder.getService();
-            //pass list
-            musicService.setList(mGroupPlaylist);
-            musicService.setController(mController);
-            musicBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            musicBound = false;
-        }
-    };
+//    //connect to the service
+//    private ServiceConnection musicConnection = new ServiceConnection(){
+//
+//        @Override
+//        public void onServiceConnected (ComponentName name, IBinder service) {
+//            MusicBinder binder = (MusicBinder) service;
+//            //get service
+//            musicService = binder.getService();
+//            //pass list
+//            musicService.setList(mGroupPlaylist);
+//            musicService.setController(mController);
+//            musicBound = true;
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//            musicBound = false;
+//        }
+//    };
 
     public void updateUI() {
         if (mAdapter == null) {
@@ -210,51 +219,39 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         }
         else {
             mAdapter.setTracks(mGroupPlaylist);
-            if (musicService != null) {
-                musicService.setList(mGroupPlaylist);
-
-            }
+            mPlayerLab.setList(mGroupPlaylist);
             mAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
     public void start() {
-        musicService.go();
+        mPlayerLab.playTrack();
     }
 
     @Override
     public void pause() {
-        musicService.pausePlayer();
+        mPlayerLab.pauseTrack();
     }
 
     @Override
     public int getDuration() {
-        if(musicService != null && musicBound && musicService.isPng()){
-            return musicService.getDur();
-        }
-        else return 0;
+        return mPlayerLab.getTrackDuration();
     }
 
     @Override
     public int getCurrentPosition() {
-        if (musicService != null && musicBound && musicService.isPng()){
-            return musicService.getPosn();
-        }
-        else return 0;
+        return mPlayerLab.getTrackCurrentPosition();
     }
 
     @Override
     public void seekTo(int pos) {
-        musicService.seek(pos);
+        mPlayerLab.seekTrackTo(pos);
     }
 
     @Override
     public boolean isPlaying() {
-        if(musicService != null && musicBound) {
-            return musicService.isPng();
-        }
-        return false;
+        return mPlayerLab.isTrackPlaying();
     }
 
     @Override
@@ -312,16 +309,16 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
 
         @Override
         public void onClick(View v) {
-            musicService.playSong(mPosition);
+            mPlayerLab.playTrack(mPosition);
             String now = new Date().toString();
             mTrack.setCreatedAt(now);
-            mMusicLab = MusicLab.get(getApplicationContext());
-            if (mMusicLab.getTrack(mTrack.getID()) == null) {
-                mMusicLab.addTrack(mTrack);
-            }
-            else {
-                mMusicLab.updateTrack(mTrack);
-            }
+//            mMusicLab = MusicLab.get(getApplicationContext());
+//            if (mMusicLab.getTrack(mTrack.getID()) == null) {
+//                mMusicLab.addTrack(mTrack);
+//            }
+//            else {
+//                mMusicLab.updateTrack(mTrack);
+//            }
         }
     }
 

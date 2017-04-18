@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.Fragments;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,8 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.ellomix.android.ellomix.Activities.ScreenSlidePagerActivity;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
+import com.ellomix.android.ellomix.Services.PlayerLab;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
 import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloudAPI;
 import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
@@ -50,7 +53,9 @@ public class SearchFragment extends Fragment {
     private List<Track> mSpotifyList;
     private List<Track> mYoutubeList;
     private List<Track> mTrackList;
-
+    private boolean mSpotifyFlag = false;
+    private boolean mSoundcloudFlag = false;
+    private boolean isPlayerSetup = false;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -65,6 +70,7 @@ public class SearchFragment extends Fragment {
         mSoundcloudList = new ArrayList<Track>();
         mYoutubeList = new ArrayList<Track>();
         mTrackList = new ArrayList<Track>();
+        isPlayerSetup = false;
 
         setHasOptionsMenu(true);
     }
@@ -132,6 +138,8 @@ public class SearchFragment extends Fragment {
                                 if (response.isSuccess()) {
                                     List<SPTrack> tracks = response.body().getTracks().getItems();
                                     mSpotifyList = new ArrayList<Track>(tracks);
+                                    mSpotifyFlag = true;
+                                    buildList();
                                 }
                             }
 
@@ -153,6 +161,8 @@ public class SearchFragment extends Fragment {
                                     //TODO: sanitize display ex<script><dghdfgkjhdf></scrpt>
                                     List<SCTrack> tracks = response.body();
                                     mSoundcloudList = new ArrayList<Track>(tracks);
+                                    mSoundcloudFlag = true;
+                                    buildList();
                                 }
                             }
 
@@ -162,6 +172,7 @@ public class SearchFragment extends Fragment {
                             }
                         });
 
+<<<<<<< HEAD
                         //TODO: Merge results
                         int spSize = mSpotifyList.size();
                         int scSize = mSoundcloudList.size();
@@ -185,6 +196,8 @@ public class SearchFragment extends Fragment {
                         }
                         updateUI();
 
+=======
+>>>>>>> Dev-Abe
                         return true;
                     }
 
@@ -194,6 +207,28 @@ public class SearchFragment extends Fragment {
                     }
                 }
         );
+    }
+
+    public void buildList() {
+        if (mSpotifyFlag && mSoundcloudFlag) {
+            int spSize = mSpotifyList.size();
+            int scSize = mSoundcloudList.size();
+            int i = 0;
+            int j = 0;
+            while(i < spSize || j < scSize) {
+                if (i < spSize) {
+                    mTrackList.add(mSpotifyList.get(i));
+                    i++;
+                }
+                if (j < scSize) {
+                    mTrackList.add(mSoundcloudList.get(j));
+                    j++;
+                }
+            }
+            mSpotifyFlag = false;
+            mSoundcloudFlag = false;
+            updateUI();
+        }
     }
 
     public void updateUI() {
@@ -255,7 +290,8 @@ public class SearchFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-
+            PlayerLab playerLab = (PlayerLab) getActivity().getApplicationContext();
+            playerLab.setOneTrack(mTrack);
         }
 
     }

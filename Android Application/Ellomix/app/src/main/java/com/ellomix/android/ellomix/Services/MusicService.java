@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.view.View;
+import android.widget.MediaController;
 import android.widget.Toast;
 
 import com.ellomix.android.ellomix.Model.MusicController;
@@ -171,6 +172,7 @@ public class MusicService extends Service implements
     }
 
     public void playSong() {
+        Log.i(TAG, "playing soundcloud song");
         // play a song
         mPlayer.reset();
         // get the song
