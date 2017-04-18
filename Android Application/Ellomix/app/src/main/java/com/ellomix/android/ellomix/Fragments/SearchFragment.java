@@ -19,12 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-<<<<<<< HEAD
 import com.ellomix.android.ellomix.Activities.ScreenSlidePagerActivity;
-=======
->>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
+import com.ellomix.android.ellomix.Services.PlayerLab;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
 import com.ellomix.android.ellomix.SoundCloudAPI.SoundCloudAPI;
 import com.ellomix.android.ellomix.SoundCloudDataModel.SCTrack;
@@ -56,6 +54,7 @@ public class SearchFragment extends Fragment {
     private List<Track> mTrackList;
     private boolean mSpotifyFlag = false;
     private boolean mSoundcloudFlag = false;
+    private boolean isPlayerSetup = false;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -70,6 +69,7 @@ public class SearchFragment extends Fragment {
         mSoundcloudList = new ArrayList<Track>();
         mYoutubeList = new ArrayList<Track>();
         mTrackList = new ArrayList<Track>();
+        isPlayerSetup = false;
 
         setHasOptionsMenu(true);
     }
@@ -257,9 +257,8 @@ public class SearchFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-
-            ScreenSlidePagerActivity mainActivity = (ScreenSlidePagerActivity) getActivity();
-            mainActivity.setTrack(mTrack);
+            PlayerLab playerLab = (PlayerLab) getActivity().getApplicationContext();
+            playerLab.setOneTrack(mTrack);
         }
 
     }
