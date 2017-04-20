@@ -30,7 +30,6 @@
     <string name="search_song">Search song</string>
     <string name="skip">Skip</string>
     <string name="auth_failed">Authentication Failed</string>
-<<<<<<< HEAD
     <string name="forgot_userinfo">Forgot Email or Password?</string>
     <string name="log_in">Login</string>
     <string name="register_text">Register</string>
@@ -39,9 +38,7 @@
     <string name="popular_artists_text">Popular Artists</string>
     <string name="populate_timeline_text">Populate Your Timeline</string>
     <string name="populate_timeline_two_text">Choose A Few Artists And Genres To Follow</string>
-=======
     <string name="view_comments">View All Comments</string>
->>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
     <plurals name="numberOfSongsAdded">
         <item quantity="one">%d song added.</item>
         <item quantity="other">%d songs added.</item>

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.1'
     defaultConfig {
         applicationId "com.ellomix.android.ellomix"
         multiDexEnabled true
@@ -34,7 +34,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    //compile 'com.google.api-client:google-api-client-android:1.22.0'
+    compile 'com.google.api-client:google-api-client-android:1.22.0'
 
     // Firebase
 
@@ -48,10 +48,7 @@ dependencies {
     compile 'com.spotify.sdk:spotify-auth-1.0.0-beta11@aar'
     // This library handles music playback
     //compile 'com.spotify.sdk:spotify-player:beta24-noconnect-2.20b@aar'
-<<<<<<< HEAD
-=======
     compile 'com.spotify.sdk:spotify-player:24-noconnect-2.20b@aar'
->>>>>>> 02097f7f91f8dc2768560042ed3aee8483b36988
 
     //Youtube stuffs below
     compile files('libs/YouTubeAndroidPlayerApi.jar')

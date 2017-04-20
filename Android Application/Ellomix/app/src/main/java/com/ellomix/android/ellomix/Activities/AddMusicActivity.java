@@ -2,6 +2,7 @@ package com.ellomix.android.ellomix.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.SoundCloudAPI.SCService;
@@ -28,9 +31,11 @@ import com.ellomix.android.ellomix.SpotifyAPI.SPService;
 import com.ellomix.android.ellomix.SpotifyAPI.SpotifyAPI;
 import com.ellomix.android.ellomix.SpotifyAPI.SpotifyResponse;
 import com.ellomix.android.ellomix.SpotifyDataModel.SPTrack;
+import com.ellomix.android.ellomix.Style.SearchViewStyle;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -42,12 +47,15 @@ public class AddMusicActivity extends AppCompatActivity {
 
     private static final String TAG = "AddMusicActivity";
     private static final String EXTRA_CHATID = "chatId";
+    public static final String SEARCH_GO_BTN = "search_go_btn";
 
     private RecyclerView mSearchResultRecyclerView;
     private List<Track> mSoundcloudList;
     private List<Track> mSpotifyList;
     private List<Track> mYoutubeList;
     private List<Track> mTrackList;
+    private boolean mSpotifyFlag;
+    private boolean mSoundcloudFlag;
     private SearchResultAdapter mAdapter;
     private Set<Track> mTracksSelected;
     private String mChatId;
@@ -85,7 +93,15 @@ public class AddMusicActivity extends AppCompatActivity {
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setIconifiedByDefault(false);
-        //searchView.setQueryHint("Search...");
+        searchView.setQueryHint("Search...");
+        //TODO: Apply Material Design to fit both SearchView and Action button in ActionBar
+
+//        MenuItem addItem = menu.findItem(R.id.menu_item_add_music);
+//        View addItemView = (View) addItem.getActionView();
+//        int searchViewWidth = searchView.getMaxWidth() - addItemView.getWidth();
+        searchView.setMaxWidth(1100);
+//        searchView.setSubmitButtonEnabled(true);
+
         int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
         View searchPlate = searchView.findViewById(searchPlateId);
         if (searchPlate != null) {
@@ -97,19 +113,6 @@ public class AddMusicActivity extends AppCompatActivity {
                 searchText.setHintTextColor(Color.WHITE);
             }
         }
-
-//        int submitAreaId = searchView.getContext().getResources().getIdentifier("android:id/submit_area", null, null);
-//        int goButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_go_btn", null, null);
-//
-//        View searchSubmitArea = searchView.findViewById(submitAreaId);
-//        ImageView submitGoImage = (ImageView) searchSubmitArea.findViewById(goButtonId);
-//        searchView.setSubmitButtonEnabled(true);
-//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0, 0);
-//        submitGoImage.setLayoutParams(layoutParams);
-//        Button btnScan = new Button(getApplicationContext());
-//        btnScan.setText("Add");
-//        LinearLayout linearLayoutOfSearchView = (LinearLayout) searchView.getChildAt(0);
-//        linearLayoutOfSearchView.addView(btnScan);
 
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener() {
@@ -137,6 +140,8 @@ public class AddMusicActivity extends AppCompatActivity {
                                 if (response.isSuccess()) {
                                     List<SPTrack> tracks = response.body().getTracks().getItems();
                                     mSpotifyList = new ArrayList<Track>(tracks);
+                                    mSpotifyFlag = true;
+                                    buildList();
                                 }
                             }
 
@@ -158,7 +163,8 @@ public class AddMusicActivity extends AppCompatActivity {
                                     //TODO: sanitize display ex<script><dghdfgkjhdf></scrpt>
                                     List<SCTrack> tracks = response.body();
                                     mSoundcloudList = new ArrayList<Track>(tracks);
-                                    //updateUI();
+                                    mSoundcloudFlag = true;
+                                    buildList();
                                 }
                             }
 
@@ -167,28 +173,6 @@ public class AddMusicActivity extends AppCompatActivity {
                                 Log.d(TAG, "Soundcloud search failed");
                             }
                         });
-
-                        //TODO: Merge results
-                        int spSize = mSpotifyList.size();
-                        int scSize = mSoundcloudList.size();
-                        int i = 0;
-                        int j = 0;
-                        while(i < spSize && j < scSize) {
-                            mTrackList.add(mSpotifyList.get(i));
-                            mTrackList.add(mSoundcloudList.get(j));
-                            i++;
-                            j++;
-                        }
-
-                        while (i < spSize) {
-                            mTrackList.add(mSpotifyList.get(i));
-                            i++;
-                        }
-                        while (j < scSize) {
-                            mTrackList.add(mSoundcloudList.get(j));
-                            j++;
-                        }
-                        updateUI();
 
                         return true;
                     }
@@ -203,26 +187,48 @@ public class AddMusicActivity extends AppCompatActivity {
         return true;
     }
 
+    public void buildList() {
+        if (mSpotifyFlag && mSoundcloudFlag) {
+            int spSize = mSpotifyList.size();
+            int scSize = mSoundcloudList.size();
+            int i = 0;
+            int j = 0;
+            while(i < spSize || j < scSize) {
+                if (i < spSize) {
+                    mTrackList.add(mSpotifyList.get(i));
+                    i++;
+                }
+                if (j < scSize) {
+                    mTrackList.add(mSoundcloudList.get(j));
+                    j++;
+                }
+            }
+            mSpotifyFlag = false;
+            mSoundcloudFlag = false;
+            updateUI();
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.menu_item_add_music:
-//                // Add tracks to firebase
-//
-//                Iterator it = mTracksSelected.iterator();
-//
-//                while (it.hasNext()) {
-//                    Track track = (Track) it.next();
-//                    FirebaseService.addMusic(mChatId, track);
-//                }
-//                Resources res = getResources();
-//                int count = mTracksSelected.size();
-//                String songsAdded = res.getQuantityString(R.plurals.numberOfSongsAdded, count, count);
-//                Toast.makeText(this, songsAdded, Toast.LENGTH_SHORT).show();
-//                Intent intent = GroupPlaylistActivity.newIntent(this, mChatId);
-//                finish();
-//                startActivity(intent);
-//                return true;
+            case R.id.menu_item_add_music:
+                // Add tracks to firebase
+
+                Iterator it = mTracksSelected.iterator();
+
+                while (it.hasNext()) {
+                    Track track = (Track) it.next();
+                    FirebaseService.addMusic(mChatId, track);
+                }
+                Resources res = getResources();
+                int count = mTracksSelected.size();
+                String songsAdded = res.getQuantityString(R.plurals.numberOfSongsAdded, count, count);
+                Toast.makeText(this, songsAdded, Toast.LENGTH_SHORT).show();
+                Intent intent = GroupPlaylistActivity.newIntent(this, mChatId);
+                finish();
+                startActivity(intent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
