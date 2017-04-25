@@ -14,9 +14,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
+import com.ellomix.android.ellomix.Messaging.Chat;
+import com.ellomix.android.ellomix.Messaging.Chats;
+import com.ellomix.android.ellomix.Model.ChatLab;
 import com.ellomix.android.ellomix.Model.FriendLab;
 import com.ellomix.android.ellomix.Model.User;
 import com.ellomix.android.ellomix.R;
+import com.ellomix.android.ellomix.Services.PlayerLab;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -30,9 +34,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashSet;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
@@ -44,16 +52,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CallbackManager callbackManager;
     private String userId;
     private SharedPreferences preferences;
+    private static final String setup = "Setup";
+    private static final String returningUser = "ReturningUser";
     private boolean isFirstTime = false;
 
     //firebase auth stuff
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+    private ChildEventListener chatIdsEventListener;
+    private ChildEventListener chatEventListener;
+    private DatabaseReference mDatabase;
+
+    private ChatLab chatLab;
+    private HashSet<String> mChatIds;
     private Button buttonRegister;
     private Button buttonSignIn;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         progressDialog = new ProgressDialog(this);
+        preferences = getSharedPreferences(setup, 0);
 
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         buttonRegister.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +93,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonSignIn = (Button) findViewById(R.id.buttonSignIn);
         buttonSignIn.setOnClickListener(this);
         //editTextEmail.setOnClickListener(this);
-        //
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -128,7 +147,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             goToHomeScreen();
         }
 
-
     }
 
     @Override
@@ -170,6 +188,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
+        progressDialog.setMessage("Logging in Please Wait...");
+        progressDialog.show();
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
 
@@ -179,7 +199,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
-
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -188,9 +207,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
-                        else {
 
-                        }
+                        //If first time login in with facebook
+                        FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
+                        FirebaseService.getUserQuery(firebaseUser.getUid()).addListenerForSingleValueEvent(
+                                new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        User currentUser = (User) dataSnapshot.getValue(User.class);
+                                        // If first time user then add to firebase user database
+                                        if (currentUser == null) {
+                                            FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
+                                            User user = new User(firebaseUser.getUid(),
+                                                    firebaseUser.getDisplayName(),
+                                                    firebaseUser.getPhotoUrl().toString());
+                                            FirebaseService.pushNewUser(user);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                }
+                        );
+                        goToHomeScreen();
                     }
                 });
     }
@@ -199,69 +240,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // TODO: Delete friends from database if user logs out.
     private void prepareUser() {
 
-        //If users first time using the app ever, add him to the database
-        FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
-        FirebaseService.getUserQuery(firebaseUser.getUid()).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User currentUser = (User) dataSnapshot.getValue(User.class);
-                        // If first time user then add to firebase user database
-                        if (currentUser == null) {
-                            FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
-                            User user = new User(firebaseUser.getUid(),
-                                    firebaseUser.getDisplayName(),
-                                    firebaseUser.getPhotoUrl().toString());
-                            FirebaseService.pushNewUser(user);
-                        }
-                    }
+        PlayerLab playerLab = (PlayerLab) getApplicationContext();
+        playerLab.returningUserSetup();
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                }
-        );
-
-        // TODO: Fix this
-//        //Download friends from firebase
-//        FirebaseService.getMainUserFollowingQuery().addValueEventListener(
-//                new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot child : dataSnapshot.getChildren()) {
-//
-//                    // Get the userId and with that search for the user in firebase
-//                    String friendId = child.getKey();
-//
-//                    FirebaseService.getUserQuery(friendId).addValueEventListener(
-//                            new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            User friend = (User) dataSnapshot.getValue(User.class);
-//                            if (friend != null) {
-//                                FriendLab friendLab = FriendLab.get(getApplicationContext());
-//                                friendLab.addFriend(friend);
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//
-//
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(returningUser, false);
+        editor.apply();
     }
 
 
@@ -271,8 +255,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void LogInTheUser() {
-        String email= editTextEmail.getText().toString().trim();
-        String password= editTextPassword.getText().toString().trim();
+        String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
@@ -325,8 +309,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void goToHomeScreen(){
         //send to the Home Screen
-        Intent i = new Intent(this, GenreActivity.class);
+        isFirstTime = preferences.getBoolean(returningUser, true);
+        progressDialog.dismiss();
+        if (isFirstTime) {
+            prepareUser();
+        }
+        Intent i = new Intent(this, FriendSearchActivity.class);
         startActivity(i);
+        finish();
     }
 
 

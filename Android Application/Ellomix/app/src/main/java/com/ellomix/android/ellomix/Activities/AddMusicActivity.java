@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,7 +92,7 @@ public class AddMusicActivity extends AppCompatActivity {
         inflater.inflate(R.menu.add_music_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setIconifiedByDefault(false);
         searchView.setQueryHint("Search...");
         //TODO: Apply Material Design to fit both SearchView and Action button in ActionBar
@@ -119,6 +120,9 @@ public class AddMusicActivity extends AppCompatActivity {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
                         mTrackList = new ArrayList<Track>();
+
+                        InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        mgr.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
 
                         //TODO: Implement youtube
 //                        youtubeSearchAPI.AsyncResponse asyncResponse =
@@ -225,9 +229,10 @@ public class AddMusicActivity extends AppCompatActivity {
                 int count = mTracksSelected.size();
                 String songsAdded = res.getQuantityString(R.plurals.numberOfSongsAdded, count, count);
                 Toast.makeText(this, songsAdded, Toast.LENGTH_SHORT).show();
-                Intent intent = GroupPlaylistActivity.newIntent(this, mChatId);
                 finish();
-                startActivity(intent);
+//                Intent intent = GroupPlaylistActivity.newIntent(this, mChatId);
+//                finish();
+//                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

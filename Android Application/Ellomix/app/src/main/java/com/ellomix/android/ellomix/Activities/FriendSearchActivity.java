@@ -66,14 +66,6 @@ public class FriendSearchActivity extends AppCompatActivity {
         mFriendsSelectedStringBuffer = new StringBuffer();
         mFriendSelectedSet = new HashSet<>();
 
-        // Add friends to the data base
-
-
-
-
-        //
-
-
         // New child entries
         mFirebaseDatabaseReference = FirebaseService.getFirebaseDatabase();
         mFirebaseDatabaseReference.child("Users")
@@ -120,7 +112,7 @@ public class FriendSearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.add_friends_menu, menu);
-        menu.findItem(R.id.menu_item_add_friends).setEnabled(mFriendsFlag);
+//        menu.findItem(R.id.menu_item_add_friends).setEnabled(mFriendsFlag);
         return true;
     }
 
@@ -131,13 +123,14 @@ public class FriendSearchActivity extends AppCompatActivity {
             case R.id.menu_item_add_friends:
                 Iterator it = mFriendSelectedSet.iterator();
 
+                // Adding friends to mobile database and firebase
                 while (it.hasNext()) {
                     User friend = (User) it.next();
                     friendLab.addFriend(friend);
                     FirebaseService.addNewFriend(userId, friend);
                 }
             case R.id.menu_item_skip:
-                startApp();
+                connectServices();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -146,8 +139,8 @@ public class FriendSearchActivity extends AppCompatActivity {
 
     }
 
-    public void startApp() {
-        Intent intent = new Intent(this, ScreenSlidePagerActivity.class);
+    public void connectServices() {
+        Intent intent = new Intent(this, LoginServicesActivity.class);
         startActivity(intent);
         finish();
     }
@@ -164,7 +157,6 @@ public class FriendSearchActivity extends AppCompatActivity {
         public FriendViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = LayoutInflater.from(FriendSearchActivity.this);
             View view = inflater.inflate(R.layout.friend_item, parent, false);
-
 
             return new FriendViewHolder(view);
         }
@@ -225,14 +217,14 @@ public class FriendSearchActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            if (mFriendSelectedSet.size() == 0) {
-                mFriendsFlag = false;
-                invalidateOptionsMenu();
-            }
-            else if (mFriendSelectedSet.size() == 1) {
-                mFriendsFlag = true;
-                invalidateOptionsMenu();
-            }
+//            if (mFriendSelectedSet.size() == 0) {
+//                mFriendsFlag = false;
+//                invalidateOptionsMenu();
+//            }
+//            else if (mFriendSelectedSet.size() == 1) {
+//                mFriendsFlag = true;
+//                invalidateOptionsMenu();
+//            }
 
             if(!isSelected) {
                 v.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_light));

@@ -33,7 +33,7 @@
             android:inputType="textPersonName"
             android:padding="10dp"
             android:paddingBottom="10dp"
-            android:text="John" />
+            android:hint="John" />
 
         <EditText
             android:id="@+id/editTextLastName"
@@ -46,7 +46,7 @@
             android:inputType="textPersonName"
             android:padding="10dp"
             android:paddingBottom="10dp"
-            android:text="Doe" />
+            android:hint="Doe" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -56,10 +56,10 @@
             android:layout_margin="10dp"
             android:background="@android:color/white"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:padding="10dp"
             android:paddingBottom="10dp"
-            android:text="Email@myEmail.com" />
+            android:hint="email" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -72,7 +72,7 @@
             android:inputType="textPassword"
             android:padding="10dp"
             android:paddingBottom="10dp"
-            android:text="password" />
+            android:hint="password" />
 
 
         <Button

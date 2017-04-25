@@ -32,6 +32,10 @@ public class FriendLab {
         mFriends = new ArrayList<>();
     }
 
+    public void deleteDatabase() {
+        mContext.deleteDatabase(FriendDbSchema.FriendTable.NAME);
+    }
+
     public List<User> getFriends() {
         List<User> friends = new ArrayList<>();
         FriendCursorWrapper cursor = queryFriend(null, null);

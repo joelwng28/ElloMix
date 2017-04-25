@@ -46,25 +46,23 @@ android:background="@color/main_background">
             android:background="@android:color/white"
             android:ems="10"
             android:gravity="left"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:padding="10dp"
             android:paddingBottom="10dp"
-            android:text="Email@myEmail.com" />
+            android:hint="email@myEmail.com" />
 
         <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="259dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@android:color/white"
-            android:contentDescription="password"
             android:ems="10"
             android:gravity="left|center_vertical"
             android:inputType="textPassword"
+            android:padding="10dp"
             android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="password"
-            tools:text="password" />
+            android:hint="password" />
 
         <Button
             android:id="@+id/buttonSignIn"

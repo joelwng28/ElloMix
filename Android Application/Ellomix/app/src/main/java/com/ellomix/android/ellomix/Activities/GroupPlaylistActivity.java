@@ -215,6 +215,7 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
     public void updateUI() {
         if (mAdapter == null) {
             mAdapter = new PlaylistAdapter(mGroupPlaylist);
+            mPlayerLab.setList(mGroupPlaylist);
             mGroupPlaylistRecyclerView.setAdapter(mAdapter);
         }
         else {
@@ -283,6 +284,8 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
 
         private ImageView mTrackImageView;
         private TextView mTrackTitleTextView;
+        private TextView mTrackArtistTextView;
+        private ImageView mTrackSourceImageView;
         private Track mTrack;
         private int mPosition;
 
@@ -290,6 +293,8 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
             super(view);
             mTrackImageView = (ImageView) view.findViewById(R.id.track_image);
             mTrackTitleTextView = (TextView) view.findViewById(R.id.track_title);
+            mTrackArtistTextView = (TextView) view.findViewById(R.id.track_artist);
+            mTrackSourceImageView = (ImageView) view.findViewById(R.id.track_source);
             view.setOnClickListener(this);
         }
 
@@ -305,6 +310,25 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
                         .into(mTrackImageView);
             }
             mTrackTitleTextView.setText(mTrack.getTitle());
+            mTrackArtistTextView.setText(mTrack.getArtist());
+            int source = -1;
+            switch (mTrack.getSource()) {
+                case SPOTIFY:
+                    source = R.drawable.spotify;
+                    break;
+                case SOUNDCLOUD:
+                    source = R.drawable.soundcloud;
+                    break;
+                case YOUTUBE:
+                    source = R.drawable.youtube;
+                    break;
+                default:
+                    source = -1;
+            }
+            if (source != -1) {
+                mTrackSourceImageView.setImageResource(source);
+            }
+
         }
 
         @Override

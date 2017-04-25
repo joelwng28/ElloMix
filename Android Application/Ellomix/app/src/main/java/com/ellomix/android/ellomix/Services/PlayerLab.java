@@ -10,15 +10,29 @@ import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 
+import com.ellomix.android.ellomix.Activities.ScreenSlidePagerActivity;
+import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
+import com.ellomix.android.ellomix.Messaging.Chat;
+import com.ellomix.android.ellomix.Model.ChatLab;
+import com.ellomix.android.ellomix.Model.FriendLab;
 import com.ellomix.android.ellomix.Model.MusicController;
 import com.ellomix.android.ellomix.Model.Track;
+import com.ellomix.android.ellomix.Model.User;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.spotify.sdk.android.player.ConnectionStateCallback;
 import com.spotify.sdk.android.player.Error;
 import com.spotify.sdk.android.player.PlaybackState;
 import com.spotify.sdk.android.player.Player;
+import com.spotify.sdk.android.player.PlayerEvent;
 import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -27,7 +41,7 @@ import java.util.List;
 
 public class PlayerLab extends Application implements
         MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener,
-        MediaPlayer.OnCompletionListener {
+        MediaPlayer.OnCompletionListener, SpotifyPlayer.NotificationCallback {
 
     private static final String TAG = "PlayerLab";
 
@@ -56,11 +70,6 @@ public class PlayerLab extends Application implements
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
     public void onCreate() {
         super.onCreate();
         singleton = this;
@@ -75,11 +84,17 @@ public class PlayerLab extends Application implements
 
     @Override
     public void onTerminate() {
-        Spotify.destroyPlayer(this);
         super.onTerminate();
+        terminateSpPlayer();
     }
 
     //Check connected status
+
+    public void terminateSpPlayer() {
+        Spotify.destroyPlayer(this);
+        updateSpotifyStatus(false);
+        mSpotifyPlayer = null;
+    }
 
     public boolean isSpotifyConnected() {
         mConnectedServices = getSharedPreferences(STATUS, 0);
@@ -98,8 +113,10 @@ public class PlayerLab extends Application implements
     //SpotifyAPI methods
     public void setupSpotifyPlayer(SpotifyPlayer player) {
         if (player != null) {
+            Log.i(TAG, "Spotify Setup");
             mSpotifyPlayer = player;
             updateSpotifyStatus(true);
+            mSpotifyPlayer.addNotificationCallback(this);
         }
     }
     public boolean isSpotifyLoggedIn() {
@@ -116,11 +133,12 @@ public class PlayerLab extends Application implements
     }
 
     private void playSPSong() {
-        if (mSpotifyPlayer != null) {
+        if (isSpotifyLoggedIn()) {
             mSpotifyPlayer.playUri(new Player.OperationCallback() {
                 @Override
                 public void onSuccess() {
-                    mServiceController.show(0);
+                    //nothing
+                    Log.i(TAG, "Play Spotify");
                 }
 
                 @Override
@@ -131,6 +149,89 @@ public class PlayerLab extends Application implements
             }, mCurrentTrack.getStreamURL(), 0, 0);
         }
     }
+
+    private void resumeSPSong() {
+        if (isSpotifyLoggedIn()) {
+            mSpotifyPlayer.resume(new Player.OperationCallback() {
+                @Override
+                public void onSuccess() {
+                    //nothing
+                    Log.i(TAG, "Play Spotify");
+                }
+
+                @Override
+                public void onError(Error error) {
+                    Log.e(TAG, error.toString());
+
+                }
+            });
+        }
+    }
+
+    // SpotifyAPI player NotificationCallback
+
+    @Override
+    public void onPlaybackEvent(PlayerEvent playerEvent) {
+        Log.d(TAG, "Playback event received: " + playerEvent.name());
+        mPlaybackState = mSpotifyPlayer.getPlaybackState();
+        switch (playerEvent) {
+            // Handle event type as necessary
+            case kSpPlaybackNotifyPlay:
+                mServiceController.show(0);
+                break;
+            case kSpPlaybackNotifyPause:
+                break;
+            case kSpPlaybackNotifyTrackChanged:
+                break;
+            case kSpPlaybackNotifyNext:
+                break;
+            case kSpPlaybackNotifyPrev:
+                break;
+            case kSpPlaybackNotifyShuffleOn:
+
+                break;
+
+            case kSpPlaybackNotifyShuffleOff:
+                break;
+
+
+            case kSpPlaybackNotifyRepeatOn:
+
+                break;
+
+            case kSpPlaybackNotifyRepeatOff:
+                break;
+            case kSpPlaybackNotifyBecameActive:
+                break;
+            case kSpPlaybackNotifyBecameInactive:
+                break;
+            case kSpPlaybackNotifyLostPermission:
+                break;
+            case kSpPlaybackEventAudioFlush:
+                break;
+            case kSpPlaybackNotifyAudioDeliveryDone:
+                break;
+            case kSpPlaybackNotifyContextChanged:
+                break;
+            case kSpPlaybackNotifyTrackDelivered:
+                break;
+            case kSpPlaybackNotifyMetadataChanged:
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onPlaybackError(Error error) {
+        Log.d(TAG, "Playback error received: " + error.name());
+        switch (error) {
+            // Handle error type as necessary
+            default:
+                break;
+        }
+    }
+
     //General playback methods
 
     public void setList(List<Track> theSongs) {
@@ -157,16 +258,34 @@ public class PlayerLab extends Application implements
     public void playTrack() {
         pauseTrack();
         mCurrentTrack = getCurrentSong();
-        switch(mCurrentTrack.getSource()) {
-            case SPOTIFY:
-                playSPSong();
-                break;
-            case SOUNDCLOUD:
-                playSCSong();
-                break;
-            case YOUTUBE:
+        if (mCurrentTrack != null) {
+            switch (mCurrentTrack.getSource()) {
+                case SPOTIFY:
+                    playSPSong();
+                    break;
+                case SOUNDCLOUD:
+                    playSCSong();
+                    break;
+                case YOUTUBE:
 
-                break;
+                    break;
+            }
+        }
+    }
+
+    public void resumeTrack() {
+        if (mCurrentTrack != null) {
+            switch (mCurrentTrack.getSource()) {
+                case SPOTIFY:
+                    resumeSPSong();
+                    break;
+                case SOUNDCLOUD:
+                    resumeSCSong();
+                    break;
+                case YOUTUBE:
+
+                    break;
+            }
         }
     }
 
@@ -176,8 +295,9 @@ public class PlayerLab extends Application implements
     }
 
     public void pauseTrack() {
-        if (mSpotifyPlayer != null) {
+        if (isSpotifyLoggedIn()) {
             mSpotifyPlayer.pause(null);
+            Log.i(TAG, "Spotify Paused");
         }
         if (isSCPlayerPrepared && mSoundcloudPlayer.isPlaying()) {
             mSoundcloudPlayer.pause();
@@ -210,89 +330,100 @@ public class PlayerLab extends Application implements
     }
 
     public int getTrackDuration() {
-        switch(mCurrentTrack.getSource()) {
-            case SPOTIFY:
-                if (isSpotifyLoggedIn()) {
-                    mPlaybackState = mSpotifyPlayer.getPlaybackState();
-                }
-                if (mPlaybackState != null) {
-                    //TODO: Figure how to get duration of spotify song
+        if (mCurrentTrack != null) {
+            switch (mCurrentTrack.getSource()) {
+                case SPOTIFY:
+                    if (isSpotifyLoggedIn()) {
+                        //mPlaybackState = mSpotifyPlayer.getPlaybackState();
+                        if (mPlaybackState != null) {
+                            //TODO: Figure how to get duration of spotify song
+                            return 0;
+                        }
+                    }
                     return 0;
-                }
-                else {
-                    return 0;
-                }
-            case SOUNDCLOUD:
-                if (isSCPlayerPrepared) {
-                    return mSoundcloudPlayer.getDuration();
-                }
-                else {
-                    return 0;
-                }
-            case YOUTUBE:
+                case SOUNDCLOUD:
+                    if (isSCPlayerPrepared) {
+                        return mSoundcloudPlayer.getDuration();
+                    } else {
+                        return 0;
+                    }
+                case YOUTUBE:
 
-            default:
-                return 0;
+                default:
+                    return 0;
+            }
+        }
+        else {
+            return 0;
         }
     }
 
     public int getTrackCurrentPosition() {
-        switch(mCurrentTrack.getSource()) {
-            case SPOTIFY:
-                if (isSpotifyLoggedIn()) {
-                    mPlaybackState = mSpotifyPlayer.getPlaybackState();
-                }
-                if (mPlaybackState != null) {
-                    return (int) mPlaybackState.positionMs;
-                }
-                else {
+        if (mCurrentTrack != null) {
+            switch (mCurrentTrack.getSource()) {
+                case SPOTIFY:
+                    if (isSpotifyLoggedIn()) {
+                        //mPlaybackState = mSpotifyPlayer.getPlaybackState();
+                        if (mPlaybackState != null) {
+                            return (int) mPlaybackState.positionMs;
+                        }
+                    }
                     return 0;
-                }
-            case SOUNDCLOUD:
-                return mSoundcloudPlayer.getCurrentPosition();
-            case YOUTUBE:
+                case SOUNDCLOUD:
+                    return mSoundcloudPlayer.getCurrentPosition();
+                case YOUTUBE:
 
-            default:
-                return 0;
+                default:
+                    return 0;
+            }
+        }
+        else {
+            return 0;
         }
     }
 
     public void seekTrackTo(int pos) {
-        Track currentTrack = getCurrentSong();
-        switch(mCurrentTrack.getSource()) {
-            case SPOTIFY:
-                if (mSpotifyPlayer != null) {
-                    mSpotifyPlayer.seekToPosition(null, pos);
-                }
-                break;
-            case SOUNDCLOUD:
-                if (isSCPlayerPrepared) {
-                    mSoundcloudPlayer.seekTo(pos);
-                }
-                break;
-            case YOUTUBE:
+        if (mCurrentTrack != null) {
+            switch (mCurrentTrack.getSource()) {
+                case SPOTIFY:
+                    if (isSpotifyLoggedIn()) {
+                        mSpotifyPlayer.seekToPosition(null, pos);
+                    }
+                    break;
+                case SOUNDCLOUD:
+                    if (isSCPlayerPrepared) {
+                        mSoundcloudPlayer.seekTo(pos);
+                    }
+                    break;
+                case YOUTUBE:
 
-                break;
-            default:
+                    break;
+                default:
+            }
         }
     }
 
     public boolean isTrackPlaying() {
-        switch(mCurrentTrack.getSource()) {
-            case SPOTIFY:
-                mPlaybackState = mSpotifyPlayer.getPlaybackState();
-                if (mPlaybackState != null) {
-                    return mPlaybackState.isPlaying;
-                }
-                else {
+        if (mCurrentTrack != null) {
+            switch (mCurrentTrack.getSource()) {
+                case SPOTIFY:
+                    if (isSpotifyLoggedIn()) {
+                        //mPlaybackState = mSpotifyPlayer.getPlaybackState();
+                        if (mPlaybackState != null) {
+                            return mPlaybackState.isPlaying;
+                        }
+                    }
                     return false;
-                }
-            case SOUNDCLOUD:
-                return mSoundcloudPlayer.isPlaying();
-            case YOUTUBE:
-                return false;
-            default:
-                return false;
+                case SOUNDCLOUD:
+                    return mSoundcloudPlayer.isPlaying();
+                case YOUTUBE:
+                    return false;
+                default:
+                    return false;
+            }
+        }
+        else {
+            return false;
         }
     }
 
@@ -385,7 +516,7 @@ public class PlayerLab extends Application implements
         mServiceController.setAnchorView(v);
     }
 
-    public void playSCSong() {
+    private void playSCSong() {
         Log.i(TAG, "playing soundcloud song");
         // play a song
         mSoundcloudPlayer.reset();
@@ -404,6 +535,11 @@ public class PlayerLab extends Application implements
 
         mSoundcloudPlayer.prepareAsync();
     }
+
+    private void resumeSCSong() {
+        mSoundcloudPlayer.start();
+    }
+
 
     @Override
     public void onCompletion(MediaPlayer mp) {
@@ -426,49 +562,93 @@ public class PlayerLab extends Application implements
         mServiceController.show(0);
     }
 
-//    // SpotifyAPI player callback
-//    @Override
-//    public void onLoggedIn() {
-//        Log.d(TAG, "User logged in");
-//    }
-//
-//    @Override
-//    public void onLoggedOut() {
-//        Log.d(TAG, "User logged out");
-//    }
-//
-//    @Override
-//    public void onLoginFailed(Error error) {
-//        Log.d(TAG, "Login failed");
-//    }
-//
-//    @Override
-//    public void onTemporaryError() {
-//        Log.d(TAG, "Temporary error occurred");
-//    }
-//
-//    @Override
-//    public void onConnectionMessage(String s) {
-//        Log.d(TAG, "Received connection message: " + s);
-//    }
-//
-//    @Override
-//    public void onPlaybackEvent(PlayerEvent playerEvent) {
-//        Log.d(TAG, "Playback event received: " + playerEvent.name());
-//        switch (playerEvent) {
-//            // Handle event type as necessary
-//            default:
-//                break;
-//        }
-//    }
-//
-//    @Override
-//    public void onPlaybackError(Error error) {
-//        Log.d(TAG, "Playback error received: " + error.name());
-//        switch (error) {
-//            // Handle error type as necessary
-//            default:
-//                break;
-//        }
-//    }
+    //Firebase methods
+
+    public void returningUserSetup() {
+        // TODO: Fix this
+        //Download friends from firebase
+        final FriendLab friendLab = FriendLab.get(singleton);
+        FirebaseService.getMainUserFollowingQuery().addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+                            // Get the userId and with that search for the user in firebase
+                            String friendId = child.getKey();
+
+                            FirebaseService.getUserQuery(friendId).addListenerForSingleValueEvent(
+                                    new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            User friend = (User) dataSnapshot.getValue(User.class);
+                                            if (friend != null) {
+                                                friendLab.addFriend(friend);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+        FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
+        DatabaseReference database = FirebaseService.getFirebaseDatabase();
+
+        final HashSet<String> chatIds = new HashSet<String>();
+        final ChatLab chatLab = ChatLab.get(singleton);
+
+        if (firebaseUser != null) {
+            FirebaseService.getChatIds(firebaseUser.getUid()).addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                String chatId = child.getKey();
+                                Log.d(TAG, "Added chatId: " + chatId);
+                                chatIds.add(chatId);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            //do nothing
+                        }
+                    }
+            );
+            FirebaseService.getChatsQuery().addListenerForSingleValueEvent(
+                    new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                String chatId = child.getKey();
+                                Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
+                                Chat chat = chatLab.getChat(chatId);
+                                if (chatIds.contains(chatId)) {
+                                    if (chat == null) {
+                                        Log.d(TAG, "onDataChange: Added new chat");
+                                        chatLab.addChat(firebaseChat);
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    }
+            );
+        }
+    }
 }

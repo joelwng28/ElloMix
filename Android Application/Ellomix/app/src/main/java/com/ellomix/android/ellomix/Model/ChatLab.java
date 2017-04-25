@@ -36,6 +36,10 @@ public class ChatLab {
                 .getWritableDatabase();
     }
 
+    public void deleteDatabase() {
+        mContext.deleteDatabase(ChatTable.NAME);
+    }
+
     public List<Chat> getChats() {
         List<Chat> chats = new ArrayList<>();
 
@@ -78,6 +82,14 @@ public class ChatLab {
         ContentValues values = getContentValues(c);
 
         mDatabase.insert(ChatTable.NAME, null, values);
+    }
+
+    public void removeChat(Chat c) {
+        String idString = c.getId();
+
+        mDatabase.delete(ChatTable.NAME,
+                ChatTable.Cols.ID + " = ?",
+                new String[] {idString});
     }
 
     public void updateChat(Chat chat) {

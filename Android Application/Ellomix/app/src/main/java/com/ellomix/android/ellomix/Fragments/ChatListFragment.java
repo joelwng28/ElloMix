@@ -31,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,7 +51,6 @@ public class ChatListFragment extends Fragment {
     private TextView mGroupChatName;
     private TextView mGroupRecentMessage;
     private Chats mChats;
-    private List<String> mChatIds;
     private ChatAdapter mAdapter;
 
     // Firebase Instance variable
@@ -62,6 +62,7 @@ public class ChatListFragment extends Fragment {
     private ChildEventListener chatIdsEventListener;
     private ChildEventListener chatEventListener;
     private ChatLab chatLab;
+    private HashSet<String> mChatIds;
 
     public static ChatListFragment newInstance() {
         return new ChatListFragment();
@@ -72,7 +73,7 @@ public class ChatListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mChats = new Chats();
-        mChatIds = new ArrayList<>();
+        mChatIds = new HashSet<String>();
 
         if (getActivity() == null) {
             Log.e(TAG, "context is null");
@@ -104,26 +105,48 @@ public class ChatListFragment extends Fragment {
         chatIdsEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                // Add new chat to database
-                String chatId = dataSnapshot.getKey();
-                Chat chat = chatLab.getChat(chatId);
+                // Add to new chat
+                // testing
 
-                // if the chat does not exist in the database, add it
-                if (chat == null) {
-                    Log.d(TAG, "adding new chat id");
-                    chat = new Chat(chatId);
-                    chatLab.addChat(chat);
-                }
+                String chatId = dataSnapshot.getKey();
+                Log.d(TAG, "Added chatId: " + chatId);
+                mChatIds.add(chatId);
+//                Chat chat = chatLab.getChat(chatId);
+//                // if the chat does not exist in the database, add it
+//                if (chat == null) {
+//                    Log.d(TAG, "adding new chat id");
+//                    chat = new Chat(chatId);
+//                    chatLab.addChat(chat);
+//                    updateUI();
+//                }
 
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                //nothing
+//                // Chat gets updated
+//                String chatId = dataSnapshot.getKey();
+//                Chat chat = chatLab.getChat(chatId);
+//
+//                // if the chat does not exist in the database, add it
+//                if (chat != null) {
+//                    Log.d(TAG, "adding new chat id");
+//                    chat = new Chat(chatId);
+//                    chatLab.addChat(chat);
+//                }
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 // Chat was deleted
+                String chatId = dataSnapshot.getKey();
+                mChatIds.remove(chatId);
+                Chat chat = chatLab.getChat(chatId);
+
+                if (chat != null) {
+                    chatLab.removeChat(chat);
+                }
             }
 
             @Override
@@ -154,13 +177,19 @@ public class ChatListFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String chatId = (String) dataSnapshot.getKey();
                 Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
-                Chat chat = chatLab.getChat(firebaseChat.getId());
+                Chat chat = chatLab.getChat(chatId);
 
-                // if the chat does exist, it means we update it in the database
-                if (chat != null) {
-                    Log.d(TAG, "adding to chat feed");
-                    chatLab.updateChat(firebaseChat);
-                    updateUI();
+                if (mChatIds.contains(chatId)) {
+                    if (chat == null) {
+                        Log.d(TAG, "child added: Added new");
+                        chatLab.addChat(firebaseChat);
+                        updateUI();
+                    }
+//                    else {
+//                        Log.d(TAG, "child added: Updated");
+//                        chatLab.updateChat(firebaseChat);
+//                        updateUI();
+//                    }
                 }
 
             }
@@ -169,20 +198,31 @@ public class ChatListFragment extends Fragment {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 String chatId = (String) dataSnapshot.getKey();
                 Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
-                Chat chat = chatLab.getChat(firebaseChat.getId());
+                Chat chat = chatLab.getChat(chatId);
 
-                // if the chat does exist, it means we update it in the database
-                if (chat != null) {
-                    Log.d(TAG, "updating chat feed");
-                    chatLab.updateChat(firebaseChat);
-                    updateUI();
+                if (mChatIds.contains(chatId)) {
+                    if (chat != null) {
+                        Log.d(TAG, "child updated: updated chat");
+                        chatLab.updateChat(firebaseChat);
+                        updateUI();
+                    }
                 }
 
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                // Do nothing
+                String chatId = (String) dataSnapshot.getKey();
+                Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
+                Chat chat = chatLab.getChat(firebaseChat.getId());
+
+                if (mChatIds.contains(chatId)) {
+                    if (chat != null) {
+                        Log.d(TAG, "Child remove: Removing chat");
+                        chatLab.removeChat(firebaseChat);
+                        updateUI();
+                    }
+                }
             }
 
             @Override
@@ -257,21 +297,10 @@ public class ChatListFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop");
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy");
+        // TODO: Move this into a service
         if (mFirebaseUser != null) {
             mDatabase.child("Users")
                     .child(mFirebaseUser.getUid())

@@ -92,8 +92,11 @@ public class FirebaseService {
 
     // just need the User id present
     public static void addChatIdToUser(String userId, Chat chat) {
-
         mDatabase.child(USERS).child(userId).child(USER_CHAT).child(chat.getId()).setValue(chat.getId());
+    }
+
+    public static DatabaseReference getChatIds(String userId) {
+        return mDatabase.child(USERS).child(userId).child(USER_CHAT);
     }
 
     // Add music to group playlist

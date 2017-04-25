@@ -66,8 +66,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-
-
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -125,54 +123,14 @@ public class SignUpActivity extends AppCompatActivity {
                 }
         );
 
-        //Download friends from firebase
-        FirebaseService.getMainUserFollowingQuery().addValueEventListener(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot child : dataSnapshot.getChildren()) {
-
-                            // Get the userId and with that search for the user in firebase
-                            String friendId = child.getKey();
-
-                            FirebaseService.getUserQuery(friendId).addValueEventListener(
-                                    new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            User friend = (User) dataSnapshot.getValue(User.class);
-                                            if (friend != null) {
-                                                FriendLab friendLab = FriendLab.get(getApplicationContext());
-                                                friendLab.addFriend(friend);
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-                                    });
-
-
-
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
     }
 
 
 
     private void goToFriendSearchActivity(){
-        Intent i = new Intent(this, GenreActivity.class);
+        Intent i = new Intent(this, FriendSearchActivity.class);
         startActivity(i);
-        //SharedPreferences.Editor editor = preferences.edit();
-        //editor.putBoolean(FIRST_TIME, false);
-        //editor.apply();
+        finish();
     }
 
 
@@ -200,8 +158,8 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
                         if(task.isSuccessful()) {
-                            progressDialog.hide();
                             prepareUser();
+                            progressDialog.hide();
                             goToFriendSearchActivity();
                         }else {
                             // If sign in fails, display a message to the user. If sign in succeeds
@@ -214,7 +172,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 });
-                }
+        }
 }
 
 

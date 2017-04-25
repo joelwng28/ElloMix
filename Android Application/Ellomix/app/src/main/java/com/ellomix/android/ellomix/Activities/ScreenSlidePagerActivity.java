@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.Activities;
 
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -25,8 +26,17 @@ import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.Services.MusicService;
 import com.ellomix.android.ellomix.Services.PlayerLab;
+import com.ellomix.android.ellomix.SpotifyAPI.SpotifyAPI;
 import com.ellomix.android.ellomix.Style.CustomViewPager;
+import com.spotify.sdk.android.authentication.AuthenticationClient;
+import com.spotify.sdk.android.authentication.AuthenticationRequest;
+import com.spotify.sdk.android.authentication.AuthenticationResponse;
+import com.spotify.sdk.android.player.Config;
+import com.spotify.sdk.android.player.ConnectionStateCallback;
+import com.spotify.sdk.android.player.Error;
 import com.spotify.sdk.android.player.PlaybackState;
+import com.spotify.sdk.android.player.PlayerEvent;
+import com.spotify.sdk.android.player.Spotify;
 import com.spotify.sdk.android.player.SpotifyPlayer;
 import android.widget.MediaController.MediaPlayerControl;
 
@@ -38,7 +48,8 @@ import java.util.List;
  * Created by abetorres on 12/10/16.
  */
 
-public class ScreenSlidePagerActivity extends AppCompatActivity implements MediaPlayerControl {
+public class ScreenSlidePagerActivity extends AppCompatActivity implements MediaPlayerControl,
+        ConnectionStateCallback {
 
     private static final String TAG = "PagerActivity";
     private static final int NUM_PAGES = 3;
@@ -56,6 +67,7 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Media
     private MusicController mController;
     private SpotifyPlayer mPlayer;
     private PlaybackState mPlaybackState;
+    private ProgressDialog mProgressDialog;
     private MusicLab mMusicLab;
     private PlayerLab mPlayerLab;
     private Track mCurrentTrack;
@@ -77,21 +89,75 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Media
         for (int i = 0; i < NUM_PAGES; i++) {
             tabLayout.getTabAt(i).setIcon(imageResId[i]);
         }
+        mProgressDialog = new ProgressDialog(this);
 
         mPlayerLab = (PlayerLab) getApplicationContext();
+        if (mPlayerLab.isSpotifyConnected() && !mPlayerLab.isSpotifyLoggedIn()) {
+            showProcessDialog("Preparing Music Experience");
+            AuthenticationRequest.Builder builder =
+                    new AuthenticationRequest.Builder(SpotifyAPI.getClientId(),
+                            AuthenticationResponse.Type.TOKEN,
+                            SpotifyAPI.getRedirectUri());
+            builder.setScopes(new String[]{"streaming"});
+            AuthenticationRequest request = builder.build();
+
+            AuthenticationClient.openLoginActivity(ScreenSlidePagerActivity.this,
+                    SpotifyAPI.getRequestCode(), request);
+
+        }
         mPlayerLab.createMediaPlayer();
         mPlaylist = new ArrayList<Track>();
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check if result comes from the correct activity
+        if (requestCode == SpotifyAPI.getRequestCode()) {
+            AuthenticationResponse response = AuthenticationClient.getResponse(resultCode, data);
+            switch (response.getType()) {
+                // Response was successful and contains auth token
+                case TOKEN:
+                    // Handle successful response
+                    Log.i(TAG, "Login successful");
+                    // Setup player
+                    Config playerConfig = new Config(this, response.getAccessToken(), SpotifyAPI.getClientId());
+                    Spotify.getPlayer(playerConfig, this, new SpotifyPlayer.InitializationObserver() {
+                        @Override
+                        public void onInitialized(SpotifyPlayer spotifyPlayer) {
+                            Log.d(TAG, "Initialize player");
+                            mPlayer = spotifyPlayer;
+                            mPlayer.addConnectionStateCallback(ScreenSlidePagerActivity.this);
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            Log.e(TAG, "Could not initialize player: " + throwable.getMessage());
+                        }
+                    });
+                    break;
+
+                // Auth flow returned an error
+                case ERROR:
+                    // Handle error response
+                    Log.e(TAG, "Auth error: " + response.getError());
+                    break;
+
+                // Most likely auth flow was cancelled
+                default:
+                    // Handle other cases
+                    Log.i(TAG, "Auth result: " + response.getType());
+            }
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        setController();
-//        if (playIntent == null) {
-//            playIntent = new Intent(this, MusicService.class);
-//            bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE);
-//            startService(playIntent);
-//        }
+        if (mPlayerLab.isSpotifyConnected()) {
+            setController();
+        }
     }
 
     private void setController() {
@@ -102,6 +168,15 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Media
         mController.setAnchorView(mPager);
         mController.setEnabled(true);
         mPlayerLab.setController(mController);
+    }
+
+    public void showProcessDialog(String message) {
+        mProgressDialog.show();
+        mProgressDialog.setMessage(message);
+    }
+
+    public void hideProcessDialog() {
+        mProgressDialog.hide();
     }
 
 //    //connect to the service
@@ -124,10 +199,11 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Media
 //        }
 //    };
 
+    //MediaPlayer callback methods
+
     @Override
     public void start() {
-        mPlayerLab.playTrack();
-
+        mPlayerLab.resumeTrack();
     }
 
     @Override
@@ -178,6 +254,37 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Media
     @Override
     public int getAudioSessionId() {
         return 0;
+    }
+
+    // SpotifyAPI player ConnectionStateCallback
+
+    @Override
+    public void onLoggedIn() {
+        Log.d(TAG, "Spotify logged in");
+        PlayerLab playerLab = (PlayerLab) getApplicationContext();
+        playerLab.setupSpotifyPlayer(mPlayer);
+        setController();
+        hideProcessDialog();
+    }
+
+    @Override
+    public void onLoggedOut() {
+        Log.d(TAG, "User logged out");
+    }
+
+    @Override
+    public void onLoginFailed(Error error) {
+        Log.d(TAG, "Login failed");
+    }
+
+    @Override
+    public void onTemporaryError() {
+        Log.d(TAG, "Temporary error occurred");
+    }
+
+    @Override
+    public void onConnectionMessage(String message) {
+        Log.d(TAG, "Received connection message: " + message);
     }
 
     private class ScreenSlidePagerAdapter extends FragmentPagerAdapter {

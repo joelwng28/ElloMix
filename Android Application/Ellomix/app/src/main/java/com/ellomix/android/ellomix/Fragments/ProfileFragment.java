@@ -20,10 +20,13 @@ import com.bumptech.glide.load.data.StreamAssetPathFetcher;
 import com.ellomix.android.ellomix.Activities.LoginActivity;
 import com.ellomix.android.ellomix.Activities.NewMessageActivity;
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
+import com.ellomix.android.ellomix.Model.ChatLab;
+import com.ellomix.android.ellomix.Model.FriendLab;
 import com.ellomix.android.ellomix.Model.MusicLab;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.Model.User;
 import com.ellomix.android.ellomix.R;
+import com.ellomix.android.ellomix.Services.PlayerLab;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,6 +58,7 @@ public class ProfileFragment extends Fragment {
     private Button logOutButton;
     private RecyclerView mRecentMusicRecyclerView;
     private RecentMusicAdapter mAdapter;
+    private PlayerLab mPlayerLab;
 
     //Firebase Instance variable
     private ChildEventListener mStatsEventListener;
@@ -91,6 +95,7 @@ public class ProfileFragment extends Fragment {
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
 
+        mPlayerLab = (PlayerLab) getApplicationContext();
 
 
         mStatsEventListener = new ChildEventListener() {
@@ -102,8 +107,6 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 User curUser = (User) dataSnapshot.getValue(User.class);
-                mNumFollowingTextView.setText(curUser.getFollowingCount());
-                mNumFollewerTextView.setText(curUser.getFollowersCount());
             }
 
             @Override
@@ -132,6 +135,12 @@ public class ProfileFragment extends Fragment {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //Cleaning up
+                        ChatLab chatLab = ChatLab.get(getActivity());
+                        chatLab.deleteDatabase();
+                        FriendLab friendLab = FriendLab.get(getActivity());
+                        friendLab.deleteDatabase();
+                        mPlayerLab.terminateSpPlayer();
                         LoginManager.getInstance().logOut();
                         FirebaseAuth.getInstance().signOut();
                         Intent i = new Intent(getActivity(), LoginActivity.class);

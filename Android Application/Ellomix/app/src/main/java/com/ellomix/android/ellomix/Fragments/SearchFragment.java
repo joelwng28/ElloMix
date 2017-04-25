@@ -1,6 +1,6 @@
 package com.ellomix.android.ellomix.Fragments;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,11 +15,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.ellomix.android.ellomix.Activities.ScreenSlidePagerActivity;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.Services.PlayerLab;
@@ -39,6 +39,8 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * Created by Akshay on 3/28/17.
  */
@@ -53,8 +55,9 @@ public class SearchFragment extends Fragment {
     private List<Track> mSpotifyList;
     private List<Track> mYoutubeList;
     private List<Track> mTrackList;
-    private boolean mSpotifyFlag = false;
-    private boolean mSoundcloudFlag = false;
+    private PlayerLab mPlayerLab;
+    private boolean mSpotifyCompleteFlag = false;
+    private boolean mSoundcloudCompleteFlag = false;
     private boolean isPlayerSetup = false;
 
     public static SearchFragment newInstance() {
@@ -82,6 +85,7 @@ public class SearchFragment extends Fragment {
         mSearchResultRecyclerView = (RecyclerView) v.findViewById(R.id.search_result_recyler_view);
         mSearchResultRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        mPlayerLab = (PlayerLab) getApplicationContext();
         return v;
     }
 
@@ -91,16 +95,16 @@ public class SearchFragment extends Fragment {
         inflater.inflate(R.menu.search_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.menu_item_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        final SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setIconifiedByDefault(false);
-        //searchView.setQueryHint("Search...");
+        searchView.setQueryHint("Search...");
         int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
         View searchPlate = searchView.findViewById(searchPlateId);
         if (searchPlate != null) {
             searchPlate.setBackgroundColor(Color.DKGRAY);
             int searchTextId = searchPlate.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
             TextView searchText = (TextView) searchPlate.findViewById(searchTextId);
-            if (searchText!=null) {
+            if (searchText != null) {
                 searchText.setTextColor(Color.WHITE);
                 searchText.setHintTextColor(Color.WHITE);
             }
@@ -111,44 +115,43 @@ public class SearchFragment extends Fragment {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
 
+                        InputMethodManager mgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        mgr.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+
                         mTrackList = new ArrayList<Track>();
 
-                        //TODO: Implement youtube
-//                        youtubeSearchAPI.AsyncResponse asyncResponse =
-//                                new youtubeSearchAPI.AsyncResponse() {
-//                                    @Override
-//                                    public void processFinish(List<Track> outputResult) {
-//                                        mTrackList = outputResult;
-//                                    }
-//                                };
-
-                        new youtubeSearchAPI(new youtubeSearchAPI.AsyncResponse() {
-                            @Override
-                            public void processFinish(List<Track> outputResult) {
-                                mYoutubeList = outputResult;
-                            }
-                        }, query);
+//                        new youtubeSearchAPI(new youtubeSearchAPI.AsyncResponse() {
+//                            @Override
+//                            public void processFinish(List<Track> outputResult) {
+//                                mYoutubeList = outputResult;
+//                            }
+//                        }, query);
 
                         //SpotifyAPI API service
-                        SPService spService = SpotifyAPI.getService();
+                        if (mPlayerLab.isSpotifyConnected()) {
+                            SPService spService = SpotifyAPI.getService();
 
-                        spService.searchFor(query).enqueue(new Callback<SpotifyResponse>() {
-                            @Override
-                            public void onResponse(Response<SpotifyResponse> response, Retrofit retrofit) {
-                                if (response.isSuccess()) {
-                                    List<SPTrack> tracks = response.body().getTracks().getItems();
-                                    mSpotifyList = new ArrayList<Track>(tracks);
-                                    mSpotifyFlag = true;
-                                    buildList();
+                            spService.searchFor(query).enqueue(new Callback<SpotifyResponse>() {
+                                @Override
+                                public void onResponse(Response<SpotifyResponse> response, Retrofit retrofit) {
+                                    if (response.isSuccess()) {
+                                        List<SPTrack> tracks = response.body().getTracks().getItems();
+                                        mSpotifyList = new ArrayList<Track>(tracks);
+                                        mSpotifyCompleteFlag = true;
+                                        buildList();
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Throwable t) {
-                                Log.d(TAG, "SpotifyAPI search failed");
+                                @Override
+                                public void onFailure(Throwable t) {
+                                    Log.d(TAG, "SpotifyAPI search failed");
 
-                            }
-                        });
+                                }
+                            });
+                        }
+                        else {
+                            mSpotifyCompleteFlag = true;
+                        }
 
                         // Soundcloud API service
                         SCService scService = SoundCloudAPI.getService();
@@ -161,7 +164,7 @@ public class SearchFragment extends Fragment {
                                     //TODO: sanitize display ex<script><dghdfgkjhdf></scrpt>
                                     List<SCTrack> tracks = response.body();
                                     mSoundcloudList = new ArrayList<Track>(tracks);
-                                    mSoundcloudFlag = true;
+                                    mSoundcloudCompleteFlag = true;
                                     buildList();
                                 }
                             }
@@ -171,29 +174,6 @@ public class SearchFragment extends Fragment {
                                 Log.d(TAG, "Soundcloud search failed");
                             }
                         });
-
-//                        //TODO: Merge results
-//                        int spSize = mSpotifyList.size();
-//                        int scSize = mSoundcloudList.size();
-//                        int ytSize = mYoutubeList.size();
-//                        int i = 0;
-//                        int j = 0;
-//                        int k = 0;
-//                        while(i < spSize || j < scSize || k < ytSize) {
-//                            if (i < spSize) {
-//                                mTrackList.add(mSpotifyList.get(i));
-//                                i++;
-//                            }
-//                            if (j < scSize) {
-//                                mTrackList.add(mSoundcloudList.get(j));
-//                                j++;
-//                            }
-//                            if (k < ytSize) {
-//                                mTrackList.add(mYoutubeList.get(k));
-//                                k++;
-//                            }
-//                        }
-//                        updateUI();
 
                         return true;
                     }
@@ -207,7 +187,7 @@ public class SearchFragment extends Fragment {
     }
 
     public void buildList() {
-        if (mSpotifyFlag && mSoundcloudFlag) {
+        if (mSpotifyCompleteFlag && mSoundcloudCompleteFlag) {
             int spSize = mSpotifyList.size();
             int scSize = mSoundcloudList.size();
             int i = 0;
@@ -222,8 +202,8 @@ public class SearchFragment extends Fragment {
                     j++;
                 }
             }
-            mSpotifyFlag = false;
-            mSoundcloudFlag = false;
+            mSpotifyCompleteFlag = false;
+            mSoundcloudCompleteFlag = false;
             updateUI();
         }
     }
