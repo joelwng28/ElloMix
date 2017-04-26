@@ -18,26 +18,26 @@ class ViewController: UIViewController, FBSDKLoginButtonDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        if (FBSDKAccessToken.current() != nil)
-        {
-            // User is already logged in, do work such as go to next view controller.
-            
-            // Or Show Logout Button
-            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-            self.view.addSubview(loginView)
-            loginView.center = self.view.center
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
-            loginView.delegate = self
-            self.returnUserData()
-        }
-        else
-        {
-            let loginView : FBSDKLoginButton = FBSDKLoginButton()
-            self.view.addSubview(loginView)
-            loginView.center = self.view.center
-            loginView.readPermissions = ["public_profile", "email", "user_friends"]
-            loginView.delegate = self
-        }
+//        if (FBSDKAccessToken.current() != nil)
+//        {
+//            // User is already logged in, do work such as go to next view controller.
+//            
+//            // Or Show Logout Button
+//            let loginView : FBSDKLoginButton = FBSDKLoginButton()
+//            self.view.addSubview(loginView)
+//            loginView.center = self.view.center
+//            loginView.readPermissions = ["public_profile", "email", "user_friends"]
+//            loginView.delegate = self
+//            self.returnUserData()
+//        }
+//        else
+//        {
+//            let loginView : FBSDKLoginButton = FBSDKLoginButton()
+//            self.view.addSubview(loginView)
+//            loginView.center = self.view.center
+//            loginView.readPermissions = ["public_profile", "email", "user_friends"]
+//            loginView.delegate = self
+//        }
         
     }
     

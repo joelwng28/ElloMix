@@ -67,16 +67,6 @@ THE SOFTWARE.
 			<key>License</key>
 			<string>Copyright</string>
 			<key>Title</key>
-			<string>FirebaseAuth</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
-			<string>Copyright 2017 Google</string>
-			<key>License</key>
-			<string>Copyright</string>
-			<key>Title</key>
 			<string>FirebaseCore</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
@@ -309,7 +299,7 @@ THE SOFTWARE.
 			<key>License</key>
 			<string>Apache</string>
 			<key>Title</key>
-			<string>GTMSessionFetcher</string>
+			<string>GoogleToolboxForMac</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
