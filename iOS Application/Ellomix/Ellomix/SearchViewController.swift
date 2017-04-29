@@ -9,14 +9,23 @@
 import UIKit
 import Alamofire
 
-class SearchViewController: UITableViewController {
+class SearchViewController: UITableViewController, UISearchControllerDelegate, UISearchResultsUpdating {
     
     let YouTubeAPIKey = "AIzaSyDl9doicP6uc4cEVlRDiM7Ttgy-o7Hal3I"
     var youtubeSearchURL = "https://www.googleapis.com/youtube/v3/search"
     typealias JSONStandard = [String : AnyObject]
+    var searchController:UISearchController?
     
     override func viewDidLoad() {
         
+        
+        // Search bar initialization
+        searchController = UISearchController(searchResultsController: nil)
+        searchController?.dimsBackgroundDuringPresentation = false
+        searchController?.searchResultsUpdater = self
+        tableView.tableHeaderView = searchController?.searchBar
+        searchController?.delegate = self
+        self.tableView.backgroundView = UIView()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,6 +38,14 @@ class SearchViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+    
+    //MARK: Searchbar
+    func updateSearchResults(for searchController: UISearchController) {
+        // In the future, maybe display results as the user types via a background thread.
+        if (searchController.searchBar.text != nil) {
+            let searchString = searchController.searchBar.text!
+        }
     }
     
     //MARK: YouTube
