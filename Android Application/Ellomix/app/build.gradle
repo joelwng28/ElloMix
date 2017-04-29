@@ -14,7 +14,7 @@ android {
     defaultConfig {
         applicationId "com.ellomix.android.ellomix"
         multiDexEnabled true
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -24,6 +24,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
             signingConfig signingConfigs.config
         }
     }
@@ -84,7 +87,7 @@ dependencies {
     compile 'com.google.apis:google-api-services-appsactivity:v1-rev30-1.22.0'
     compile 'com.google.android.gms:play-services-auth:10.0.1'
     compile 'com.google.apis:google-api-services-youtube:v3-rev120-1.19.0'
-    compile 'com.android.support:multidex:1.0.1'
+    //    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     testCompile 'junit:junit:4.12'
 }
