@@ -334,15 +334,16 @@ public class GroupPlaylistActivity extends AppCompatActivity implements MediaPla
         @Override
         public void onClick(View v) {
             mPlayerLab.playTrack(mPosition);
+            // Add to recently played
             String now = new Date().toString();
             mTrack.setCreatedAt(now);
-//            mMusicLab = MusicLab.get(getApplicationContext());
-//            if (mMusicLab.getTrack(mTrack.getID()) == null) {
-//                mMusicLab.addTrack(mTrack);
-//            }
-//            else {
-//                mMusicLab.updateTrack(mTrack);
-//            }
+            mMusicLab = MusicLab.get(getApplicationContext());
+            if (mMusicLab.getTrack(mTrack.getID()) == null) {
+                mMusicLab.addTrack(mTrack);
+            }
+            else {
+                mMusicLab.updateTrack(mTrack);
+            }
         }
     }
 

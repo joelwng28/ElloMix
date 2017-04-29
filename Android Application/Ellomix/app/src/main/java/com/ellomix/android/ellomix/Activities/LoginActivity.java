@@ -3,6 +3,7 @@ package com.ellomix.android.ellomix.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -72,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText editTextEmail;
     private EditText editTextPassword;
     private ProgressDialog progressDialog;
-
+    private PlayerLab mPlayerLab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         progressDialog = new ProgressDialog(this);
+        mPlayerLab = (PlayerLab) getApplicationContext();
         preferences = getSharedPreferences(setup, 0);
 
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
@@ -186,6 +188,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
+    //facebook callback
+
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
         progressDialog.setMessage("Logging in Please Wait...");
@@ -193,6 +197,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
 
+        progressDialog.setMessage("Logging in...");
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -203,35 +208,56 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
+                            progressDialog.hide();
                             Log.w(TAG, "signInWithCredential", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
-                        //If first time login in with facebook
-                        FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
-                        FirebaseService.getUserQuery(firebaseUser.getUid()).addListenerForSingleValueEvent(
-                                new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        User currentUser = (User) dataSnapshot.getValue(User.class);
-                                        // If first time user then add to firebase user database
-                                        if (currentUser == null) {
-                                            FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
-                                            User user = new User(firebaseUser.getUid(),
-                                                    firebaseUser.getDisplayName(),
-                                                    firebaseUser.getPhotoUrl().toString());
-                                            FirebaseService.pushNewUser(user);
+                        else {
+
+                            //If first time login in with facebook
+                            FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
+                            FirebaseService.getUserQuery(firebaseUser.getUid()).addListenerForSingleValueEvent(
+                                    new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            User currentUser = (User) dataSnapshot.getValue(User.class);
+                                            // If first time user then add to firebase user database
+                                            if (currentUser == null) {
+                                                Log.d(TAG, "New Facebook user");
+                                                FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
+                                                Uri photoUri = firebaseUser.getPhotoUrl();
+                                                User user = new User(firebaseUser.getUid(),
+                                                        firebaseUser.getDisplayName(),
+                                                        (photoUri != null)
+                                                                ? photoUri.toString()
+                                                                : null
+                                                );
+                                                FirebaseService.pushNewUser(user);
+                                                progressDialog.dismiss();
+                                                goToFriendSearchActivity();
+                                            }
+                                            else {
+                                                Log.d(TAG, "Returning Facebook user");
+                                                mPlayerLab.returningUserSetup(new PlayerLab.FirebasePresenter() {
+                                                    @Override
+                                                    public void finishLoading() {
+                                                        progressDialog.dismiss();
+                                                        goToHomeScreen();
+                                                    }
+                                                });
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
                                         }
                                     }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                }
-                        );
-                        goToHomeScreen();
+                            );
+                        }
                     }
                 });
     }
@@ -239,9 +265,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // TODO: Fix bug where user has friends and is re-installing app
     // TODO: Delete friends from database if user logs out.
     private void prepareUser() {
-
-        PlayerLab playerLab = (PlayerLab) getApplicationContext();
-        playerLab.returningUserSetup();
 
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(returningUser, false);
@@ -278,19 +301,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
-                        if(task.isSuccessful())
-                        {
-                            //finish();
-                            goToHomeScreen();
-                            // start the profile activity
-                            // startActivity(new Intent(getApplicationContext(),SignedInActivity.class));
-                            Log.d(TAG, "Successful Sign In" );
-                        }else
-                        {
-                            toastRegistrationError();
+                        if(task.isSuccessful()) {
+                            Log.d(TAG, "Successful Sign In");
+                            mPlayerLab.returningUserSetup(new PlayerLab.FirebasePresenter() {
+                                @Override
+                                public void finishLoading() {
+                                    progressDialog.dismiss();
+                                    goToHomeScreen();
+                                }
+                            });
                         }
-                        progressDialog.dismiss();
+                        else {
+                            toastRegistrationError();
+                            progressDialog.hide();
+                        }
                     }
                 });
     }
@@ -309,11 +333,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void goToHomeScreen(){
         //send to the Home Screen
-        isFirstTime = preferences.getBoolean(returningUser, true);
-        progressDialog.dismiss();
-        if (isFirstTime) {
-            prepareUser();
-        }
+        prepareUser();
+//        isFirstTime = preferences.getBoolean(returningUser, true);
+//        progressDialog.dismiss();
+//        if (isFirstTime) {
+//
+//        }
+        Intent i = new Intent(this, ScreenSlidePagerActivity.class);
+        startActivity(i);
+        finish();
+    }
+
+    private void goToFriendSearchActivity(){
         Intent i = new Intent(this, FriendSearchActivity.class);
         startActivity(i);
         finish();

@@ -17,7 +17,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.data.StreamAssetPathFetcher;
+import com.ellomix.android.ellomix.Activities.FriendSearchActivity;
 import com.ellomix.android.ellomix.Activities.LoginActivity;
+import com.ellomix.android.ellomix.Activities.LoginServicesActivity;
 import com.ellomix.android.ellomix.Activities.NewMessageActivity;
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
 import com.ellomix.android.ellomix.Model.ChatLab;
@@ -67,6 +69,12 @@ public class ProfileFragment extends Fragment {
         return new ProfileFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,15 +82,15 @@ public class ProfileFragment extends Fragment {
 
         mProfilePicImageView = (CircleImageView) v.findViewById(R.id.profile_picture_image_view);
 
-        FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
         String userId = "";
-        if (firebaseUser != null) {
-            String photoURL = firebaseUser.getPhotoUrl().toString();
-            userId = firebaseUser.getUid();
 
-            if (photoURL != null) {
+        mPlayerLab = (PlayerLab) getApplicationContext();
+        FirebaseUser currentUser = FirebaseService.getFirebaseUser();
+        if (currentUser != null) {
+            userId = currentUser.getUid();
+            if (currentUser.getPhotoUrl() != null) {
                 Glide.with(getActivity())
-                        .load(photoURL)
+                        .load(currentUser.getPhotoUrl())
                         .into(mProfilePicImageView);
             }
         }
@@ -93,10 +101,6 @@ public class ProfileFragment extends Fragment {
         mRecentMusicRecyclerView = (RecyclerView) v.findViewById(R.id.recent_music_recycler_view);
         mRecentMusicRecyclerView.setLayoutManager(
                 new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-
-
-        mPlayerLab = (PlayerLab) getApplicationContext();
-
 
         mStatsEventListener = new ChildEventListener() {
             @Override
@@ -136,13 +140,7 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         //Cleaning up
-                        ChatLab chatLab = ChatLab.get(getActivity());
-                        chatLab.deleteDatabase();
-                        FriendLab friendLab = FriendLab.get(getActivity());
-                        friendLab.deleteDatabase();
-                        mPlayerLab.terminateSpPlayer();
-                        LoginManager.getInstance().logOut();
-                        FirebaseAuth.getInstance().signOut();
+                        mPlayerLab.userLogOut();
                         Intent i = new Intent(getActivity(), LoginActivity.class);
                         getActivity().finish();
                         startActivity(i);
@@ -161,15 +159,19 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.chat_feed_menu, menu);
+        inflater.inflate(R.menu.profile_menu, menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_compose:
-                Intent intent = new Intent(getContext(), NewMessageActivity.class);
-                startActivity(intent);
+            case R.id.menu_item_add_friends:
+                Intent friendIntent = FriendSearchActivity.newIntent(getActivity(), false);
+                startActivity(friendIntent);
+                return true;
+            case R.id.menu_item_connect_services:
+                Intent connectionIntent = LoginServicesActivity.newIntent(getActivity(), false);
+                startActivity(connectionIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

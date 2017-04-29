@@ -155,15 +155,14 @@ public class ScreenSlidePagerActivity extends AppCompatActivity implements Media
     @Override
     protected void onResume() {
         super.onResume();
-        if (mPlayerLab.isSpotifyConnected()) {
-            setController();
-        }
+        setController();
     }
 
     private void setController() {
         if (mController == null) {
             mController = new MusicController(this, false);
         }
+        Log.d(TAG, "set pager controller");
         mController.setMediaPlayer(this);
         mController.setAnchorView(mPager);
         mController.setEnabled(true);

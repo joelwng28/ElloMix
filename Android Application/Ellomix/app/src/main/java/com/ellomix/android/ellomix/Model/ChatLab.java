@@ -37,7 +37,8 @@ public class ChatLab {
     }
 
     public void deleteDatabase() {
-        mContext.deleteDatabase(ChatTable.NAME);
+        mDatabase.delete(ChatTable.NAME,
+                null, null);
     }
 
     public List<Chat> getChats() {

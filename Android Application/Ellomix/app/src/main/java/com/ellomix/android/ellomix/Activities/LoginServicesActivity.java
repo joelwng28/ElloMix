@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -30,10 +31,18 @@ public class LoginServicesActivity extends AppCompatActivity implements
         SpotifyPlayer.NotificationCallback, ConnectionStateCallback {
 
     private static final String TAG = "LoginServicesActivity";
+    private static final String Extra_Initial_Setup = "InitialSetup";
 
     private Button mSpotifyButton;
     private SpotifyPlayer mPlayer;
     private PlayerLab mPlayerLab;
+    private boolean isInitialSetup = false;
+
+    public static Intent newIntent(Context context, boolean isInitialSetup) {
+        Intent i = new Intent(context, LoginServicesActivity.class);
+        i.putExtra(Extra_Initial_Setup, isInitialSetup);
+        return i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,9 @@ public class LoginServicesActivity extends AppCompatActivity implements
         mPlayerLab = (PlayerLab) getApplicationContext();
 
         mSpotifyButton = (Button) findViewById(R.id.spotify_button);
+
+        Intent i = getIntent();
+        isInitialSetup = i.getBooleanExtra(Extra_Initial_Setup, true);
 
         mSpotifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,9 +98,12 @@ public class LoginServicesActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.continue_menu_item:
-                Intent i = new Intent(this, ScreenSlidePagerActivity.class);
-                startActivity(i);
-                finish();
+                if (isInitialSetup) {
+                    goToHomeScreen();
+                }
+                else {
+                    finish();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -139,6 +154,12 @@ public class LoginServicesActivity extends AppCompatActivity implements
                     Log.i(TAG, "Auth result: " + response.getType());
             }
         }
+    }
+
+    private void goToHomeScreen() {
+        Intent i = new Intent(this, ScreenSlidePagerActivity.class);
+        startActivity(i);
+        finish();
     }
 
     // SpotifyAPI player NotificationCallback

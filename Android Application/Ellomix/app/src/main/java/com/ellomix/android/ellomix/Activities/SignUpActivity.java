@@ -3,6 +3,7 @@ package com.ellomix.android.ellomix.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -14,17 +15,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ellomix.android.ellomix.FirebaseAPI.FirebaseService;
-import com.ellomix.android.ellomix.Model.FriendLab;
 import com.ellomix.android.ellomix.Model.User;
 import com.ellomix.android.ellomix.R;
+import com.ellomix.android.ellomix.Services.PlayerLab;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -97,38 +96,49 @@ public class SignUpActivity extends AppCompatActivity {
     }
     // TODO: Fix bug where user has friends and is re-installing app
     // TODO: Delete friends from database if user logs out.
-    private void prepareUser() {
+    private void prepareNewUser() {
 
         //If users first time using the app ever, add him to the database
         FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
-        FirebaseService.getUserQuery(firebaseUser.getUid()).addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        User currentUser = (User) dataSnapshot.getValue(User.class);
-                        // If first time user then add to firebase user database
-                        if (currentUser == null) {
-                            FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
-                            User user = new User(firebaseUser.getUid(),
-                                    firebaseUser.getDisplayName(),
-                                    firebaseUser.getPhotoUrl().toString());
-                            FirebaseService.pushNewUser(user);
+        if (firebaseUser != null) {
+            String firebaseUid = firebaseUser.getUid();
+            String firebaseName = firebaseUser.getDisplayName();
+            String name = (firebaseName != null) ? firebaseName
+                    : editTextFirstName.getText().toString().trim() + " " +
+                    editTextLastName.getText().toString().trim();
+            Uri firebasePicture = firebaseUser.getPhotoUrl();
+            String photoUrl = (firebasePicture != null)
+                    ? firebasePicture.toString()
+                    : null;
+            User user = new User(firebaseUid,
+                    name,
+                    photoUrl);
+            FirebaseService.pushNewUser(user);
+            UserProfileChangeRequest profileUpdates =
+                    new UserProfileChangeRequest.Builder()
+                            .setDisplayName(name)
+                            .build();
+
+            firebaseUser.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "User profile updated.");
+                                goToFriendSearchActivity();
+                            }
                         }
-                    }
+                    });
+        }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                }
-        );
+        progressDialog.hide();
 
     }
 
 
 
     private void goToFriendSearchActivity(){
-        Intent i = new Intent(this, FriendSearchActivity.class);
+        Intent i = FriendSearchActivity.newIntent(this, true);
         startActivity(i);
         finish();
     }
@@ -158,21 +168,20 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
                         if(task.isSuccessful()) {
-                            prepareUser();
-                            progressDialog.hide();
-                            goToFriendSearchActivity();
-                        }else {
+                            prepareNewUser();
+                        }
+                        else {
                             // If sign in fails, display a message to the user. If sign in succeeds
                             // the auth state listener will be notified and logic to handle the
                             // signed in user can be handled in the listener.
                                         Toast.makeText(SignUpActivity.this, R.string.auth_failed,
                                         Toast.LENGTH_SHORT).show();
-                            }
+                        }
                     }
 
 
                 });
-        }
+    }
 }
 
 

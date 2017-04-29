@@ -5,9 +5,12 @@ import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by ATH-AJT2437 on 1/21/2017.
@@ -103,5 +106,26 @@ public class FirebaseService {
     public static void addMusic(String chatId, Track track) {
         getChatsQuery().child(chatId).child(CHAT_GROUP_PLAYLIST).push().setValue(track);
     }
+
+//    public static User getCurrentUser() {
+//        FirebaseUser firebaseUser = getFirebaseUser();
+//        User currentUser;
+//        if (firebaseUser != null) {
+//            getUserQuery(firebaseUser.getUid()).addListenerForSingleValueEvent(
+//                    new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//                            currentUser = (User) dataSnapshot.getValue(User.class);
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError) {
+//
+//                        }
+//                    }
+//            );
+//        }
+//        return null;
+//    }
 
 }

@@ -9,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingTop="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -152,13 +152,13 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recent_music_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:foregroundGravity="center"/>
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

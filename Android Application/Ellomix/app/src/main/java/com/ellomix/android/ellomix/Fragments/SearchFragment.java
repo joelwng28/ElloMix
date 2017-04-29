@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.ellomix.android.ellomix.Model.MusicLab;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.R;
 import com.ellomix.android.ellomix.Services.PlayerLab;
@@ -33,6 +34,7 @@ import com.ellomix.android.ellomix.SpotifyDataModel.SPTrack;
 import com.ellomix.android.ellomix.YoutubeAPI.youtubeSearchAPI;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit.Callback;
@@ -59,6 +61,7 @@ public class SearchFragment extends Fragment {
     private boolean mSpotifyCompleteFlag = false;
     private boolean mSoundcloudCompleteFlag = false;
     private boolean isPlayerSetup = false;
+    private MusicLab mMusicLab;
 
     public static SearchFragment newInstance() {
         return new SearchFragment();
@@ -128,7 +131,7 @@ public class SearchFragment extends Fragment {
 //                        }, query);
 
                         //SpotifyAPI API service
-                        if (mPlayerLab.isSpotifyConnected()) {
+                        if (mPlayerLab.isSpotifyLoggedIn()) {
                             SPService spService = SpotifyAPI.getService();
 
                             spService.searchFor(query).enqueue(new Callback<SpotifyResponse>() {
@@ -269,6 +272,16 @@ public class SearchFragment extends Fragment {
         public void onClick(View v) {
             PlayerLab playerLab = (PlayerLab) getActivity().getApplicationContext();
             playerLab.setOneTrack(mTrack);
+            // Add to recently played
+            String now = new Date().toString();
+            mTrack.setCreatedAt(now);
+            mMusicLab = MusicLab.get(getApplicationContext());
+            if (mMusicLab.getTrack(mTrack.getID()) == null) {
+                mMusicLab.addTrack(mTrack);
+            }
+            else {
+                mMusicLab.updateTrack(mTrack);
+            }
         }
 
     }

@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ellomix.android.ellomix.Model.FriendDbSchema.FriendTable;
+
 /**
  * Created by ATH-AJT2437 on 2/2/2017.
  */
@@ -33,7 +35,8 @@ public class FriendLab {
     }
 
     public void deleteDatabase() {
-        mContext.deleteDatabase(FriendDbSchema.FriendTable.NAME);
+        mDatabase.delete(FriendTable.NAME,
+                null, null);
     }
 
     public List<User> getFriends() {
@@ -57,7 +60,7 @@ public class FriendLab {
     public User getFriend(String id) {
 
         FriendCursorWrapper cursor = queryFriend(
-                FriendDbSchema.FriendTable.Cols.ID + " = ?",
+                FriendTable.Cols.ID + " = ?",
                 new String[] {id}
         );
 
@@ -77,30 +80,30 @@ public class FriendLab {
     public void addFriend(User c) {
         ContentValues values = getContentValues(c);
 
-        mDatabase.insert(FriendDbSchema.FriendTable.NAME, null, values);
+        mDatabase.insert(FriendTable.NAME, null, values);
     }
 
     public void updateFriend(User friend) {
         String idString = friend.getId();
         ContentValues values = getContentValues(friend);
 
-        mDatabase.update(FriendDbSchema.FriendTable.NAME, values,
-                FriendDbSchema.FriendTable.Cols.ID + " = ?",
+        mDatabase.update(FriendTable.NAME, values,
+                FriendTable.Cols.ID + " = ?",
                 new String[] {idString});
     }
 
     private static ContentValues getContentValues(User friend) {
         ContentValues values = new ContentValues();
-        values.put(FriendDbSchema.FriendTable.Cols.ID, friend.getId());
-        values.put(FriendDbSchema.FriendTable.Cols.PROFILE_NAME, friend.getName());
-        values.put(FriendDbSchema.FriendTable.Cols.PROFILE_PICTURE, friend.getPhotoUrl());
+        values.put(FriendTable.Cols.ID, friend.getId());
+        values.put(FriendTable.Cols.PROFILE_NAME, friend.getName());
+        values.put(FriendTable.Cols.PROFILE_PICTURE, friend.getPhotoUrl());
 
         return values;
     }
 
     private FriendCursorWrapper queryFriend(String whereClause, String[] whereArgs) {
         Cursor cursor = mDatabase.query(
-                FriendDbSchema.FriendTable.NAME,
+                FriendTable.NAME,
                 null, //Columns - null selects all columns
                 whereClause,
                 whereArgs,

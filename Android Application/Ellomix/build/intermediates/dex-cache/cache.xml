@@ -3,12 +3,597 @@
 
     <item
         is-multidex="true"
+        jar="/Users/Akshay/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/support-annotations-25.3.1_fd2a8293e45c8d141136565c99f24637b22cf975/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.1.3/f6c3aed1cdfa21b5c1737c915186ea93a95a58bd/jackson-core-2.1.3.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f6c3aed1cdfa21b5c1737c915186ea93a95a58bd">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/jackson-core-2.1.3_3c2c98809b2d3126f1f8c31e09edbeb05da3f4e6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/37258c7be58e5e41c404921485e8744fd563c681/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="9cca2818594cc5348806d6662133491e7ea0fa8d">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_66e1cfc5f8a904e48a5ab08ac77fa7eb2cd47dc9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/jsr305-1.3.9.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/2/jsr305-1.3.9_fa495fcfed24516cab5cc7b5538cbb2ef35bace3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.22.0/244350c0c845c583717ade13f5666a452fd0cfa/google-api-client-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="0244350c0c845c583717ade13f5666a452fd0cfa">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/google-api-client-1.22.0_62d22fda04eef879e9d5117729478bac8f9eb355/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/a399671a51b62e1ae661f0f2d3cbb860249a1c33/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="41e39c7ee84e63ae18df6c6ccb96d196996add4c">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_a4d3004f15d641a1a10390cbced8c7f26a998782/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/converter-gson/2.0.0-beta2/392c3d09e0f5e7087544093cc0cb23bb9c7af5fa/converter-gson-2.0.0-beta2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="392c3d09e0f5e7087544093cc0cb23bb9c7af5fa">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/converter-gson-2.0.0-beta2_7493b78dd6606fa4c2c15c9b81eaa78464a91180/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/gson-2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="2e66da15851f9f5b5079228f856c2f090ba98c38">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/gson-2.1_f351086a07af8c905e2f4f0d2b01928194b4d37c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/9c351468b624de874cb89c525d8d02e5cb359217/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_49e2b3f71dff1f68983611738dcb6727876d710a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/75bbdbc8515ffcc4304059f209730555ec3ea2e6/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_67d8437b7afa29776cf8ed77f617497ecb6186ef/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/YouTubeAndroidPlayerApi.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3c4f96ff493456651cc7bdb0b47e10eb25545a16">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/YouTubeAndroidPlayerApi_5b465caff80a51df9e867fc159ba87e26bfdf0f8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/4431ca95b4b917f568ef5b3fc3129684d7d5beb2/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="0d94c39080a309d1887f50ef68cc96dfe4bc9d01">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_436226f27b030f4943e9b52f2dd94c3ebc701767/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-api-client-android-1.22.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ec45ce6d2af4b1c5ec9977e2648f6a85e0b3d70c">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-api-client-android-1.22.0_7629bd174f7a969edb6f67eafb8274f0e3e7f78c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-http-client-android-1.22.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="676b43815230fdc699e745ce605df340edb2992e">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-http-client-android-1.22.0_5ff444d388f15d2026fb192e1f55810af3dcd625/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/6356c44a044dc7a5e2a5444dc55acbc31a692478/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_1094cd265fe7ac16f84267e59145e37199e7bd6e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/0e716b12ac3b6c1549d6f34089883af98fcd890a/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_21e891cad00420567b87d118eaf0073d52b2d9c9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-android/1.22.0/6d1e1a76a16a244ab2f41775791be1dd0ec2878a/google-http-client-android-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6d1e1a76a16a244ab2f41775791be1dd0ec2878a">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/google-http-client-android-1.22.0_5ea96413b7da0effa824604f56c3d79846051b7d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/picasso-2.5.2_6a62bd277a853852484675bf9a9784961ec9e5f8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-jackson2/1.22.0/cc014d64ae11117e159d334c99d9c246d9b36f44/google-http-client-jackson2-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="cc014d64ae11117e159d334c99d9c246d9b36f44">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/google-http-client-jackson2-1.22.0_2163958d597294f54f068d8dbb5ef52ba8d4f83a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/18e6a99c296a89dfda49b0e50f0d35cd69ebc45d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_bd96ce569a0df517fadaafaf5dc53add82f7b0ac/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/3e317e51bc56afbcc7a4cff65c24101b328e8cf4/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="eed3cdbe6aacd905b1b4a1c7abab345ad051e967">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_266016da92817f13d6466059c61e312a72e46233/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/a7f1f54671555a406797eebed63341471e79fc8e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_56245e26b4e90310d690f56fd638d279e808f212/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.5.0/4de2b4ed3445c37ec1720a7d214712e845a24636/okhttp-2.5.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/okhttp-2.5.0_35be866f5ab226d75e035f4fd51d3b6a725f072d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-appsactivity/v1-rev30-1.22.0/cdab4024a969e536e375144776f1347c367808a9/google-api-services-appsactivity-v1-rev30-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="cdab4024a969e536e375144776f1347c367808a9">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/google-api-services-appsactivity-v1-rev30-1.22.0_b6f172d1740de688bb89f1d9714610b3a318e481/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-http-client-1.22.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3451dc7c3e18faaaa38821311e4d01336872700e">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-http-client-1.22.0_56887a2a66a3f0620e8380fdc971fa378dcd69c8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-oauth-client-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="996cf55e05a6179a16fb13203b7771c87342bac5">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/2/google-oauth-client-1.22.0_d87f5e246d78fc4f861acbac67b73270faf20529/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/fda53e88502f2187b1fef2f79ba3a89324ff2dcb/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_e28c0eea45b1e302e92b77616110e941ff19da3b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/jsr305-1.3.9.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/jsr305-1.3.9_fa495fcfed24516cab5cc7b5538cbb2ef35bace3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/okio-1.6.0_5d7e9bce261106a119c89e58ca7deb2afa37fc59/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/gson-2.3.1_d05d98b7de8bf7f657c80ab29b555394df7677b7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/bolts-applinks-1.4.0_19fd486096438dfcc7ecc38f43cd3564143e6e53/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/glide/3.7.0/9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4/glide-3.7.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/glide-3.7.0_bf434615caf79964c3a3640f64e164da34942701/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/1cd6f24bbcacdfc897960e69ef6c7ff68051adea/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6addaba208e21c6da776d0ca75b6b23a6ccd5499">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_1d386d23eca901e4267c06636905676593c272aa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/ffe9726c6d182946491ada4e67f89ef4917e9160/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="eb0d830e3eabb9deb9ec44869cf7ac7ea1ad794c">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_1915cb4059cb03e3e2860cb448fd8ba04be7828c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/c6b9fe154563ecdb451c9fd7ee0542cb7d16ab4e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="94ba691efc31bf53264db0716d9c9ec03843ea31">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_e870dcf42b8f626949fdee0be560051bc69338ab/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/931c2b4dd44d9200a27d3e042fdcbf95459105de/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_b240beff2b75bea3af95cc5bf3126235a7f3c3ea/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/gson-2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="2e66da15851f9f5b5079228f856c2f090ba98c38">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/2/gson-2.1_f351086a07af8c905e2f4f0d2b01928194b4d37c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-http-client-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3451dc7c3e18faaaa38821311e4d01336872700e">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/2/google-http-client-1.22.0_56887a2a66a3f0620e8380fdc971fa378dcd69c8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/0ff7b603dc6911eb9bf39ca66ee8f5fe4e7cbb29/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_a88dca72474a37bcc21f12f0e2b29e645eb5c183/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/5f52aa85f7d356b943ad07ab1edadc457b3a07e7/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6116e0e7069de7fc259aac8e08b84f32c2038231">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_cfd05346a550c081a29be0e391ee167a28689f22/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/7c54d1eb5e0adf5bd73a5a3c3416139a55f69682/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="55220cc71bd23fff8fc339a67f55be3cfd11cdec">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_7302112c35bdeece8a7c791c225ce09012d45a1d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/eccde25dabe521197ae0075bb6d6f1421ec0a4f2/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="8a372c4191f80489770a231f7be4820b204b886a">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_6bae8401dab269ffbee2ab5d3e132683e12e58d1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/ead1d50f234f61ca437b9a65f55ae0b8731b3fcd/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="486371f97baad8e607f332f20fee1d3dd00a731a">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_5ec80878457940f84675d30503ee2c6b573e1406/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/YouTubeAndroidPlayerApi.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3c4f96ff493456651cc7bdb0b47e10eb25545a16">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/2/YouTubeAndroidPlayerApi_5b465caff80a51df9e867fc159ba87e26bfdf0f8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-api-client-android-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ec45ce6d2af4b1c5ec9977e2648f6a85e0b3d70c">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/2/google-api-client-android-1.22.0_7629bd174f7a969edb6f67eafb8274f0e3e7f78c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/412bb0d0bf46b2f07c9f36b078f9d4e9c8732177/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a2af9c72ccaa4c5c049b500ca6ea664a4ce1f7d4">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_f3f4784c7776a1a747a232cdd395a5f1c72dada5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/f1e43ee096461f3a7759261fc31cef3223e779f7/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e2185aff89caeb337b1ffc36d5e525d8318e7cfe">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_399a055594196a917bcbf71a3d3c7a66e1fbff51/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.oauth-client/google-oauth-client/1.22.0/1d63f369ac78e4838a3197147012026e791008cb/google-oauth-client-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="1d63f369ac78e4838a3197147012026e791008cb">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/google-oauth-client-1.22.0_f0f869258ec6f91a4dcb0babe588a22cde56303c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/retrofit/2.0.0-beta2/880d9e0997b2d1bfc98e0d121ced33ee5d04aac4/retrofit-2.0.0-beta2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="880d9e0997b2d1bfc98e0d121ced33ee5d04aac4">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/retrofit-2.0.0-beta2_7943744d6f64cdf7668605527d8d58189d1ab465/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/5877b6eb38cfd92fd56514607daa0fa0ada873ee/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="433f4d6aa5f21f19552afe0e6c5eff0fedba73ad">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_1367a1fd77c9ac2f3efdb24ed8619b551188754d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.guava/guava-jdk5/17.0/463f8378feba44df7ba7cd9272d01837dad62b36/guava-jdk5-17.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="463f8378feba44df7ba7cd9272d01837dad62b36">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/guava-jdk5-17.0_e4265162b4cf3dcb5ac87f42c73fd31d7993813d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-youtube/v3-rev120-1.19.0/9befa937f06683ea4b038fc8667ec41f4480677f/google-api-services-youtube-v3-rev120-1.19.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="9befa937f06683ea4b038fc8667ec41f4480677f">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/google-api-services-youtube-v3-rev120-1.19.0_9b36011ba8a8f45d19d6e8448ebd5626adf15f2f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/5aa91bf69808a996a074d910495e0e2f08206631/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3a05b3852a6aec21ea0a6ea4d284ee69c04c55c4">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_d44d2764b044166782cbea022b73ecb363d08bd8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp-urlconnection/1.6.0/375c2206eb7e52976955d0f8737be5e0ec9cf667/okhttp-urlconnection-1.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="375c2206eb7e52976955d0f8737be5e0ec9cf667">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/okhttp-urlconnection-1.6.0_e0ac5719ce8de1e027c74e48a0ca1d7dc4b54cb0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/71d7d3bdff2d46eef8c5d24902eb2b2e11e60e84/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="7113302c965566b66df46c6ca75ea301576114a5">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_2e3458ceaf64bfcd61a45444630a3698534299d5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/01535f32484035aa12b8741ac083931335597f48/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_79504ec67f9c80ab7d8398f0ba24fa7cdbc85de8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/30970e354fd39a222935543a3dcfd7587c83372d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_022407b985fa0dff929706602a401af71166abe4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/75f3d862abfe156782deeaed8ffe4f70e034e82e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_4e7c713e1d61b7910ccd8a3b899420f63742c352/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="433d205b103555ca34bf227f77205fdf9abacd73">
+        sha1="367aff5dbf33d8b45e5bfb0f8b471736ce59debb">
         <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_4bd2c168e6712c60c77b47bc498b62facdaf2030/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-http-client-android-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="676b43815230fdc699e745ce605df340edb2992e">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/2/google-http-client-android-1.22.0_5ff444d388f15d2026fb192e1f55810af3dcd625/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client/1.22.0/d441fc58329c4a4c067acec04ac361627f66ecc8/google-http-client-1.22.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d441fc58329c4a4c067acec04ac361627f66ecc8">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/google-http-client-1.22.0_463d0eca9922cd90d93479c352a10b35ab90bbd1/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/7c54d1eb5e0adf5bd73a5a3c3416139a55f69682/output/jars/libs/jnihelpers-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b54aab38b4f87a6682331b511fec0db6b952bb7e">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/jnihelpers-1.0_8b093a3c6e46f3abf3553802877f078d092a5e9a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/61e8364d92225de862e79f6565f4faf0d717628e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="c76f6507a42aec274953e882bf3c49a570843ef5">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_1c8f1e093c83b092c794563bca3a73b8fd0d7e9e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/fb198e00e0252316bbae563c03efc7c1d126093d/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_321a89092087d52ed20de68caf8959ea14c10f64/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.android/build-cache/68cb552716ef3cfa1f38fe1f704510954f6bb643/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e96c6974cf924e7ee3b230e6847d5731423388c9">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_cbd13488cdeeb37b323ab5bd6e2a584d1ff04979/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.1/f7be08ec23c21485b9b5a1cf1654c2ec8c58168d/jsr305-3.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f7be08ec23c21485b9b5a1cf1654c2ec8c58168d">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/jsr305-3.0.1_c336c9ed92323268bcba68bbf19ab0172b7dc386/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -30,57 +615,48 @@
     </item>
     <item
         is-multidex="true"
-        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/gson-2.1.jar"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="2e66da15851f9f5b5079228f856c2f090ba98c38">
-        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/gson-2.1_f351086a07af8c905e2f4f0d2b01928194b4d37c/classes.dex" />
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.3.1_d05d98b7de8bf7f657c80ab29b555394df7677b7/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-http-client-android-1.22.0.jar"
-        jumboMode="true"
+        jar="/Users/Akshay/Library/Android/sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.1/constraint-layout-solver-1.0.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.1"
-        sha1="676b43815230fdc699e745ce605df340edb2992e">
-        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-http-client-android-1.22.0_5ff444d388f15d2026fb192e1f55810af3dcd625/classes.dex" />
+        sha1="1ad79631209e77b0a2730fc112b4cc0c66a95132">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/constraint-layout-solver-1.0.1_88dcad3d2746aa7bf6f9c819ffc974c32eb19b5d/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-http-client-1.22.0.jar"
-        jumboMode="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.1"
-        sha1="3451dc7c3e18faaaa38821311e4d01336872700e">
-        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-http-client-1.22.0_56887a2a66a3f0620e8380fdc971fa378dcd69c8/classes.dex" />
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/bolts-tasks-1.4.0_7e7362653f219478d75ec36fd5af8051ec61302f/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/YouTubeAndroidPlayerApi.jar"
-        jumboMode="true"
+        jar="/Users/Akshay/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client-android/1.22.0/7a0fe12b7d8189a821934d6f9d6586d00180e461/google-api-client-android-1.22.0.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.1"
-        sha1="3c4f96ff493456651cc7bdb0b47e10eb25545a16">
-        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/YouTubeAndroidPlayerApi_5b465caff80a51df9e867fc159ba87e26bfdf0f8/classes.dex" />
+        sha1="7a0fe12b7d8189a821934d6f9d6586d00180e461">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/google-api-client-android-1.22.0_6620081b58d246b4b5a96d2b4edaba6134552b8a/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/jsr305-1.3.9.jar"
-        jumboMode="true"
+        jar="/Users/Akshay/.android/build-cache/cc37d3b1398a5ffb1de62f8a76e0aff5650d6131/output/jars/classes.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.1"
-        sha1="40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf">
-        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/jsr305-1.3.9_fa495fcfed24516cab5cc7b5538cbb2ef35bace3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/libs/google-api-client-android-1.22.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="ec45ce6d2af4b1c5ec9977e2648f6a85e0b3d70c">
-        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/debug/folders/1000/2/google-api-client-android-1.22.0_7629bd174f7a969edb6f67eafb8274f0e3e7f78c/classes.dex" />
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/Akshay/Desktop/Abe/ellomix/Android Application/Ellomix/app/build/intermediates/transforms/dex/release/folders/1000/10/classes_6fba2a76183d1e6f1e21f9725f125bf3cc81ffa1/classes.dex" />
     </item>
 
 </items>

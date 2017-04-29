@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
@@ -16,8 +17,11 @@ import com.ellomix.android.ellomix.Messaging.Chat;
 import com.ellomix.android.ellomix.Model.ChatLab;
 import com.ellomix.android.ellomix.Model.FriendLab;
 import com.ellomix.android.ellomix.Model.MusicController;
+import com.ellomix.android.ellomix.Model.MusicLab;
 import com.ellomix.android.ellomix.Model.Track;
 import com.ellomix.android.ellomix.Model.User;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,6 +69,12 @@ public class PlayerLab extends Application implements
     private Track mCurrentTrack;
     private PlaybackState mPlaybackState;
 
+    private User mCurrentUser;
+
+    public interface FirebasePresenter {
+        void finishLoading();
+    }
+
     public static PlayerLab getInstance(){
         return singleton;
     }
@@ -88,9 +98,31 @@ public class PlayerLab extends Application implements
         terminateSpPlayer();
     }
 
+    public void userLogIn(User user) {
+        mCurrentUser = user;
+    }
+
+    public void userLogOut() {
+//        mCurrentUser = null;
+        ChatLab chatLab = ChatLab.get(getApplicationContext());
+        chatLab.deleteDatabase();
+        FriendLab friendLab = FriendLab.get(getApplicationContext());
+        friendLab.deleteDatabase();
+        MusicLab musicLab = MusicLab.get(getApplicationContext());
+        musicLab.deleteDatabase();
+        terminateSpPlayer();
+        LoginManager.getInstance().logOut();
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    public User getCurrentUser() {
+        return mCurrentUser;
+    }
+
     //Check connected status
 
     public void terminateSpPlayer() {
+        pauseTrack();
         Spotify.destroyPlayer(this);
         updateSpotifyStatus(false);
         mSpotifyPlayer = null;
@@ -156,7 +188,7 @@ public class PlayerLab extends Application implements
                 @Override
                 public void onSuccess() {
                     //nothing
-                    Log.i(TAG, "Play Spotify");
+                    Log.i(TAG, "Resume Spotify");
                 }
 
                 @Override
@@ -173,13 +205,14 @@ public class PlayerLab extends Application implements
     @Override
     public void onPlaybackEvent(PlayerEvent playerEvent) {
         Log.d(TAG, "Playback event received: " + playerEvent.name());
-        mPlaybackState = mSpotifyPlayer.getPlaybackState();
+        //mPlaybackState = mSpotifyPlayer.getPlaybackState();
         switch (playerEvent) {
             // Handle event type as necessary
             case kSpPlaybackNotifyPlay:
                 mServiceController.show(0);
                 break;
             case kSpPlaybackNotifyPause:
+                mServiceController.show(0);
                 break;
             case kSpPlaybackNotifyTrackChanged:
                 break;
@@ -188,17 +221,11 @@ public class PlayerLab extends Application implements
             case kSpPlaybackNotifyPrev:
                 break;
             case kSpPlaybackNotifyShuffleOn:
-
                 break;
-
             case kSpPlaybackNotifyShuffleOff:
                 break;
-
-
             case kSpPlaybackNotifyRepeatOn:
-
                 break;
-
             case kSpPlaybackNotifyRepeatOff:
                 break;
             case kSpPlaybackNotifyBecameActive:
@@ -257,7 +284,9 @@ public class PlayerLab extends Application implements
 
     public void playTrack() {
         pauseTrack();
-        mCurrentTrack = getCurrentSong();
+        if (mPlaylist.size() > 0) {
+            mCurrentTrack = getCurrentSong();
+        }
         if (mCurrentTrack != null) {
             switch (mCurrentTrack.getSource()) {
                 case SPOTIFY:
@@ -432,58 +461,51 @@ public class PlayerLab extends Application implements
     public void createMediaPlayer() {
         mSongPosn = 0;
         mSoundcloudPlayer = new MediaPlayer();
+        mPlaylist = new ArrayList<>();
         initMusicPlayer();
         audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
 
-        //        final Runnable mDelayedStopRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                mPlayer.stop();
-//            }
-//        };
-//
-//        final Handler mHandler = new Handler();
-//        afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
-//            @Override
-//            public void onAudioFocusChange(int focusChange) {
-//                switch (focusChange) {
-//                    case AudioManager.AUDIOFOCUS_GAIN:
-//                        // Your app has been granted audio focus again
-//                        // Raise volume to normal, restart playback if necessary
-//                        if (mPlayer != null) {
-//                            playSong();
-//                        }
-//                        break;
-//                    case AudioManager.AUDIOFOCUS_LOSS:
-//                        // Permanent loss of audio focus
-//                        // Pause playback immediately
-//                        mPlayer.pause();
-//                        mHandler.postDelayed(mDelayedStopRunnable, 30);
-//                        break;
-//
-//                    case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-//                        mPlayer.pause();
-//                        break;
-//                    case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-//                        // Lower the volume, keep playing
-//                        break;
-//
-//                }
-//            }
-//        };
-//
-//        // Request audio focus for playback
-//        int result = audioManager.requestAudioFocus(afChangeListener,
-//                // Use the music stream.
-//                AudioManager.STREAM_MUSIC,
-//                // Request permanent focus.
-//                AudioManager.AUDIOFOCUS_GAIN);
-//
-//        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-//            // Start playback
-//              playSong();
-//
-//        }
+
+        afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+            @Override
+            public void onAudioFocusChange(int focusChange) {
+                switch (focusChange) {
+                    case AudioManager.AUDIOFOCUS_GAIN:
+                        // Your app has been granted audio focus again
+                        // Raise volume to normal, restart playback if necessary
+                        if (isTrackPlaying()) {
+                            playTrack();
+                        }
+                        break;
+                    case AudioManager.AUDIOFOCUS_LOSS:
+                        // Permanent loss of audio focus
+                        // Pause playback immediately
+                        pauseTrack();
+                        break;
+
+                    case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+                        pauseTrack();
+                        break;
+                    case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+                        // Lower the volume, keep playing
+                        break;
+
+                }
+            }
+        };
+
+        // Request audio focus for playback
+        int result = audioManager.requestAudioFocus(afChangeListener,
+                // Use the music stream.
+                AudioManager.STREAM_MUSIC,
+                // Request permanent focus.
+                AudioManager.AUDIOFOCUS_GAIN);
+
+        if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+            // Start playback
+              playTrack();
+
+        }
     }
 
     public void initMusicPlayer() {
@@ -564,14 +586,20 @@ public class PlayerLab extends Application implements
 
     //Firebase methods
 
-    public void returningUserSetup() {
+    public void returningUserSetup(final FirebasePresenter presenter) {
         // TODO: Fix this
+        boolean areFriendsLoaded = false;
+        boolean areChatsLoaded = false;
         //Download friends from firebase
         final FriendLab friendLab = FriendLab.get(singleton);
         FirebaseService.getMainUserFollowingQuery().addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot == null) {
+                            presenter.finishLoading();
+                            return;
+                        }
                         for (DataSnapshot child : dataSnapshot.getChildren()) {
 
                             // Get the userId and with that search for the user in firebase
@@ -592,7 +620,10 @@ public class PlayerLab extends Application implements
 
                                         }
                                     });
+
+
                         }
+                        presenter.finishLoading();
                     }
 
                     @Override
@@ -601,54 +632,5 @@ public class PlayerLab extends Application implements
                     }
                 });
 
-
-        FirebaseUser firebaseUser = FirebaseService.getFirebaseUser();
-        DatabaseReference database = FirebaseService.getFirebaseDatabase();
-
-        final HashSet<String> chatIds = new HashSet<String>();
-        final ChatLab chatLab = ChatLab.get(singleton);
-
-        if (firebaseUser != null) {
-            FirebaseService.getChatIds(firebaseUser.getUid()).addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                String chatId = child.getKey();
-                                Log.d(TAG, "Added chatId: " + chatId);
-                                chatIds.add(chatId);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            //do nothing
-                        }
-                    }
-            );
-            FirebaseService.getChatsQuery().addListenerForSingleValueEvent(
-                    new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                String chatId = child.getKey();
-                                Chat firebaseChat = (Chat) dataSnapshot.getValue(Chat.class);
-                                Chat chat = chatLab.getChat(chatId);
-                                if (chatIds.contains(chatId)) {
-                                    if (chat == null) {
-                                        Log.d(TAG, "onDataChange: Added new chat");
-                                        chatLab.addChat(firebaseChat);
-                                    }
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    }
-            );
-        }
     }
 }

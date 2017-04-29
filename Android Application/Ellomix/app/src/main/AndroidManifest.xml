@@ -31,9 +31,6 @@
         <service android:name=".Services.MusicService" />
 
         <activity
-            android:name=".Activities.SignedInActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait">
 

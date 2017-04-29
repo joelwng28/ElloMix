@@ -23,7 +23,7 @@
     <string name="compose">Compose</string>
     <string name="to_sender">To: </string>
     <string name="done">Done</string>
-    <string name="add_friend">Add:</string>
+    <string name="add_friend">Add friends</string>
     <string name="add">Add</string>
     <string name="add_music">Add music</string>
     <string name="group_playlists">Group playlists</string>
@@ -39,6 +39,7 @@
     <string name="populate_timeline_text">Populate Your Timeline</string>
     <string name="populate_timeline_two_text">Choose A Few Artists And Genres To Follow</string>
     <string name="view_comments">View All Comments</string>
+    <string name="connect_services">Connect services</string>
     <plurals name="numberOfSongsAdded">
         <item quantity="one">%d song added.</item>
         <item quantity="other">%d songs added.</item>

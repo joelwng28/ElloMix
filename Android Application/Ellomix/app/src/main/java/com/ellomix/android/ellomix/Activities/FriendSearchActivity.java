@@ -1,5 +1,6 @@
 package com.ellomix.android.ellomix.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -38,6 +39,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FriendSearchActivity extends AppCompatActivity {
 
+
+    private static final String TAG = "FriendSearchActivity";
+    private static final String Extra_Initial_Setup = "InitialSetup";
+
     private RecyclerView mFriendListRecyclerView;
     private TextView mFriendAddedTextView;
     private String userId;
@@ -45,12 +50,20 @@ public class FriendSearchActivity extends AppCompatActivity {
     private Set<User> mFriendSelectedSet;
     private FriendLab friendLab;
     private FriendAdapter mAdapter;
-    private static final String TAG = "FriendSearchActivity";
     private StringBuffer mFriendsSelectedStringBuffer;
     private boolean mFriendsFlag = false;
+    private ProgressDialog mLoadingFriends;
+    private boolean isInitialSetup = false;
+
 
     //Firebase instance variable
     private DatabaseReference mFirebaseDatabaseReference;
+
+    public static Intent newIntent(Context context, boolean isInitialSetup) {
+        Intent i = new Intent(context, FriendSearchActivity.class);
+        i.putExtra(Extra_Initial_Setup, isInitialSetup);
+        return i;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +78,13 @@ public class FriendSearchActivity extends AppCompatActivity {
         friendLab = FriendLab.get(this);
         mFriendsSelectedStringBuffer = new StringBuffer();
         mFriendSelectedSet = new HashSet<>();
+        mLoadingFriends = new ProgressDialog(this);
 
+        Intent i = getIntent();
+        isInitialSetup = i.getBooleanExtra(Extra_Initial_Setup, true);
+
+        mLoadingFriends.setMessage("Loading new friends...");
+        mLoadingFriends.show();
         // New child entries
         mFirebaseDatabaseReference = FirebaseService.getFirebaseDatabase();
         mFirebaseDatabaseReference.child("Users")
@@ -75,10 +94,14 @@ public class FriendSearchActivity extends AppCompatActivity {
                         // for each child of the users
                         for (DataSnapshot friends : dataSnapshot.getChildren()) {
                             User friend = (User) friends.getValue(User.class);
-                            if (!friend.getId().equals(userId) && friendLab.getFriend(friend.getId()) == null) {
+                            if (friend != null
+                                    && friend.getId() != null
+                                    && !friend.getId().equals(userId)
+                                    && friendLab.getFriend(friend.getId()) == null) {
                                 mUserList.add(friend);
                             }
                         }
+                        mLoadingFriends.hide();
                         updateUI();
                     }
 
@@ -130,7 +153,12 @@ public class FriendSearchActivity extends AppCompatActivity {
                     FirebaseService.addNewFriend(userId, friend);
                 }
             case R.id.menu_item_skip:
-                connectServices();
+                if (isInitialSetup) {
+                    connectServices();
+                }
+                else {
+                    finish();
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -140,7 +168,7 @@ public class FriendSearchActivity extends AppCompatActivity {
     }
 
     public void connectServices() {
-        Intent intent = new Intent(this, LoginServicesActivity.class);
+        Intent intent = LoginServicesActivity.newIntent(this, true);
         startActivity(intent);
         finish();
     }

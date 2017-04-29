@@ -32,6 +32,11 @@ public class MusicLab {
                 .getWritableDatabase();
     }
 
+    public void deleteDatabase() {
+        mDatabase.delete(MusicTable.NAME,
+                null, null);
+    }
+
     public List<Track> getTracks() {
         List<Track> tracks = new ArrayList<>();
 
@@ -53,7 +58,7 @@ public class MusicLab {
 
     public Track getTrack(String id) {
         MusicCursorWrapper cursor = queryTrack(
-                ChatDbSchema.ChatTable.Cols.ID + " = ?",
+                MusicTable.Cols.ID + " = ?",
                 new String[] {id}
         );
 
