@@ -28,6 +28,7 @@ class SearchViewController: UITableViewController, UISearchControllerDelegate, U
         self.tableView.backgroundView = UIView()
     }
     
+    //MARK: TableView functions
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
@@ -43,26 +44,38 @@ class SearchViewController: UITableViewController, UISearchControllerDelegate, U
     //MARK: Searchbar
     func updateSearchResults(for searchController: UISearchController) {
         // In the future, maybe display results as the user types via a background thread.
-        if (searchController.searchBar.text != nil) {
+        if (searchController.searchBar.text != nil && searchController.searchBar.text != "") {
             let searchString = searchController.searchBar.text!
+            youtubeRequest(query: searchString)
         }
     }
     
     //MARK: YouTube
     func youtubeRequest(query: String) {
-        Alamofire.request(youtubeSearchURL, parameters: ["part":"snippet", "q":query, "key":YouTubeAPIKey]).responseJSON(completionHandler: { response in
+        print("---------------REQUESTING FROM YOUTUBE-----------------")
+        Alamofire.request(youtubeSearchURL, parameters: ["part":"snippet", "type":"video", "q":query, "key":YouTubeAPIKey]).responseJSON(completionHandler: { response in
             
-            print(response)
+            //print(response)
             if let JSON = response.result.value as? [String:AnyObject] {
-                print("YouTube JSON data: \(JSON)")
+                //print("YouTube JSON data: \(JSON)")
                 
                 for video in JSON["items"] as! NSArray {
                     print("Video: \(video)")
+                    let ytVideo = YouTubeVideo()
+                    let videoItem = video as! NSDictionary
                     
-//                    let videoID = video.valueForKeyPath("snippet.id.videoId") as! String
-//                    let videoTitle = video.valueForKeyPath("snippet.title") as! String
-//                    let videoDescription = video.valueForKeyPath("snippet.description") as! String
-//                    let videoThumbnailURL = video.valueForKeyPath("snippet.thumbnails.high.url") as! String
+                    let id = videoItem["id"] as! NSDictionary
+                    ytVideo.videoID = id["videoId"] as? String
+                    
+                    let snippet = videoItem["snippet"] as! NSDictionary
+                    ytVideo.videoTitle = snippet["title"] as? String
+                    ytVideo.videoDescription = snippet["description"] as? String
+                    ytVideo.videoChannel = snippet["channelTitle"] as? String
+                    
+                    let thumbnails = snippet["thumbnails"] as! NSDictionary
+                    let highRes = thumbnails["high"] as! NSDictionary
+                    ytVideo.videoThumbnailURL = highRes["url"] as? String
+
                 }
             }
         })
