@@ -16,6 +16,8 @@ class SearchViewController: UITableViewController, UISearchControllerDelegate, U
     typealias JSONStandard = [String : AnyObject]
     var searchController:UISearchController?
     
+    var songs:[AnyObject] = []
+    
     override func viewDidLoad() {
         
         
@@ -30,11 +32,19 @@ class SearchViewController: UITableViewController, UISearchControllerDelegate, U
     
     //MARK: TableView functions
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return songs.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as! SearchTableViewCell
+        
+        if (songs[indexPath.row] is YouTubeVideo) {
+            let ytVideo = songs[indexPath.row] as? YouTubeVideo
+            cell.songTitle.text = ytVideo?.videoTitle
+            cell.artist.text = ytVideo?.videoChannel
+        }
+        
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -46,6 +56,7 @@ class SearchViewController: UITableViewController, UISearchControllerDelegate, U
         // In the future, maybe display results as the user types via a background thread.
         if (searchController.searchBar.text != nil && searchController.searchBar.text != "") {
             let searchString = searchController.searchBar.text!
+            self.songs = []
             youtubeRequest(query: searchString)
         }
     }
@@ -75,8 +86,11 @@ class SearchViewController: UITableViewController, UISearchControllerDelegate, U
                     let thumbnails = snippet["thumbnails"] as! NSDictionary
                     let highRes = thumbnails["high"] as! NSDictionary
                     ytVideo.videoThumbnailURL = highRes["url"] as? String
-
+                    
+                    self.songs.append(ytVideo)
                 }
+
+                self.tableView.reloadData()
             }
         })
     }
